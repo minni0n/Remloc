@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1068238081596",
+    "project_id": "remloc1-86738",
+    "storage_bucket": "remloc1-86738.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1068238081596:android:e7c58f44f99ff4402c7d39",
+        "android_client_info": {
+          "package_name": "com.example.remloc1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1068238081596-mica5gske3smkt7o6b2v5a7ohmqtbvrd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.remloc1",
+            "certificate_hash": "b1c256bd460bb4df618c84e57bf5e98d85a14ada"
+          }
+        },
+        {
+          "client_id": "1068238081596-n07tj5bf7lu02b3fb3tvuvofc1a9njuo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpEh3g7720XZoUGzUL3c2c2DhQUyrQNqU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1068238081596-n07tj5bf7lu02b3fb3tvuvofc1a9njuo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

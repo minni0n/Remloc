@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/ProgramingFiles/Kotlin/RemLoc1/app/src/main/res/layout/activity_dashboard.xml" value="0.14463019250253292" />
+        <entry key="..\:/ProgramingFiles/Kotlin/RemLoc1/app/src/main/res/layout/activity_google_sign_in.xml" value="0.3020833333333333" />
+        <entry key="..\:/ProgramingFiles/Kotlin/RemLoc1/app/src/main/res/layout/activity_main.xml" value="0.21067415730337077" />
+        <entry key="..\:/ProgramingFiles/Kotlin/RemLoc1/app/src/main/res/layout/activity_register_user.xml" value="0.32395833333333335" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="Android Studio default JDK" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>
