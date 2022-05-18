@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RemLoc1">
         <activity
+            android:name=".HomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".DashboardActivity"
             android:exported="false" />
         <activity

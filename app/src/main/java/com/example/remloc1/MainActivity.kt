@@ -77,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 SavedPreference.setEmail(this, account.email.toString())
                 SavedPreference.setUsername(this, account.displayName.toString())
-                val intent = Intent(this, DashboardActivity::class.java)
+                val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
                 finish()
             }
@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
         if (GoogleSignIn.getLastSignedInAccount(this) != null) {
             startActivity(
                 Intent(
-                    this, DashboardActivity
+                    this, HomeActivity
                     ::class.java
                 )
             )
