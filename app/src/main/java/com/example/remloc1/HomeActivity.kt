@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.example.remloc1.MenuFragments.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -45,6 +46,7 @@ class HomeActivity : AppCompatActivity() {
                 R.id.nav_settings -> replaceFragment(SettingsFragment(), it.title.toString())
                 R.id.nav_help_review -> replaceFragment(HelpReviewFragment(), it.title.toString())
                 R.id.nav_logout -> logoutFromGoogle()
+
             }
 
             true
