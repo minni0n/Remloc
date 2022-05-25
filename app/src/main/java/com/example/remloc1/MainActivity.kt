@@ -4,6 +4,7 @@ package com.example.remloc1
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -87,12 +88,7 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         if (GoogleSignIn.getLastSignedInAccount(this) != null) {
-            startActivity(
-                Intent(
-                    this, HomeActivity
-                    ::class.java
-                )
-            )
+            startActivity(Intent(this, HomeActivity::class.java))
             finish()
         }
     }

@@ -1,4 +1,4 @@
-package com.example.remloc1.MenuFragments
+package com.example.remloc1
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

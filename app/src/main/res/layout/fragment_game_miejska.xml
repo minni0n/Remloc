@@ -10,8 +10,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Game miejska"
-        android:textStyle="bold"
+        android:text="Gra miejska  Comming soon"
         android:textColor="@color/black"
-        android:textSize="60sp"/>
+        android:textSize="60sp"
+        android:textStyle="bold" />
+
 </FrameLayout>
