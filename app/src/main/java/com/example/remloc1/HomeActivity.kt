@@ -100,4 +100,9 @@ class HomeActivity : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
     }
+
+    internal fun onOpenMap(){
+        supportFragmentManager.beginTransaction()
+            .replace(com.google.android.material.R.id.container, PlacesFragment())
+    }
 }
