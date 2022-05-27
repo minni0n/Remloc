@@ -27,6 +27,10 @@ class PlacesFragment : Fragment(), OnMapReadyCallback {
     }
 
 
+    // TODO proverka
+    // add permissionCheck
+
+
     override fun onMapReady(map: GoogleMap) {
         map.let {
             googleMap = it
