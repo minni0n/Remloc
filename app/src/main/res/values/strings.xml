@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">RemLoc</string>
     <string name="my_awesome_app">My awesome app</string>
     <string name="email_address">Email Address</string>
