@@ -27,6 +27,8 @@ class PlacesFragment : Fragment(), OnMapReadyCallback {
     }
 
 
+    // TODO proverka
+
     override fun onMapReady(map: GoogleMap) {
         map.let {
             googleMap = it
