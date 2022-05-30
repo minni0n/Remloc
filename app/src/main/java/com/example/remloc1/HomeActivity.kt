@@ -100,12 +100,13 @@ class HomeActivity : AppCompatActivity() {
         val sp: SharedPreferences = getSharedPreferences("enter", MODE_PRIVATE)
         val url = sp.getString("imgUrl", null)
         val navPhoto: CircleImageView = headerView.findViewById(R.id.photo)
-        val policy = ThreadPolicy.Builder().permitAll().build()
+        var policy = ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
         if (url != null) {
             navPhoto.setImageURI(getImageUri(this, getImageBitmap(url)))
         }
-
+        policy = ThreadPolicy.Builder().detectAll().build()
+        StrictMode.setThreadPolicy(policy)
     }
 
 
