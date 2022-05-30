@@ -4,8 +4,8 @@
     package="com.example.remloc1"
     tools:ignore="CoarseFineLocation">
 
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
@@ -24,7 +24,8 @@
         android:theme="@style/Theme.RemLoc1">
         <activity
             android:name=".PlacesActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".HomeActivity"/>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

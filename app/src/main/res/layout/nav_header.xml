@@ -9,9 +9,9 @@
     android:background="@color/white">
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/photo"
         android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:src="@drawable/cat"/>
+        android:layout_height="60dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -19,7 +19,7 @@
         android:id="@+id/user_name"
         android:paddingTop="8dp"
         android:textSize="20sp"
-        android:text="Serhii Hrosh"
+        android:text="Username"
         android:textColor="@color/black"
         android:textStyle="bold"/>
     
@@ -28,7 +28,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="16sp"
-        android:text="minnion1337@gmail.com"/>
+        android:text="Email"/>
     
     <View
         android:layout_width="match_parent"

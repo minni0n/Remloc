@@ -2,9 +2,9 @@ package com.example.remloc1
 
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_main.*
 
+
 class MainActivity : AppCompatActivity() {
 
     lateinit var mGoogleSignInClient: GoogleSignInClient
@@ -27,9 +28,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val textView: TextView = findViewById(R.id.textView)
-        textView.text = SavedPreference.getEmail(this)
 
         FirebaseApp.initializeApp(this)
 
@@ -81,6 +79,14 @@ class MainActivity : AppCompatActivity() {
             if (task.isSuccessful) {
                 SavedPreference.setEmail(this, account.email.toString())
                 SavedPreference.setUsername(this, account.displayName.toString())
+
+                val url = account.photoUrl.toString()
+                val edit: SharedPreferences.Editor
+                val sp: SharedPreferences = getSharedPreferences("enter", MODE_PRIVATE)
+                edit = sp.edit()
+                edit.putString("imgUrl", url)
+                edit.apply()
+
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
                 finish()

@@ -2,7 +2,9 @@ package com.example.remloc1
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.preference.PreferenceManager
+import java.net.URL
 
 object SavedPreference {
 
@@ -18,6 +20,7 @@ object SavedPreference {
             context
         )?.edit()?.putString(const,string)?.apply()
     }
+
 
     fun getEmail(context: Context)= getSharedPreference(
         context

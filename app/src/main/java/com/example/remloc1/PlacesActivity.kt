@@ -1,11 +1,19 @@
 package com.example.remloc1
 
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.app.ActivityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
 import com.example.remloc1.databinding.ActivityPlacesBinding
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -14,6 +22,7 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
+import com.google.android.material.navigation.NavigationView
 
 class PlacesActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     private lateinit var map: GoogleMap
@@ -23,6 +32,7 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMark
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,6 +47,10 @@ class PlacesActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMark
         mapFragment.getMapAsync(this)
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        title = "Miejsca"
+
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
     }
 

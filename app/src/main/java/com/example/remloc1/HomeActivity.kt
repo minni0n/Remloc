@@ -1,8 +1,17 @@
 package com.example.remloc1
 
-import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
+import android.os.StrictMode
+import android.os.StrictMode.ThreadPolicy
+import android.provider.MediaStore
+import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
@@ -14,23 +23,31 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationView
+import de.hdodenhof.circleimageview.CircleImageView
+import java.io.BufferedInputStream
+import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.io.InputStream
+import java.net.URL
+import java.net.URLConnection
+
 
 class HomeActivity : AppCompatActivity() {
 
     lateinit var mGoogleSignInClient: GoogleSignInClient
     lateinit var toggle: ActionBarDrawerToggle
     lateinit var drawerLayout: DrawerLayout
-    lateinit var textView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+
         drawerLayout = findViewById(R.id.drawerLayout)
         val navView : NavigationView = findViewById(R.id.nav_view)
 
-//        textView = findViewById(R.id.user_name)
-//        textView.text = "Random"
+        //setting Username and Email
+        setUsernameEmail(navView)
 
         toggle = ActionBarDrawerToggle(this, drawerLayout, R.string.open, R.string.close)
         drawerLayout.addDrawerListener(toggle)
@@ -38,7 +55,6 @@ class HomeActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        //replaceFragment(PlacesFragment(), "Miejsca")
 
         val intent = Intent(this, PlacesActivity::class.java)
 
@@ -72,6 +88,59 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
+    private fun setUsernameEmail(navView: NavigationView){
+        val headerView = navView.getHeaderView(0)
+        val navUsername: TextView = headerView.findViewById(R.id.user_name)
+        val navEmail: TextView = headerView.findViewById(R.id.email)
+        navUsername.text = SavedPreference.getUsername(this)
+        navEmail.text = SavedPreference.getEmail(this)
+
+
+        //photoSet
+        val sp: SharedPreferences = getSharedPreferences("enter", MODE_PRIVATE)
+        val url = sp.getString("imgUrl", null)
+        val navPhoto: CircleImageView = headerView.findViewById(R.id.photo)
+        val policy = ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+        if (url != null) {
+            navPhoto.setImageURI(getImageUri(this, getImageBitmap(url)))
+        }
+
+    }
+
+
+
+    private fun getImageUri(inContext: Context, inImage: Bitmap?): Uri? {
+        val bytes = ByteArrayOutputStream()
+        inImage?.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+        val path = MediaStore.Images.Media.insertImage(
+            inContext.contentResolver,
+            inImage,
+            "Title",
+            null
+        )
+        return Uri.parse(path)
+    }
+
+
+    private fun getImageBitmap(url: String): Bitmap? {
+        var bm: Bitmap? = null
+        try {
+            val aURL = URL(url)
+            val conn: URLConnection = aURL.openConnection()
+            conn.connect()
+            val `is`: InputStream = conn.getInputStream()
+            val bis = BufferedInputStream(`is`)
+            bm = BitmapFactory.decodeStream(bis)
+            bis.close()
+            `is`.close()
+        } catch (e: IOException) {
+            Log.e(TAG, "Error getting bitmap", e)
+        }
+        return bm
+    }
+
+
     private fun logoutFromGoogle() {
         mGoogleSignInClient.signOut().addOnCompleteListener {
             val intent = Intent(this, MainActivity::class.java)
@@ -101,10 +170,5 @@ class HomeActivity : AppCompatActivity() {
         }
 
         return super.onOptionsItemSelected(item)
-    }
-
-    internal fun onOpenMap(){
-        supportFragmentManager.beginTransaction()
-            .replace(com.google.android.material.R.id.container, PlacesFragment())
     }
 }
