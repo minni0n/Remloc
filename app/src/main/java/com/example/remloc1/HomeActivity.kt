@@ -64,7 +64,7 @@ class HomeActivity : AppCompatActivity() {
 
             when(it.itemId){
 
-                R.id.nav_places -> startActivity(intent)
+                R.id.nav_places -> replaceFragment(PlacesFragment(), it.title.toString())
                 R.id.nav_actions -> replaceFragment(ActionsFragment(), it.title.toString())
                 R.id.nav_game_miejska -> replaceFragment(GameMiejskaFragment(), it.title.toString())
                 R.id.nav_settings -> replaceFragment(SettingsFragment(), it.title.toString())
@@ -96,7 +96,7 @@ class HomeActivity : AppCompatActivity() {
         navEmail.text = SavedPreference.getEmail(this)
 
 
-        //photoSet
+        //SetPhoto
         val sp: SharedPreferences = getSharedPreferences("enter", MODE_PRIVATE)
         val url = sp.getString("imgUrl", null)
         val navPhoto: CircleImageView = headerView.findViewById(R.id.photo)

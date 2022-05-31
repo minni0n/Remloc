@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_200"
+    android:orientation="vertical"
+    android:padding="4dp"
     tools:context=".ActionsFragment">
-
-    <TextView
+    <EditText
+        android:id="@+id/editTextNum"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter mobile number"
+        android:textColor="@android:color/black" />
+    <EditText
+        android:id="@+id/editTextMsg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter your message"
+        android:textColor="@android:color/black" />
+    <Button
+        android:id="@+id/btnSendMsg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Actions"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="60sp"/>
-
-</FrameLayout>
+        android:layout_marginTop="5dp"
+        android:onClick="sendMessage"
+        android:text="Send Message" />
+</LinearLayout>

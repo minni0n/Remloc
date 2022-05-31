@@ -7,6 +7,7 @@
         <entry key="..\:/ProgramingFiles/Kotlin/RemLoc1/app/src/main/res/layout/activity_google_sign_in.xml" value="0.3020833333333333" />
         <entry key="..\:/ProgramingFiles/Kotlin/RemLoc1/app/src/main/res/layout/activity_main.xml" value="0.21067415730337077" />
         <entry key="..\:/ProgramingFiles/Kotlin/RemLoc1/app/src/main/res/layout/activity_register_user.xml" value="0.32395833333333335" />
+        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/bg_round.xml" value="0.2305" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/ic_baseline_help_24.xml" value="0.3" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/ic_baseline_home_24.xml" value="0.3" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/ic_baseline_home_work_24.xml" value="0.3" />
@@ -19,12 +20,15 @@
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/ic_baseline_sync_24.xml" value="0.3" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/ic_baseline_view_list_24.xml" value="0.3" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3" />
+        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/white_border.xml" value="0.3675" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/activity_dashboard.xml" value="0.358695652173913" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/activity_home.xml" value="0.31666666666666665" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/activity_home_acrivity.xml" value="0.31666666666666665" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/activity_main.xml" value="0.1875" />
-        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/activity_places.xml" value="0.1" />
-        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/fragment_actions.xml" value="0.14412360688956433" />
+        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/activity_map.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/activity_maps.xml" value="0.2828125" />
+        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/activity_places.xml" value="0.25" />
+        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/fragment_actions.xml" value="0.1" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/fragment_game_miejska.xml" value="0.14412360688956433" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/fragment_help_review.xml" value="0.1" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/fragment_places.xml" value="0.25" />
