@@ -1,17 +1,7 @@
 package com.example.remloc1
 
-import android.content.ContentValues.TAG
-import android.content.Context
 import android.content.Intent
-import android.content.SharedPreferences
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
-import android.os.StrictMode
-import android.os.StrictMode.ThreadPolicy
-import android.provider.MediaStore
-import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
@@ -19,17 +9,14 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
-import java.io.BufferedInputStream
-import java.io.ByteArrayOutputStream
-import java.io.IOException
-import java.io.InputStream
-import java.net.URL
-import java.net.URLConnection
 
 
 class HomeActivity : AppCompatActivity() {
@@ -92,54 +79,75 @@ class HomeActivity : AppCompatActivity() {
         val headerView = navView.getHeaderView(0)
         val navUsername: TextView = headerView.findViewById(R.id.user_name)
         val navEmail: TextView = headerView.findViewById(R.id.email)
-        navUsername.text = SavedPreference.getUsername(this)
-        navEmail.text = SavedPreference.getEmail(this)
-
-
-        //SetPhoto
-        val sp: SharedPreferences = getSharedPreferences("enter", MODE_PRIVATE)
-        val url = sp.getString("imgUrl", null)
         val navPhoto: CircleImageView = headerView.findViewById(R.id.photo)
-        var policy = ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
-        if (url != null) {
-            navPhoto.setImageURI(getImageUri(this, getImageBitmap(url)))
+
+        // Set user info by Firebase
+        val user = Firebase.auth.currentUser
+
+        user?.let {
+            val name = user.displayName
+            val email = user.email
+            val photoUrl = user.photoUrl
+
+            navUsername.text = name
+            navEmail.text = email
+
+            Glide
+                .with(this)
+                .load(photoUrl) // the uri you got from Firebase
+                .into(navPhoto) //Your imageView variable
+
+
         }
-        policy = ThreadPolicy.Builder().detectAll().build()
-        StrictMode.setThreadPolicy(policy)
+
+        //Set user info by Shared Prefernces
+
+//        navUsername.text = SavedPreference.getUsername(this)
+//        navEmail.text = SavedPreference.getEmail(this)
+
+//        val sp: SharedPreferences = getSharedPreferences("enter", MODE_PRIVATE)
+//        val url = sp.getString("imgUrl", null)
+//        val navPhoto: CircleImageView = headerView.findViewById(R.id.photo)
+//        var policy = ThreadPolicy.Builder().permitAll().build()
+//        StrictMode.setThreadPolicy(policy)
+//        if (url != null) {
+//            navPhoto.setImageURI(getImageUri(this, getImageBitmap(url)))
+//        }
+//        policy = ThreadPolicy.Builder().detectAll().build()
+//        StrictMode.setThreadPolicy(policy)
     }
 
 
 
-    private fun getImageUri(inContext: Context, inImage: Bitmap?): Uri? {
-        val bytes = ByteArrayOutputStream()
-        inImage?.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-        val path = MediaStore.Images.Media.insertImage(
-            inContext.contentResolver,
-            inImage,
-            "Title",
-            null
-        )
-        return Uri.parse(path)
-    }
-
-
-    private fun getImageBitmap(url: String): Bitmap? {
-        var bm: Bitmap? = null
-        try {
-            val aURL = URL(url)
-            val conn: URLConnection = aURL.openConnection()
-            conn.connect()
-            val `is`: InputStream = conn.getInputStream()
-            val bis = BufferedInputStream(`is`)
-            bm = BitmapFactory.decodeStream(bis)
-            bis.close()
-            `is`.close()
-        } catch (e: IOException) {
-            Log.e(TAG, "Error getting bitmap", e)
-        }
-        return bm
-    }
+//    private fun getImageUri(inContext: Context, inImage: Bitmap?): Uri? {
+//        val bytes = ByteArrayOutputStream()
+//        inImage?.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+//        val path = MediaStore.Images.Media.insertImage(
+//            inContext.contentResolver,
+//            inImage,
+//            "Title",
+//            null
+//        )
+//        return Uri.parse(path)
+//    }
+//
+//
+//    private fun getImageBitmap(url: String): Bitmap? {
+//        var bm: Bitmap? = null
+//        try {
+//            val aURL = URL(url)
+//            val conn: URLConnection = aURL.openConnection()
+//            conn.connect()
+//            val `is`: InputStream = conn.getInputStream()
+//            val bis = BufferedInputStream(`is`)
+//            bm = BitmapFactory.decodeStream(bis)
+//            bis.close()
+//            `is`.close()
+//        } catch (e: IOException) {
+//            Log.e(TAG, "Error getting bitmap", e)
+//        }
+//        return bm
+//    }
 
 
     private fun logoutFromGoogle() {
