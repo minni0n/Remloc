@@ -22,6 +22,7 @@ class PlacesFragment : Fragment() {
     private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
     private lateinit var places: MutableList<String>
+    private lateinit var keys: MutableList<String>
 
 
     override fun onCreateView(
@@ -33,10 +34,14 @@ class PlacesFragment : Fragment() {
         binding = FragmentPlacesBinding.inflate(layoutInflater)
 
         val listView: ListView = binding.listOfPlaces
-        places = mutableListOf("Poznan")
+
+        places = mutableListOf("")
+        keys = mutableListOf("")
         places.clear()
-        listView.invalidateViews()
+        keys.clear()
         readData()
+        listView.invalidateViews()
+
 
         val arrayAdapter: ArrayAdapter<String>? = activity?.let {
             ArrayAdapter(
@@ -47,7 +52,8 @@ class PlacesFragment : Fragment() {
         listView.adapter = arrayAdapter
 
         binding.listOfPlaces.setOnItemClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
-            Toast.makeText(activity,  places[i], Toast.LENGTH_SHORT).show()
+//            Toast.makeText(activity,  places[i], Toast.LENGTH_SHORT).show()
+            (activity as HomeActivity?)!!.replaceFragment(EditPlaceFragment(keys[i]), "Edit place")
         }
 
         binding.addPlaceBtn.setOnClickListener{
@@ -71,17 +77,21 @@ class PlacesFragment : Fragment() {
                     it.children.forEach{ placeInfo ->
 
                         val id = placeInfo.key
-                        Toast.makeText(activity, id, Toast.LENGTH_SHORT).show()
+
+                        if (id != null) {
+                            keys.add(id)
+                        }
 
                         val placeName = placeInfo.child("placeName").value
                         val longitude = placeInfo.child("longitude").value
                         val latitude = placeInfo.child("latitude").value
 
-                        places.add(placeName.toString() + "\n"+ longitude.toString()+" | "+latitude.toString())
+                        places.add(placeName.toString())
                         binding.listOfPlaces.invalidateViews()
 
                     }
 
+//                    Toast.makeText(activity, keys.toString(), Toast.LENGTH_SHORT).show()
                 }
 
             }.addOnFailureListener{

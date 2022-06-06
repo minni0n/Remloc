@@ -4,10 +4,7 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.remloc1.Data.ActionsData
 import com.example.remloc1.databinding.FragmentAddActionBinding
@@ -23,8 +20,10 @@ class AddActionFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var phoneNumber: EditText
     private lateinit var smsText: EditText
-    private lateinit var placeName: EditText
+    private lateinit var placeName: Spinner
     private lateinit var button: Button
+    private lateinit var spinner: Spinner
+    private lateinit var places: MutableList<String>
 
 //    private val permissionRequest = 101
 
@@ -33,22 +32,45 @@ class AddActionFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): LinearLayout {
+
+
         // Inflate the layout for this fragment
         binding = FragmentAddActionBinding.inflate(layoutInflater)
+
+        places = mutableListOf("")
+//        places.clear()
+
+
+        spinner = binding.placesSpinner
+
+        readData()
+
+        val adapter: ArrayAdapter<String>? = activity?.let {
+            ArrayAdapter<String>(
+                it,
+                android.R.layout.simple_spinner_item, places
+            )
+        }
+
+        spinner.adapter = adapter
 
         button = binding.btnSaveAction
         auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid
 
+//        Toast.makeText(activity, places.toString(), Toast.LENGTH_SHORT).show()
+
         button.setOnClickListener{
 
             phoneNumber = binding.phoneNumber
             smsText = binding.smsText
-            placeName = binding.placeName
+            placeName = binding.placesSpinner
 
             val strPhoneNumber = phoneNumber.text.toString()
             val strSmsText = smsText.text.toString()
-            val strPlaceName = placeName.text.toString()
+            //val strPlaceName = placeName.toString()
+            val strPlaceName: String = binding.placesSpinner.selectedItem.toString()
+
 
             if (uid!= null){
 
@@ -77,7 +99,36 @@ class AddActionFragment : Fragment() {
     }
 
 
+    private fun readData(){
+        auth = FirebaseAuth.getInstance()
+        val uid = auth.currentUser?.uid
 
+        if (uid != null) {
 
+            database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
+            database.child("Places").get().addOnSuccessListener {
+                if(it.exists()){
 
+                    it.children.forEach{ placeInfo ->
+
+                        val id = placeInfo.key
+
+                        val placeName = placeInfo.child("placeName").value
+//                        val longitude = placeInfo.child("longitude").value
+//                        val latitude = placeInfo.child("latitude").value
+
+                        places.add(placeName.toString())
+
+                    }
+
+                }
+
+            }.addOnFailureListener{
+
+                Toast.makeText(activity, "Failed",Toast.LENGTH_SHORT).show()
+
+            }
+        }
+
+    }
 }

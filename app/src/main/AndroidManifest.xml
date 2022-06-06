@@ -15,9 +15,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RemLoc1" >
-        <activity
-            android:name=".EditActionActivity"
-            android:exported="false" />
+
         <activity
             android:name=".MapsActivity"
             android:exported="true"
