@@ -1,10 +1,8 @@
-package com.example.remloc1
+package com.example.remloc1.Data
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.net.Uri
 import android.preference.PreferenceManager
-import java.net.URL
 
 object SavedPreference {
 

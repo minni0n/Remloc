@@ -1,97 +1,108 @@
 package com.example.remloc1
 
-import android.Manifest
-import android.annotation.SuppressLint
-import android.app.Notification
-import android.app.NotificationChannel
-import android.app.NotificationManager
-import android.content.Context
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.telephony.SmsManager
-import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.example.remloc1.databinding.FragmentActionsBinding
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 
 
 class ActionsFragment : Fragment() {
 
-    lateinit var button: Button
-    lateinit var editTextNumber: EditText
-    lateinit var editTextMessage: EditText
-    private val permissionRequest = 101
+    private lateinit var binding : FragmentActionsBinding
+    private lateinit var database: DatabaseReference
+    private lateinit var auth: FirebaseAuth
+    private lateinit var actions: MutableList<String>
+    private lateinit var keys: MutableList<String>
 
-    @SuppressLint("ServiceCast")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
 
 
 
-        val bind = FragmentActionsBinding.inflate(layoutInflater)
+        binding = FragmentActionsBinding.inflate(layoutInflater)
 
-        editTextNumber = bind.editTextNum
-        editTextMessage = bind.editTextMsg
-        button = bind.btnSendMsg
+        val listView: ListView = binding.listOfActions
+        actions = mutableListOf("")
+        actions.clear()
+        keys = mutableListOf("")
+        keys.clear()
+        listView.invalidateViews()
 
-        button.setOnClickListener{
-            sendMessage()
+        readData()
+
+        val arrayAdapter: ArrayAdapter<String>? = activity?.let {
+            ArrayAdapter(
+                it, android.R.layout.simple_list_item_1, actions
+            )
         }
 
-        return bind.root
+        listView.adapter = arrayAdapter
+
+        binding.listOfActions.setOnItemClickListener { _: AdapterView<*>, _: View, i: Int, _: Long ->
+            Toast.makeText(activity, keys[i], Toast.LENGTH_SHORT).show()
+        }
+
+        binding.addAction.setOnClickListener {
+
+            (activity as HomeActivity?)!!.replaceFragment(AddActionFragment(), "Add Action")
+
+        }
+
+        return binding.root
     }
 
 
-    private fun sendMessage() {
-        val permissionCheck = activity?.let { ContextCompat.checkSelfPermission(it, Manifest.permission.SEND_SMS) }
-        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
-            myMessage()
-        } else {
-            activity?.let {
-                ActivityCompat.requestPermissions(
-                    it, arrayOf(Manifest.permission.SEND_SMS),
-                    permissionRequest)
+    private fun readData(){
+        auth = FirebaseAuth.getInstance()
+        val uid = auth.currentUser?.uid
+
+        if (uid != null) {
+
+            database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
+            database.child("Actions").get().addOnSuccessListener {
+                if(it.exists()){
+
+                    it.children.forEach{ action ->
+
+                        val id = action.key
+                        if (id != null) {
+                            keys.add(id)
+                        }
+//                        Toast.makeText(activity, id, Toast.LENGTH_SHORT).show()
+
+                        val phoneNumber = action.child("phoneNumber").value
+                        val smsText = action.child("smsText").value
+                        val placeName= action.child("placeName").value
+
+                        actions.add(phoneNumber.toString() + " :  "+ smsText.toString()+"\n"+placeName.toString())
+                        binding.listOfActions.invalidateViews()
+
+                    }
+
+
+
+                }
+
+
+            }.addOnFailureListener{
+
+                Toast.makeText(activity, "Failed",Toast.LENGTH_SHORT).show()
+
             }
         }
-    }
-    private fun myMessage() {
-        val myNumber: String = editTextNumber.text.toString().trim()
-        val myMsg: String = editTextMessage.text.toString().trim()
-        if (myNumber == "" || myMsg == "") {
-            Toast.makeText(activity, "Field cannot be empty", Toast.LENGTH_SHORT).show()
-        } else {
-            if (TextUtils.isDigitsOnly(myNumber)) {
-                val smsManager: SmsManager = SmsManager.getDefault()
-                smsManager.sendTextMessage(myNumber, null, myMsg, null, null)
-                Toast.makeText(activity, "Message Sent", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(activity, "Please enter the correct number", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults:
-    IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == permissionRequest) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                myMessage();
-            } else {
-                Toast.makeText(activity, "You don't have required permission to send a message",
-                    Toast.LENGTH_SHORT).show();
-            }
-        }
-    }
 
+    }
 
 }

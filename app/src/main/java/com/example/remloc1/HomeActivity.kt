@@ -1,6 +1,8 @@
 package com.example.remloc1
 
 import android.content.Intent
+import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
@@ -21,9 +23,9 @@ import de.hdodenhof.circleimageview.CircleImageView
 
 class HomeActivity : AppCompatActivity() {
 
-    lateinit var mGoogleSignInClient: GoogleSignInClient
-    lateinit var toggle: ActionBarDrawerToggle
-    lateinit var drawerLayout: DrawerLayout
+    private lateinit var mGoogleSignInClient: GoogleSignInClient
+    private lateinit var toggle: ActionBarDrawerToggle
+    private lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,7 +45,11 @@ class HomeActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
-        val intent = Intent(this, PlacesActivity::class.java)
+        replaceFragment(ActionsFragment(), "Akcje")
+
+//        val intent = Intent(this, PlacesActivity::class.java)
+
+
 
         navView.setNavigationItemSelectedListener {
 
@@ -92,62 +98,19 @@ class HomeActivity : AppCompatActivity() {
             navUsername.text = name
             navEmail.text = email
 
+            //From shared pref
+//            val sp: SharedPreferences = getSharedPreferences("enter", MODE_PRIVATE)
+//            val url = sp.getString("imgUrl", null)
             Glide
                 .with(this)
-                .load(photoUrl) // the uri you got from Firebase
+                .load(photoUrl) // the uri you got from Firebase // URI.parse(url)
                 .into(navPhoto) //Your imageView variable
 
 
         }
 
-        //Set user info by Shared Prefernces
 
-//        navUsername.text = SavedPreference.getUsername(this)
-//        navEmail.text = SavedPreference.getEmail(this)
-
-//        val sp: SharedPreferences = getSharedPreferences("enter", MODE_PRIVATE)
-//        val url = sp.getString("imgUrl", null)
-//        val navPhoto: CircleImageView = headerView.findViewById(R.id.photo)
-//        var policy = ThreadPolicy.Builder().permitAll().build()
-//        StrictMode.setThreadPolicy(policy)
-//        if (url != null) {
-//            navPhoto.setImageURI(getImageUri(this, getImageBitmap(url)))
-//        }
-//        policy = ThreadPolicy.Builder().detectAll().build()
-//        StrictMode.setThreadPolicy(policy)
     }
-
-
-
-//    private fun getImageUri(inContext: Context, inImage: Bitmap?): Uri? {
-//        val bytes = ByteArrayOutputStream()
-//        inImage?.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
-//        val path = MediaStore.Images.Media.insertImage(
-//            inContext.contentResolver,
-//            inImage,
-//            "Title",
-//            null
-//        )
-//        return Uri.parse(path)
-//    }
-//
-//
-//    private fun getImageBitmap(url: String): Bitmap? {
-//        var bm: Bitmap? = null
-//        try {
-//            val aURL = URL(url)
-//            val conn: URLConnection = aURL.openConnection()
-//            conn.connect()
-//            val `is`: InputStream = conn.getInputStream()
-//            val bis = BufferedInputStream(`is`)
-//            bm = BitmapFactory.decodeStream(bis)
-//            bis.close()
-//            `is`.close()
-//        } catch (e: IOException) {
-//            Log.e(TAG, "Error getting bitmap", e)
-//        }
-//        return bm
-//    }
 
 
     private fun logoutFromGoogle() {
@@ -159,7 +122,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    private fun replaceFragment(fragment: Fragment, title: String){
+     fun replaceFragment(fragment: Fragment, title: String){
 
         val fragmentManager = supportFragmentManager
         val fragmentTransaction = fragmentManager.beginTransaction()

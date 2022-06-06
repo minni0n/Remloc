@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1068238081596",
+    "firebase_url": "https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "remloc1-86738",
     "storage_bucket": "remloc1-86738.appspot.com"
   },
@@ -14,11 +15,19 @@
       },
       "oauth_client": [
         {
-          "client_id": "1068238081596-mica5gske3smkt7o6b2v5a7ohmqtbvrd.apps.googleusercontent.com",
+          "client_id": "1068238081596-1u11gs2lhsapvt4j8m4n3hbic1ibullb.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.remloc1",
             "certificate_hash": "b1c256bd460bb4df618c84e57bf5e98d85a14ada"
+          }
+        },
+        {
+          "client_id": "1068238081596-gspuil757oksm1lu46fejrpfkf7e9005.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.remloc1",
+            "certificate_hash": "c5d460655a5d92d9628d727376f7e877a18772e8"
           }
         },
         {
