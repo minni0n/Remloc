@@ -1,4 +1,4 @@
-package com.example.remloc1
+package com.example.remloc1.HomeFragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,6 +9,9 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.remloc1.AddDataFragment.AddActionFragment
+import com.example.remloc1.EditDataFragments.EditActionFragment
+import com.example.remloc1.HomeActivity
 import com.example.remloc1.databinding.FragmentActionsBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -51,7 +54,8 @@ class ActionsFragment : Fragment() {
         listView.adapter = arrayAdapter
 
         binding.listOfActions.setOnItemClickListener { _: AdapterView<*>, _: View, i: Int, _: Long ->
-            Toast.makeText(activity, keys[i], Toast.LENGTH_SHORT).show()
+//            Toast.makeText(activity, keys[i], Toast.LENGTH_SHORT).show()
+            (activity as HomeActivity?)!!.replaceFragment(EditActionFragment(keys[i]), "Edit Action")
         }
 
         binding.addAction.setOnClickListener {
@@ -84,14 +88,12 @@ class ActionsFragment : Fragment() {
 
                         val phoneNumber = action.child("phoneNumber").value
                         val smsText = action.child("smsText").value
-                        val placeName= action.child("placeName").value
+                        val placeName = action.child("placeName").value
 
-                        actions.add(phoneNumber.toString() + " :  "+ smsText.toString()+"\n"+placeName.toString())
+                        actions.add(smsText.toString()+"\n"+placeName.toString())
                         binding.listOfActions.invalidateViews()
 
                     }
-
-
 
                 }
 

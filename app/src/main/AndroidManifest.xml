@@ -20,10 +20,6 @@
             android:name=".MapsActivity"
             android:exported="true"
             android:parentActivityName=".HomeActivity" />
-        <activity
-            android:name=".PlacesActivity"
-            android:exported="false"
-            android:parentActivityName=".HomeActivity" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"

@@ -5,7 +5,7 @@
     android:id="@+id/drawerPlacesLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PlacesFragment">
+    tools:context=".HomeFragments.PlacesFragment">
 
     <ListView
         android:id="@+id/listOfPlaces"

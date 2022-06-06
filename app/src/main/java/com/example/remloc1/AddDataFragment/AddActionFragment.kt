@@ -1,4 +1,4 @@
-package com.example.remloc1
+package com.example.remloc1.AddDataFragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.remloc1.Data.ActionsData
+import com.example.remloc1.HomeActivity
+import com.example.remloc1.HomeFragments.ActionsFragment
 import com.example.remloc1.databinding.FragmentAddActionBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference

@@ -1,4 +1,4 @@
-package com.example.remloc1
+package com.example.remloc1.HomeFragments
 
 import android.R
 import android.content.Intent
@@ -11,6 +11,9 @@ import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.example.remloc1.EditDataFragments.EditPlaceFragment
+import com.example.remloc1.HomeActivity
+import com.example.remloc1.MapsActivity
 import com.example.remloc1.databinding.FragmentPlacesBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference

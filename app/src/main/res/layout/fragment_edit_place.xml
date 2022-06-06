@@ -3,49 +3,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditPlaceFragment"
+    tools:context=".EditDataFragments.EditPlaceFragment"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/placeOriginalName"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
         android:textSize="30sp"
         android:textColor="@color/black"
         android:text="Place Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/addressLineTextView"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:text="Address"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
     <TextView
         android:id="@+id/placeCoordinates"
         android:layout_marginTop="20dp"
         android:textSize="20sp"
+        android:layout_marginLeft="5dp"
         android:textColor="@color/black"
         android:text="Coordinates"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <LinearLayout
+    <Button
+        android:id="@+id/btnDeletePlace"
+        android:layout_width="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:text="Remove Place" />
+
+    <EditText
+        android:id="@+id/placeNameEdit"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Button
-            android:id="@+id/btnDeletePlace"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:textColor="@color/black"
-            android:text="Delete" />
-
-        <EditText
-            android:id="@+id/placeNameEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Edit place name"
-            android:textColor="@android:color/black" />
-
-
-
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        android:hint="Edit place name"
+        android:textColor="@android:color/black" />
 
     <Button
         android:id="@+id/btnSavePlaceChanges"

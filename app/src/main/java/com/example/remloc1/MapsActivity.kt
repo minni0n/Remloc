@@ -168,20 +168,23 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
         auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid
 
+//        Toast.makeText(this, address.getAddressLine(0).toString(), Toast.LENGTH_SHORT).show()
+
+        val addressLine: String = address.getAddressLine(0)
         val placeName: String = location
         val longitude: String = address.longitude.toString()
         val latitude: String = address.latitude.toString()
-
 
         if (uid!= null){
 
             database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
             val key: String? = database.push().key
-            val action = PlacesData(placeName, longitude, latitude)
+            val action = PlacesData(addressLine, placeName, longitude, latitude)
 
             database.child("Places//$key").setValue(action).addOnCompleteListener{
                 if(it.isSuccessful){
-                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+
+//                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
 
                 }else{
 
