@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import com.example.remloc1.AddDataFragment.AddActionFragment
 import com.example.remloc1.EditDataFragments.EditActionFragment
 import com.example.remloc1.HomeActivity
+import com.example.remloc1.R
 import com.example.remloc1.databinding.FragmentActionsBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -55,12 +56,12 @@ class ActionsFragment : Fragment() {
 
         binding.listOfActions.setOnItemClickListener { _: AdapterView<*>, _: View, i: Int, _: Long ->
 //            Toast.makeText(activity, keys[i], Toast.LENGTH_SHORT).show()
-            (activity as HomeActivity?)!!.replaceFragment(EditActionFragment(keys[i]), "Edit Action")
+            (activity as HomeActivity?)!!.replaceFragment(EditActionFragment(keys[i]), getString(R.string.edit_action))
         }
 
         binding.addAction.setOnClickListener {
 
-            (activity as HomeActivity?)!!.replaceFragment(AddActionFragment(), "Add Action")
+            (activity as HomeActivity?)!!.replaceFragment(AddActionFragment(), getString(R.string.add_action))
 
         }
 

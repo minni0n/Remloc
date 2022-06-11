@@ -1,8 +1,15 @@
 package com.example.remloc1
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
+import android.content.res.Configuration
+import android.database.Cursor
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.view.MenuItem
+import android.widget.ListView
+import android.widget.SimpleCursorAdapter
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -18,6 +25,9 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.activity_home.*
+import java.util.*
+import kotlin.system.exitProcess
 
 
 class HomeActivity : AppCompatActivity() {
@@ -26,10 +36,26 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var toggle: ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
 
+    private lateinit var locale: Locale
+    private var currentLanguage = "en"
+    private var currentLang: String? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+
+        val sp: SharedPreferences = getSharedPreferences("Language", MODE_PRIVATE)
+        val lang = sp.getString("My_Lang", null)
+
+        if (lang != null) {
+            currentLang = lang
+        }
+
+        setLocale(currentLang!!)
+
+        currentLanguage = intent.getStringExtra(currentLang).toString()
+//        readContacts()
 
         drawerLayout = findViewById(R.id.drawerLayout)
         val navView : NavigationView = findViewById(R.id.nav_view)
@@ -44,7 +70,7 @@ class HomeActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
 
-        replaceFragment(ActionsFragment(), "Akcje")
+        replaceFragment(ActionsFragment(), getString(R.string.actions))
 
 //        val intent = Intent(this, PlacesActivity::class.java)
 
@@ -55,7 +81,6 @@ class HomeActivity : AppCompatActivity() {
             it.isChecked = true
 
             when(it.itemId){
-
                 R.id.nav_places -> replaceFragment(PlacesFragment(), it.title.toString())
                 R.id.nav_actions -> replaceFragment(ActionsFragment(), it.title.toString())
                 R.id.nav_game_miejska -> replaceFragment(GameMiejskaFragment(), it.title.toString())
@@ -142,4 +167,45 @@ class HomeActivity : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
     }
+
+    fun setLocale(localeName: String) {
+
+        val currentLanguage = intent.getStringExtra(currentLang).toString()
+
+        if (localeName != currentLanguage) {
+            locale = Locale(localeName)
+            val res = resources
+            val dm = res.displayMetrics
+            val conf = res.configuration
+            conf.locale = locale
+            res.updateConfiguration(conf, dm)
+            val refresh = Intent(
+                this,
+                HomeActivity::class.java
+            )
+            refresh.putExtra(currentLang, localeName)
+            startActivity(refresh)
+
+            val edit: SharedPreferences.Editor
+            val sp: SharedPreferences = getSharedPreferences("Language", MODE_PRIVATE)
+            edit = sp.edit()
+            edit.putString("My_Lang", localeName)
+            edit.apply()
+
+        } else {
+            Toast.makeText(
+                this@HomeActivity, getString(R.string.already_selected), Toast.LENGTH_SHORT).show();
+        }
+    }
+    override fun onBackPressed() {
+        val intent = Intent(Intent.ACTION_MAIN)
+        intent.addCategory(Intent.CATEGORY_HOME)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
+        startActivity(intent)
+        finish()
+        exitProcess(0)
+    }
+
+
+
 }

@@ -51,7 +51,7 @@ class EditActionFragment(val key: String) : Fragment() {
         deleteBtn = binding.btnDeleteAction
         saveChangesBtn = binding.btnSavePlaceChanges
 
-        places = mutableListOf("")
+        places = mutableListOf(getString(R.string.choose_place))
 //        places.clear()
         placesSpinner = binding.placesSpinner
         readData()
@@ -93,7 +93,7 @@ class EditActionFragment(val key: String) : Fragment() {
             database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
             database.child("Actions//$key").removeValue()
 
-            (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), "Actions")
+            (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
 
         }
 
@@ -114,7 +114,8 @@ class EditActionFragment(val key: String) : Fragment() {
                 database.child("Actions//$key//smsText").setValue(smsTextEdit.text.toString())
             }
 
-            (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), "Actions")
+
+            (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
 
         }
 

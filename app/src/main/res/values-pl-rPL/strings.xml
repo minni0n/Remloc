@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RemLoc</string>
+
+    <string name="sign_in_with_google">Zaloguj się przez Google</string>
+    <string name="places">Miejsca</string>
+    <string name="actions">Akcje</string>
+    <string name="game_miejska">Gra Miejska</string>
+    <string name="settings">Ustawienia</string>
+    <string name="help_and_feedback">Pomoc i opinie</string>
+    <string name="profile">Profil</string>
+    <string name="logout">Wyloguj</string>
+
+    <string name="open">Otwórz</string>
+    <string name="close">Zamknij</string>
+
+    <string name="add">Dodać</string>
+    <string name="search_location">Wyszukaj lokalizację</string>
+    <string name="enter_phone_number">Wpisz numer telefonu</string>
+    <string name="select_contact">Wybierz kontakt:</string>
+    <string name="enter_your_text_message">Wpisz swoją wiadomość tekstową</string>
+    <string name="select_place">Wybierz miejsce:</string>
+    <string name="save_action">Zapisz akcję</string>
+    <string name="place_name">Nazwa miejsca</string>
+    <string name="sms_text">Tekst SMS</string>
+    <string name="coordinates">Współrzędne</string>
+    <string name="remove_action">Usuń akcję</string>
+    <string name="edit_sms_text">Edytuj tekst SMS</string>
+    <string name="edit_phone_number">Edytuj numer telefonu</string>
+    <string name="change_place">Zmienić miejsce:</string>
+    <string name="save_changes">Zapisz zmiany</string>
+    <string name="address">Adres</string>
+    <string name="remove_place">Usuń miejsce</string>
+    <string name="edit_place_name">Edytuj nazwę miejsca</string>
+    <string name="coming_soon">Wkrótce</string>
+    <string name="help_feedback">Pomoc, opinie</string>
+    <string name="username">Nazwa użytkownika</string>
+    <string name="email">E-mail</string>
+    <string name="home">Dom</string>
+    <string name="serbska_17_61_696_pozna_poland">Serbska 17, 61–696 Poznań, Poland</string>
+
+    <string name="change_language">Zmień język</string>
+    <string name="edit_action">Edytuj akcję</string>
+    <string name="edit_place">Edytuj miejsce</string>
+    <string name="add_action">Dodaj akcję</string>
+    <string name="choose_language">Wybierz język:</string>
+    <string name="choose_place">Wybierz miejsce:</string>
+    <string name="choose_contact">Wybierz kontakt:</string>
+    <string name="already_selected">Język już wybrany</string>
+</resources>

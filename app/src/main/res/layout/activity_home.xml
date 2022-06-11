@@ -15,7 +15,13 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/frameLayout"/>
+            android:id="@+id/frameLayout">
+
+            <ListView
+                android:id="@+id/listView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+        </FrameLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

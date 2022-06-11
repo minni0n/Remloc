@@ -2,6 +2,7 @@ package com.example.remloc1
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.ContentValues.TAG
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
@@ -9,15 +10,12 @@ import android.location.Location
 import android.location.LocationListener
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.example.remloc1.Data.ActionsData
 import com.example.remloc1.Data.PlacesData
-import com.example.remloc1.databinding.FragmentAddActionBinding
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
 import com.google.android.gms.location.LocationRequest
@@ -33,26 +31,76 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.activity_map.*
+import kotlinx.android.synthetic.main.activity_maps.*
 import java.io.IOException
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, GoogleMap.OnMapClickListener,
     GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
+
+    private val GOOGLEMAP_COMPASS = "GoogleMapCompass" // [4]
+
+    private val GOOGLEMAP_TOOLBAR = "GoogleMapToolbar" // [3]
+
+    private val GOOGLEMAP_ZOOMIN_BUTTON = "GoogleMapZoomInButton" // [2]child[0]
+
+    private val GOOGLEMAP_ZOOMOUT_BUTTON = "GoogleMapZoomOutButton" // [2]child[1]
+
+    private val GOOGLEMAP_MYLOCATION_BUTTON = "GoogleMapMyLocationButton" // [0]
+
+
     private lateinit var auth: FirebaseAuth
     private lateinit var database : DatabaseReference
     private var mMap: GoogleMap? = null
     private lateinit var mLastLocation: Location
+    private var currentLocationLatLng: LatLng? = null
     private var mCurrLocationMarker: Marker? = null
     private var mGoogleApiClient: GoogleApiClient? = null
     private lateinit var mLocationRequest: LocationRequest
+    private var markerOnMap: MarkerOptions? = null
+    private lateinit var locationSearch: EditText
+    private lateinit var searchBtn: ImageButton
+    private lateinit var saveBtn: Button
+    private lateinit var mapView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
 
+        locationSearch = findViewById(R.id.et_search)
+        searchBtn = findViewById(R.id.search)
+        saveBtn = findViewById(R.id.savePlaceBtn)
 
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.myMap) as SupportMapFragment
+//      Make a geolaction btn bot left
+        mapView = myMaps.requireView()
+        val locationButton= (mapView.findViewById<View>(Integer.parseInt("1")).parent as View).findViewById<View>(Integer.parseInt("2"))
+        val rlp=locationButton.layoutParams as (RelativeLayout.LayoutParams)
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);rlp.setMargins(0,0,30,70);
+//        ------------------------------------
+
+
+
+
+        currentLocationLatLng?.let { it-> CameraUpdateFactory.newLatLng(it) }
+            ?.let { mMap!!.animateCamera(it) }
+
+
+        searchBtn.setOnClickListener {
+
+//            locationSearch.clearFocus()
+//            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+            searchLocation()
+
+        }
+
+        saveBtn.setOnClickListener {
+            savePlaceToFB()
+        }
+
+        val mapFragment = supportFragmentManager.findFragmentById(R.id.myMaps) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
 
@@ -60,6 +108,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
     override fun onMapReady(googleMap: GoogleMap) {
 
         mMap = googleMap
+
+        moveZoomControls(mapView, 30,-1,-1,70, horizontal = false, vertical = false)
+
+        moveCompass(mapView,30,160,-1,-1, horizontal = true, vertical = false)
+        mMap!!.uiSettings.isZoomControlsEnabled = true
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if (ContextCompat.checkSelfPermission(
@@ -86,11 +139,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
     override fun onLocationChanged(location: Location) {
         mLastLocation = location
-        if (mCurrLocationMarker != null){
-            mCurrLocationMarker!!.remove()
-        }
+        mCurrLocationMarker?.remove()
 
+        //here
         val latLng = LatLng(location.latitude, location.longitude)
+        currentLocationLatLng = latLng
         val markerOptions = MarkerOptions()
         markerOptions.position(latLng)
         markerOptions.title("Current Position")
@@ -104,6 +157,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
             LocationServices.getFusedLocationProviderClient(this)
         }
     }
+
 
     override fun onConnected(p0: Bundle?) {
 
@@ -129,12 +183,102 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
     }
 
 
+    private fun moveView(
+        view: View?,
+        left: Int,
+        top: Int,
+        right: Int,
+        bottom: Int,
+        horizontal: Boolean,
+        vertical: Boolean
+    ) {
+        try {
+            assert(view != null)
 
-    fun searchLocation(view: View){
-        val locationSearch: EditText = findViewById(R.id.et_search)
+            // replace existing layout params
+            val rlp = RelativeLayout.LayoutParams(
+                RelativeLayout.LayoutParams.WRAP_CONTENT,
+                RelativeLayout.LayoutParams.WRAP_CONTENT
+            )
+            if (left >= 0) {
+                rlp.addRule(RelativeLayout.ALIGN_PARENT_START, RelativeLayout.TRUE)
+                rlp.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE)
+            }
+            if (top >= 0) {
+                rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE)
+            }
+            if (right >= 0) {
+                rlp.addRule(RelativeLayout.ALIGN_PARENT_END, RelativeLayout.TRUE)
+                rlp.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE)
+            }
+            if (bottom >= 0) {
+                rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE)
+            }
+            if (horizontal) {
+                rlp.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE)
+            }
+            if (vertical) {
+                rlp.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE)
+            }
+            rlp.setMargins(left, top, right, bottom)
+            view!!.layoutParams = rlp
+        } catch (ex: Exception) {
+            Log.e(TAG, "moveView() - failed: " + ex.localizedMessage)
+            ex.printStackTrace()
+        }
+    }
+
+    private fun moveCompass(
+        mapView: View?,
+        left: Int,
+        top: Int,
+        right: Int,
+        bottom: Int,
+        horizontal: Boolean,
+        vertical: Boolean
+    ) {
+        assert(mapView != null)
+        val compass = mapView!!.findViewWithTag<View>(GOOGLEMAP_COMPASS)
+        compass?.let { moveView(it, left, top, right, bottom, horizontal, vertical) }
+    }
+
+    private fun moveToolbar(
+        mapView: View?,
+        left: Int,
+        top: Int,
+        right: Int,
+        bottom: Int,
+        horizontal: Boolean,
+        vertical: Boolean
+    ) {
+        assert(mapView != null)
+        val toolbar = mapView!!.findViewWithTag<View>(GOOGLEMAP_TOOLBAR)
+        toolbar?.let { moveView(it, left, top, right, bottom, horizontal, vertical) }
+    }
+
+    private fun moveZoomControls(
+        mapView: View?,
+        left: Int,
+        top: Int,
+        right: Int,
+        bottom: Int,
+        horizontal: Boolean,
+        vertical: Boolean
+    ) {
+        assert(mapView != null)
+        val zoomIn = mapView!!.findViewWithTag<View>(GOOGLEMAP_ZOOMIN_BUTTON)
+
+        // we need the parent view of the zoomin/zoomout buttons - it didn't have a tag
+        // so we must get the parent reference of one of the zoom buttons
+        val zoomInOut = zoomIn.parent as View
+        moveView(zoomInOut, left, top, right, bottom, horizontal, vertical)
+    }
+
+    private fun searchLocation(){
+
+//        locationSearch = findViewById(R.id.et_search)
         val location: String = locationSearch.text.toString().trim()
         var addressList: List<Address>? = null
-        val searchBtn: Button = findViewById(R.id.search)
 
         if (location == ""){
             Toast.makeText(this, "provide location", Toast.LENGTH_SHORT).show()
@@ -147,44 +291,66 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
             }
 
             val address = addressList!![0]
-//            Toast.makeText(this, address.toString(), Toast.LENGTH_SHORT).show()
             val latLng = LatLng(address.latitude, address.longitude)
 
+            markerOnMap = MarkerOptions().position(latLng).title(location)
 
-            saveDataToFirebase(address, location)
-
-            mMap!!.addMarker(MarkerOptions().position(latLng).title(location))
+            mMap!!.addMarker(markerOnMap!!)
             mMap!!.animateCamera(CameraUpdateFactory.newLatLng(latLng))
         }
     }
 
     override fun onMapClick(p0: LatLng) {
-        Toast.makeText(this, "Hello", Toast.LENGTH_SHORT).show()
+        TODO("Not yet implemented")
     }
 
 
+    private fun savePlaceToFB(){
+
+        val locationSearch: EditText = findViewById(R.id.et_search)
+        val location: String = locationSearch.text.toString().trim()
+        var addressList: List<Address>? = null
+
+        if (location == ""){
+            Toast.makeText(this, "provide location", Toast.LENGTH_SHORT).show()
+        }else{
+            val geoCoder = Geocoder(this)
+            try {
+                addressList = geoCoder.getFromLocationName(location, 1)
+            }catch (e: IOException){
+                e.printStackTrace()
+            }
+
+            val address = addressList!![0]
+
+            saveDataToFirebase(address, location)
+        }
+
+    }
+
+
+
+    //Saving data to Firebase
     private fun saveDataToFirebase(address: Address, location: String){
 
         auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid
 
-//        Toast.makeText(this, address.getAddressLine(0).toString(), Toast.LENGTH_SHORT).show()
-
         val addressLine: String = address.getAddressLine(0)
         val placeName: String = location
-        val longitude: String = address.longitude.toString()
-        val latitude: String = address.latitude.toString()
+        val longitude: Double = address.longitude
+        val latitude: Double = address.latitude
+
 
         if (uid!= null){
 
             database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
             val key: String? = database.push().key
             val action = PlacesData(addressLine, placeName, longitude, latitude)
-
             database.child("Places//$key").setValue(action).addOnCompleteListener{
                 if(it.isSuccessful){
 
-//                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
 
                 }else{
 
@@ -194,6 +360,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
             }
 
         }
+//        }
 
     }
+
 }

@@ -1,42 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MapsActivity">
 
+
     <fragment
-        android:id="@+id/myMap"
+        android:id="@+id/myMaps"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:name="com.google.android.gms.maps.SupportMapFragment">
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_round"
             android:orientation="horizontal">
 
-                <EditText
-                    android:id="@+id/et_search"
-                    android:layout_width="0dp"
-                    android:layout_height="50dp"
-                    android:layout_weight="1"
-                    android:hint="Search Location"
-                    android:textColor="@color/white"
-                    android:inputType="textPersonName"/>
 
-                <Button
-                    android:id="@+id/search"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:textColor="@color/white"
-                    android:onClick="searchLocation"
-                    android:text="Search"/>
+            <EditText
+                android:id="@+id/et_search"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="15dp"
+                android:backgroundTint="@android:color/transparent"
+                android:hint="@string/search_location"
+                android:inputType="textPersonName"
+                android:textColor="@color/black" />
+
+            <ImageButton
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginRight="15dp"
+                android:background="@null"
+                app:srcCompat="@drawable/ic_magnify" />
 
         </LinearLayout>
 
     </fragment>
 
+    <Button
+        android:id="@+id/savePlaceBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="bottom|center"
+        android:textColor="@color/white"
+        android:text="@string/add" />
 
-</RelativeLayout>
+</FrameLayout>

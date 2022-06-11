@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RemLoc</string>
+
+    <string name="sign_in_with_google">Войти через Google</string>
+    <string name="places">Места</string>
+    <string name="actions">Действия</string>
+    <string name="game_miejska">Игра Miejska</string>
+    <string name="settings">Настройки</string>
+    <string name="help_and_feedback">Помощь и обратная связь</string>
+    <string name="profile">Профиль</string>
+    <string name="logout">Выйти</string>
+    <string name="open">Открыть</string>
+    <string name="close">Закрыть</string>
+
+    <string name="add">Добавить</string>
+    <string name="search_location">Найти место</string>
+    <string name="enter_phone_number">Введите номер телефона</string>
+    <string name="select_contact">Выберите контакт:</string>
+    <string name="enter_your_text_message">Введите ваше текстовое сообщение</string>
+    <string name="select_place">Выберите место:</string>
+    <string name="save_action">Сохранить действие</string>
+    <string name="place_name">Название места</string>
+    <string name="sms_text">Текст смс</string>
+    <string name="coordinates">Координаты</string>
+    <string name="remove_action">Удалить действие</string>
+    <string name="edit_sms_text">Редактировать текст смс</string>
+    <string name="edit_phone_number">Изменить номер телефона</string>
+    <string name="change_place">Изменить место:</string>
+    <string name="save_changes">Сохранить изменения</string>
+    <string name="address">Адрес</string>
+    <string name="remove_place">Удалить место</string>
+    <string name="edit_place_name">Изменить название места</string>
+    <string name="coming_soon">Вскоре</string>
+    <string name="help_feedback">Помощь, обратная связь</string>
+    <string name="username">Имя пользователя</string>
+    <string name="email">Эл. почта</string>
+    <string name="home">Дом</string>
+    <string name="serbska_17_61_696_pozna_poland">Serbska 17, 61–696 Познань, Польша</string>
+
+    <string name="change_language">Изменить язык</string>
+    <string name="edit_action">Изменить действие</string>
+    <string name="edit_place">Изменить место</string>
+    <string name="add_action">Добавить действие</string>
+    <string name="choose_language">Выберите язык:</string>
+    <string name="choose_place">Выберите место:</string>
+    <string name="choose_contact">Выберите контакт:</string>
+    <string name="already_selected">Язык уже выбран</string>
+</resources>

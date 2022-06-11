@@ -9,8 +9,10 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import com.example.remloc1.HomeActivity
 import com.example.remloc1.HomeFragments.PlacesFragment
+import com.example.remloc1.R
 import com.example.remloc1.databinding.FragmentEditPlaceBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -75,16 +77,21 @@ class EditPlaceFragment(val key: String) : Fragment() {
             database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
             database.child("Places//$key").removeValue()
 
-            (activity as HomeActivity?)!!.replaceFragment(PlacesFragment(), "Places")
+            (activity as HomeActivity?)!!.replaceFragment(PlacesFragment(), getString(R.string.places))
 
         }
 
         saveChangesBtn.setOnClickListener{
 
-            database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
-            database.child("Places//$key//placeName").setValue(placeName.text.toString())
+            if (placeName.text.toString()!=""){
 
-            (activity as HomeActivity?)!!.replaceFragment(PlacesFragment(), "Places")
+                database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
+                database.child("Places//$key//placeName").setValue(placeName.text.toString())
+
+            }
+
+            Toast.makeText(activity, "Successfully changed!", Toast.LENGTH_SHORT).show()
+            (activity as HomeActivity?)!!.replaceFragment(PlacesFragment(), getString(R.string.places))
 
         }
 

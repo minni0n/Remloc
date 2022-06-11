@@ -11,8 +11,7 @@ android:orientation="vertical">
         android:layout_marginTop="20dp"
         android:layout_marginLeft="5dp"
         android:textSize="30sp"
-        android:textColor="@color/black"
-        android:text="Place Name"
+        android:text="@string/place_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
@@ -21,8 +20,7 @@ android:orientation="vertical">
         android:layout_marginTop="20dp"
         android:layout_marginLeft="5dp"
         android:textSize="20sp"
-        android:textColor="@color/black"
-        android:text="Sms Text"
+        android:text="@string/sms_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -31,8 +29,7 @@ android:orientation="vertical">
         android:layout_marginTop="20dp"
         android:textSize="20sp"
         android:layout_marginLeft="5dp"
-        android:textColor="@color/black"
-        android:text="Coordinates"
+        android:text="@string/coordinates"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
@@ -43,7 +40,7 @@ android:orientation="vertical">
         android:layout_marginLeft="5dp"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:text="Remove Action" />
+        android:text="@string/remove_action" />
 
     <EditText
         android:id="@+id/smsTextEdit"
@@ -51,7 +48,7 @@ android:orientation="vertical">
         android:layout_marginLeft="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Edit action sms text"
+        android:hint="@string/edit_sms_text"
         android:textColor="@android:color/black" />
 
     <EditText
@@ -60,7 +57,7 @@ android:orientation="vertical">
         android:layout_marginLeft="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Edit action phone number"
+        android:hint="@string/edit_phone_number"
         android:textColor="@android:color/black" />
 
     <LinearLayout
@@ -72,8 +69,8 @@ android:orientation="vertical">
             android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Change place: "/>
+            android:textSize="20sp"
+            android:text="@string/change_place"/>
 
         <Spinner
             android:id="@+id/placesSpinner"
@@ -89,6 +86,6 @@ android:orientation="vertical">
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:text="Save changes" />
+        android:text="@string/save_changes" />
 
 </LinearLayout>

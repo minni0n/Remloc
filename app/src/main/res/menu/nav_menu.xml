@@ -9,38 +9,38 @@
         <item
             android:id="@+id/nav_places"
             android:icon="@drawable/ic_baseline_home_work_24"
-            android:title="Miejsca"/>
+            android:title="@string/places"/>
 
         <item
             android:id="@+id/nav_actions"
             android:icon="@drawable/ic_baseline_view_list_24"
-            android:title="Akcje"/>
+            android:title="@string/actions"/>
 
         <item
             android:id="@+id/nav_game_miejska"
             android:icon="@drawable/ic_baseline_place_24"
-            android:title="Gra miejska"/>
+            android:title="@string/game_miejska"/>
 
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_baseline_settings_24"
-            android:title="Ustawienia"/>
+            android:title="@string/settings"/>
 
         <item
             android:id="@+id/nav_help_review"
             android:icon="@drawable/ic_baseline_help_24"
-            android:title="Pomoc i opinie"/>
+            android:title="@string/help_and_feedback"/>
 
     </group>
 
-        <item android:title="Profile">
+        <item android:title="@string/profile">
             <menu>
                 <group android:checkableBehavior="single">
 
                     <item
                         android:id="@+id/nav_logout"
                         android:icon="@drawable/ic_baseline_logout_24"
-                        android:title="Logout"/>
+                        android:title="@string/logout"/>
 
                 </group>
 

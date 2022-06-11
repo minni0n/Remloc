@@ -11,14 +11,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
-        android:hint="Enter mobile number"
+        android:inputType="phone"
+        android:hint="@string/enter_phone_number"
         android:textColor="@android:color/black" />
+    <LinearLayout
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginLeft="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/select_contact"/>
+
+        <Spinner
+            android:id="@+id/contacts_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
     <EditText
         android:id="@+id/smsText"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter your message"
+        android:hint="@string/enter_your_text_message"
         android:textColor="@android:color/black" />
 
     <LinearLayout
@@ -30,8 +49,8 @@
             android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            android:text="Select place: "/>
+            android:textSize="20sp"
+            android:text="@string/select_place"/>
 
         <Spinner
             android:id="@+id/places_spinner"
@@ -46,7 +65,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
-        android:text="Save action" />
+        android:text="@string/save_action" />
 
 
 </LinearLayout>
