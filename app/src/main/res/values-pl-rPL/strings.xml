@@ -44,7 +44,9 @@
     <string name="edit_place">Edytuj miejsce</string>
     <string name="add_action">Dodaj akcję</string>
     <string name="choose_language">Wybierz język:</string>
-    <string name="choose_place">Wybierz miejsce:</string>
+    <string name="choose_place">Wybierz miejsce</string>
     <string name="choose_contact">Wybierz kontakt:</string>
     <string name="already_selected">Język już wybrany</string>
+    <string name="provide_label">Wpisz tytuł</string>
+    <string name="place">Miejsce</string>
 </resources>

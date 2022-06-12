@@ -3,6 +3,7 @@ package com.example.remloc1
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
@@ -13,6 +14,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.example.remloc1.Data.PlacesData
@@ -31,7 +33,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_map.*
 import kotlinx.android.synthetic.main.activity_maps.*
 import java.io.IOException
 
@@ -90,14 +91,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
         searchBtn.setOnClickListener {
 
-//            locationSearch.clearFocus()
-//            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
             searchLocation()
-
         }
 
         saveBtn.setOnClickListener {
-            savePlaceToFB()
+            showChooseNameDialog()
         }
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.myMaps) as SupportMapFragment
@@ -305,7 +303,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
     }
 
 
-    private fun savePlaceToFB(){
+    private fun savePlaceToFB(labelName:String){
 
         val locationSearch: EditText = findViewById(R.id.et_search)
         val location: String = locationSearch.text.toString().trim()
@@ -323,11 +321,75 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
             val address = addressList!![0]
 
-            saveDataToFirebase(address, location)
+            //Get label from sharedPref
+            val sp: SharedPreferences = getSharedPreferences("Label", MODE_PRIVATE)
+            val defaultLabel = sp.getInt("myLabel", -1)
+            //
+
+            //Save label to SharedPref
+            val edit: SharedPreferences.Editor
+            val sp1: SharedPreferences = getSharedPreferences("Label", MODE_PRIVATE)
+            edit = sp1.edit()
+            edit.putInt("myLabel", defaultLabel+1)
+            edit.apply()
+            //
+
+            saveDataToFirebase(address, labelName)
         }
 
     }
 
+
+    @SuppressLint("SetTextI18n")
+    private fun showChooseNameDialog(){
+
+        //Get label from sharedPref
+        val sp: SharedPreferences = getSharedPreferences("Label", MODE_PRIVATE)
+        val defaultLabel = sp.getInt("myLabel", -1)
+        //
+
+        val builder = AlertDialog.Builder(this)
+        val alert = builder.create()
+        val inflater = layoutInflater
+        val dialogLayout = inflater.inflate(R.layout.provide_label_layout, null)
+
+        val label = dialogLayout.findViewById<EditText>(R.id.provideLabel)
+        val checkBox = dialogLayout.findViewById<CheckBox>(R.id.checkBox)
+
+        checkBox.setOnCheckedChangeListener { _, isChecked  ->
+
+            if(isChecked){
+                val string = getString(R.string.place)
+                label.isEnabled = false
+                label.setText("$string $defaultLabel")
+            }else{
+                label.isEnabled = true
+                label.setText("")
+                label.hint = getString(R.string.provide_label)
+            }
+        }
+
+        with(alert){
+
+            val btnOk = dialogLayout.findViewById<Button>(R.id.buttonOk)
+            val btnCancel = dialogLayout.findViewById<Button>(R.id.buttonCancel)
+
+            btnOk.setOnClickListener {
+
+                savePlaceToFB(label.text.toString())
+                cancel()
+            }
+
+            btnCancel.setOnClickListener {
+
+                Log.d("Main","Negative button clicked")
+                cancel()
+            }
+
+            setView(dialogLayout)
+            show()
+        }
+    }
 
 
     //Saving data to Firebase

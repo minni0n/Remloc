@@ -69,6 +69,18 @@ class HomeActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
+        val sp2: SharedPreferences = getSharedPreferences("LastFragment", MODE_PRIVATE)
+        val index = sp2.getInt("LastFr", -1)
+
+
+//        val fragments = arrayListOf<Fragment>(
+//            R.id.nav_places,
+//            R.id.nav_actions,
+//            R.id.nav_game_miejska,
+//            R.id.nav_settings,
+//            R.id.nav_help_review
+//        )
+
 
         replaceFragment(ActionsFragment(), getString(R.string.actions))
 

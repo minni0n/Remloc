@@ -43,7 +43,9 @@
     <string name="edit_place">Редагувати місце</string>
     <string name="add_action">Додати дію</string>
     <string name="choose_language">Оберіть мову:</string>
-    <string name="choose_place">Оберіть місце:</string>
+    <string name="choose_place">Оберіть місце</string>
     <string name="choose_contact">Оберіть контакт:</string>
     <string name="already_selected">Мова вже вибрана</string>
+    <string name="provide_label">Введіть назву</string>
+    <string name="place">Місце</string>
 </resources>

@@ -39,7 +39,6 @@ android:orientation="vertical">
         android:layout_marginTop="20dp"
         android:layout_marginLeft="5dp"
         android:layout_height="wrap_content"
-        android:textColor="@color/black"
         android:text="@string/remove_action" />
 
     <EditText

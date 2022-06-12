@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@null">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/bg_round_popup_back">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="-4dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/bg_round_label_back">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:textSize="20sp"
+                android:text="Label"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:textSize="20sp"
+                android:text=""/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="5dp"
+            android:background="@drawable/bg_round_provide_label">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/provide_label"
+                android:backgroundTint="@android:color/transparent"
+                android:id="@+id/provideLabel"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+
+        <CheckBox
+            android:id="@+id/checkBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Use the default value" />
+
+       <LinearLayout
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:layout_marginBottom="20dp"
+           android:orientation="horizontal">
+
+           <Button
+               android:id="@+id/buttonCancel"
+               app:backgroundTint="@null"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginRight="40dp"
+               android:textSize="13sp"
+               android:text="Cancel"
+               android:layout_gravity="center"
+               android:background="@drawable/bg_round_btn_back"/>
+
+           <Button
+               android:id="@+id/buttonOk"
+               app:backgroundTint="@null"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:textSize="13sp"
+               android:layout_gravity="center"
+               android:text="Ok"
+               android:background="@drawable/bg_round_btn_back"/>
+
+       </LinearLayout>
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
