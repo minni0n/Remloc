@@ -321,18 +321,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
             val address = addressList!![0]
 
-            //Get label from sharedPref
-            val sp: SharedPreferences = getSharedPreferences("Label", MODE_PRIVATE)
-            val defaultLabel = sp.getInt("myLabel", -1)
-            //
-
-            //Save label to SharedPref
-            val edit: SharedPreferences.Editor
-            val sp1: SharedPreferences = getSharedPreferences("Label", MODE_PRIVATE)
-            edit = sp1.edit()
-            edit.putInt("myLabel", defaultLabel+1)
-            edit.apply()
-            //
+//            //Get label from sharedPref
+//            val sp: SharedPreferences = getSharedPreferences("Label", MODE_PRIVATE)
+//            val defaultLabel = sp.getInt("myLabel", -1)
+//            //
+//
+//            //Save label to SharedPref
+//            val edit: SharedPreferences.Editor
+//            val sp1: SharedPreferences = getSharedPreferences("Label", MODE_PRIVATE)
+//            edit = sp1.edit()
+//            edit.putInt("myLabel", defaultLabel+1)
+//            edit.apply()
+//            //
 
             saveDataToFirebase(address, labelName)
         }
@@ -340,13 +340,41 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
     }
 
 
+    private fun countPlaces(): String {
+        var counter = 0
+        auth = FirebaseAuth.getInstance()
+        val uid = auth.currentUser?.uid
+
+        if (uid != null) {
+
+            database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
+            database.child("Places").get().addOnSuccessListener {
+                if(it.exists()) {
+                    it.children.forEach { placeInfo ->
+                        val id = placeInfo.key
+
+                        counter += 1
+
+
+
+                    }
+                }
+            }
+        }
+        Toast.makeText(this, counter.toString(), Toast.LENGTH_SHORT).show()
+        return counter.toString()
+    }
+
+
     @SuppressLint("SetTextI18n")
     private fun showChooseNameDialog(){
 
-        //Get label from sharedPref
-        val sp: SharedPreferences = getSharedPreferences("Label", MODE_PRIVATE)
-        val defaultLabel = sp.getInt("myLabel", -1)
-        //
+//        //Get label from sharedPref
+//        val sp: SharedPreferences = getSharedPreferences("Label", MODE_PRIVATE)
+//        val defaultLabel = sp.getInt("myLabel", -1)
+//        //
+
+        val number = countPlaces()
 
         val builder = AlertDialog.Builder(this)
         val alert = builder.create()
@@ -361,7 +389,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
             if(isChecked){
                 val string = getString(R.string.place)
                 label.isEnabled = false
-                label.setText("$string $defaultLabel")
+                label.setText("$string ${countPlaces()}")
             }else{
                 label.isEnabled = true
                 label.setText("")

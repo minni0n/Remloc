@@ -46,7 +46,7 @@ class HomeActivity : AppCompatActivity() {
 
 
         val sp: SharedPreferences = getSharedPreferences("Language", MODE_PRIVATE)
-        val lang = sp.getString("My_Lang", null)
+        val lang = sp.getString("My_Lang", "en")
 
         if (lang != null) {
             currentLang = lang

@@ -27,11 +27,11 @@ class PlacesFragment : Fragment() {
     private lateinit var binding : FragmentPlacesBinding
     private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
-    private lateinit var placeNameArray: MutableList<String>
-    private lateinit var addressLineArray: MutableList<String>
-    private lateinit var longitudeArray: MutableList<Double>
-    private lateinit var latitudeArray: MutableList<Double>
-    private lateinit var keys: MutableList<String>
+    private lateinit var placeNameArray: ArrayList<String>
+    private lateinit var addressLineArray: ArrayList<String>
+    private lateinit var longitudeArray: ArrayList<Double>
+    private lateinit var latitudeArray: ArrayList<Double>
+    private lateinit var keys: ArrayList<String>
     private lateinit var data: ArrayList<PlacesData>
 
 
@@ -46,31 +46,16 @@ class PlacesFragment : Fragment() {
         val listOfPlaces: ListView = binding.listOfPlaces
 
         data = arrayListOf(PlacesData("addressLineArray", "placeNameArray", 0.0, 0.0))
-        placeNameArray = mutableListOf("")
-        addressLineArray = mutableListOf("")
-        longitudeArray = mutableListOf(0.0)
-        latitudeArray = mutableListOf(0.0)
-        keys = mutableListOf("")
-        placeNameArray.clear()
-        addressLineArray.clear()
-        longitudeArray.clear()
-        latitudeArray.clear()
-        keys.clear()
 
 
-        data.add(PlacesData("addressLineArray", "placeNameArray", 0.0, 0.0))
+        placeNameArray = ArrayList()
+        addressLineArray = ArrayList()
+        longitudeArray = ArrayList()
+        latitudeArray = ArrayList()
+        keys = ArrayList()
+
+
         readData()
-//        Toast.makeText(activity, placeNameArray.indices.toString(), Toast.LENGTH_SHORT).show()
-
-        for (i in placeNameArray.indices){
-
-            val place = PlacesData(addressLineArray[i], placeNameArray[i], longitudeArray[i], latitudeArray[i])
-
-
-            data.add(place)
-        }
-
-        Toast.makeText(activity, data.indices.toString(), Toast.LENGTH_LONG).show()
 
         val arrayAdapter: ArrayAdapter<String>? = activity?.let {
             ArrayAdapter(
@@ -79,10 +64,6 @@ class PlacesFragment : Fragment() {
         }
 
         listOfPlaces.adapter = arrayAdapter
-
-        ///
-
-
 
 
 //        listOfPlaces.adapter = activity?.let { PlaceAdapter(it, data!!) }
@@ -130,9 +111,9 @@ class PlacesFragment : Fragment() {
                         latitudeArray.add(latitude as Double)
                         binding.listOfPlaces.invalidateViews()
 
-//                        val place = PlacesData(addressLine, placeName, longitude as Double?, latitude as Double?)
-//
-//                        data.add(place)
+                        val place = PlacesData(addressLine, placeName, longitude as Double?, latitude as Double?)
+
+                        data.add(place)
 
                     }
                 }
