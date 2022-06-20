@@ -1,18 +1,17 @@
 package com.example.remloc1.AddDataFragment
 
-import android.Manifest
+
 import android.annotation.SuppressLint
-import android.content.Context
-import android.content.pm.PackageManager
-import android.database.Cursor
-import android.os.Build
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
 import com.example.remloc1.Data.ActionsData
+import com.example.remloc1.Data.ContactDTO
 import com.example.remloc1.HomeActivity
 import com.example.remloc1.HomeFragments.ActionsFragment
 import com.example.remloc1.R
@@ -22,7 +21,8 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 
-class AddActionFragment : Fragment() {
+
+class AddActionFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
     private lateinit var binding : FragmentAddActionBinding
     private lateinit var database : DatabaseReference
@@ -32,6 +32,7 @@ class AddActionFragment : Fragment() {
     private lateinit var placeName: Spinner
     private lateinit var button: Button
     private lateinit var spinnerPlaces: Spinner
+    private lateinit var spinnerContacts: Spinner
     private lateinit var places: MutableList<String>
     private lateinit var contacts: MutableList<String>
 
@@ -48,13 +49,15 @@ class AddActionFragment : Fragment() {
         binding = FragmentAddActionBinding.inflate(layoutInflater)
 
         places = mutableListOf(getString(R.string.choose_place))
-        contacts = mutableListOf(getString(R.string.choose_place))
+        contacts = mutableListOf("Choose contact")
 //        places.clear()
 
 
         spinnerPlaces = binding.placesSpinner
+        spinnerContacts = binding.contactsSpinner
 
         readData()
+        contacts = (activity as HomeActivity?)!!.readContacts()
 //        contacts = mutableListOf((activity as HomeActivity?)!!.readContacts())
 
         val adapter1: ArrayAdapter<String>? = activity?.let {
@@ -64,10 +67,21 @@ class AddActionFragment : Fragment() {
             )
         }
 
+        val adapter2: ArrayAdapter<String>? = activity?.let {
+            ArrayAdapter<String>(
+                it,
+                android.R.layout.simple_spinner_item, contacts
+            )
+        }
+
+
+
 
 
 
         spinnerPlaces.adapter = adapter1
+        spinnerContacts.adapter = adapter2
+
 
         button = binding.btnSaveAction
         auth = FirebaseAuth.getInstance()
@@ -147,6 +161,13 @@ class AddActionFragment : Fragment() {
 
     }
 
+    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onNothingSelected(p0: AdapterView<*>?) {
+        TODO("Not yet implemented")
+    }
 
 
 }

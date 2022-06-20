@@ -1,5 +1,6 @@
 package com.example.remloc1
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
+import com.example.remloc1.Data.ContactDTO
 import com.example.remloc1.HomeFragments.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -39,6 +41,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var locale: Locale
     private var currentLanguage = "en"
     private var currentLang: String? = null
+    private val contactsList: MutableList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -216,6 +219,37 @@ class HomeActivity : AppCompatActivity() {
         startActivity(intent)
         finish()
         exitProcess(0)
+    }
+
+    @SuppressLint("Range")
+    fun readContacts(): MutableList<String> {
+        val contacts = contentResolver.query(
+            ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+            null,
+            null,
+            null,
+            null
+        )
+
+//        var allContacts = ""
+        while (contacts?.moveToNext()!!) {
+            val name =
+                contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
+            val number =
+                contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
+            var objDTO = ContactDTO()
+            objDTO.name = name
+            objDTO.number = number
+//            allContacts += "$name $number\n"
+
+//            contactsList.add(objDTO)
+            contactsList.add("$number - $name")
+
+        }
+
+        contacts.close()
+
+        return contactsList
     }
 
 
