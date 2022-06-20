@@ -300,8 +300,32 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
     override fun onMapClick(p0: LatLng) {
         TODO("Not yet implemented")
+
     }
 
+    private fun distance(currentLatLng: LatLng, placeLatLng: LatLng){
+        val theta = currentLatLng.longitude - placeLatLng.longitude
+        var dist = Math.sin(deg2rad(currentLatLng.latitude)) * Math.sin(deg2rad(placeLatLng.latitude)) + Math.cos(deg2rad(currentLatLng.latitude)) * Math.cos(deg2rad(placeLatLng.latitude)) * Math.cos(deg2rad(theta))
+        dist = Math.acos(dist)
+        dist = rad2deg(dist)
+        dist = dist * 60 * 1.1515
+        dist = dist * 1.609344
+        dist = dist * 1000 // distance in meters
+        Toast.makeText(this, "$dist m", Toast.LENGTH_SHORT).show()
+
+        if (dist <= 100) {
+            Toast.makeText(this, "$dist m", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+
+    private fun deg2rad(deg: Double): Double {
+        return deg * Math.PI / 180.0
+    }
+
+    private fun rad2deg(rad: Double): Double {
+        return rad * 180.0 / Math.PI
+    }
 
     private fun savePlaceToFB(labelName:String){
 
