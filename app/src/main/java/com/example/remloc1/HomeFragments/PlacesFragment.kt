@@ -32,7 +32,7 @@ class PlacesFragment : Fragment() {
     private lateinit var longitudeArray: ArrayList<Double>
     private lateinit var latitudeArray: ArrayList<Double>
     private lateinit var keys: ArrayList<String>
-    private lateinit var data: ArrayList<PlacesData>
+//    private lateinit var data: ArrayList<PlacesData>
 
 
     override fun onCreateView(
@@ -45,8 +45,7 @@ class PlacesFragment : Fragment() {
 
         val listOfPlaces: ListView = binding.listOfPlaces
 
-        data = arrayListOf(PlacesData("addressLineArray", "placeNameArray", 0.0, 0.0))
-
+        var data: ArrayList<PlacesData> = ArrayList()
 
         placeNameArray = ArrayList()
         addressLineArray = ArrayList()
@@ -55,21 +54,13 @@ class PlacesFragment : Fragment() {
         keys = ArrayList()
 
 
-        readData()
-
-        val arrayAdapter: ArrayAdapter<String>? = activity?.let {
-            ArrayAdapter(
-                it, android.R.layout.simple_list_item_1, placeNameArray
-            )
-        }
-
-        listOfPlaces.adapter = arrayAdapter
+        data = readData()
 
 
-//        listOfPlaces.adapter = activity?.let { PlaceAdapter(it, data!!) }
+        listOfPlaces.adapter = activity?.let { PlaceAdapter(it, data) }
 
         binding.listOfPlaces.setOnItemClickListener { _: AdapterView<*>, _: View, i: Int, _: Long ->
-//            Toast.makeText(activity,  places[i], Toast.LENGTH_SHORT).show()
+
             (activity as HomeActivity?)!!.replaceFragment(EditPlaceFragment(keys[i]), getString(R.string.edit_place))
         }
 
@@ -82,9 +73,11 @@ class PlacesFragment : Fragment() {
     }
 
 
-    private fun readData(){
+    private fun readData(): ArrayList<PlacesData> {
         auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid
+
+        val dataNow: ArrayList<PlacesData> = ArrayList()
 
         if (uid != null) {
 
@@ -113,7 +106,7 @@ class PlacesFragment : Fragment() {
 
                         val place = PlacesData(addressLine, placeName, longitude as Double?, latitude as Double?)
 
-                        data.add(place)
+                        dataNow.add(place)
 
                     }
                 }
@@ -122,6 +115,8 @@ class PlacesFragment : Fragment() {
                 Toast.makeText(activity, "Failed",Toast.LENGTH_SHORT).show()
             }
         }
+
+        return dataNow
 
     }
 }

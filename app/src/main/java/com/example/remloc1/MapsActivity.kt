@@ -3,7 +3,7 @@ package com.example.remloc1
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
-import android.content.SharedPreferences
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
 import android.location.Geocoder
@@ -47,9 +47,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
     private val GOOGLEMAP_ZOOMIN_BUTTON = "GoogleMapZoomInButton" // [2]child[0]
 
-    private val GOOGLEMAP_ZOOMOUT_BUTTON = "GoogleMapZoomOutButton" // [2]child[1]
-
-    private val GOOGLEMAP_MYLOCATION_BUTTON = "GoogleMapMyLocationButton" // [0]
 
 
     private lateinit var auth: FirebaseAuth
@@ -65,6 +62,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
     private lateinit var searchBtn: ImageButton
     private lateinit var saveBtn: Button
     private lateinit var mapView: View
+    private var searchActive: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -84,18 +82,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
 
 
-
         currentLocationLatLng?.let { it-> CameraUpdateFactory.newLatLng(it) }
             ?.let { mMap!!.animateCamera(it) }
 
+        saveBtn.isEnabled = searchActive
 
         searchBtn.setOnClickListener {
 
             searchLocation()
+            saveBtn.isEnabled = searchActive
         }
 
         saveBtn.setOnClickListener {
-            showChooseNameDialog()
+
+            showChooseNameDialog(locationSearch.text.toString())
         }
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.myMaps) as SupportMapFragment
@@ -272,14 +272,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
         moveView(zoomInOut, left, top, right, bottom, horizontal, vertical)
     }
 
-    private fun searchLocation(){
+    private fun searchLocation() {
 
-//        locationSearch = findViewById(R.id.et_search)
-        val location: String = locationSearch.text.toString().trim()
+
+        val location: String = this.locationSearch.text.toString().trim()
         var addressList: List<Address>? = null
 
         if (location == ""){
-            Toast.makeText(this, "provide location", Toast.LENGTH_SHORT).show()
+            searchActive = false
+//            Toast.makeText(this, "provide location", Toast.LENGTH_SHORT).show()
         }else{
             val geoCoder = Geocoder(this)
             try {
@@ -292,6 +293,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
             val latLng = LatLng(address.latitude, address.longitude)
 
             markerOnMap = MarkerOptions().position(latLng).title(location)
+
+            searchActive = true
 
             mMap!!.addMarker(markerOnMap!!)
             mMap!!.animateCamera(CameraUpdateFactory.newLatLng(latLng))
@@ -310,7 +313,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
         var addressList: List<Address>? = null
 
         if (location == ""){
-            Toast.makeText(this, "provide location", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(this, "provide location", Toast.LENGTH_SHORT).show()
         }else{
             val geoCoder = Geocoder(this)
             try {
@@ -321,18 +324,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
             val address = addressList!![0]
 
-//            //Get label from sharedPref
-//            val sp: SharedPreferences = getSharedPreferences("Label", MODE_PRIVATE)
-//            val defaultLabel = sp.getInt("myLabel", -1)
-//            //
-//
-//            //Save label to SharedPref
-//            val edit: SharedPreferences.Editor
-//            val sp1: SharedPreferences = getSharedPreferences("Label", MODE_PRIVATE)
-//            edit = sp1.edit()
-//            edit.putInt("myLabel", defaultLabel+1)
-//            edit.apply()
-//            //
 
             saveDataToFirebase(address, labelName)
         }
@@ -367,14 +358,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
 
     @SuppressLint("SetTextI18n")
-    private fun showChooseNameDialog(){
+    private fun showChooseNameDialog(locationSearch: String) {
 
 //        //Get label from sharedPref
 //        val sp: SharedPreferences = getSharedPreferences("Label", MODE_PRIVATE)
 //        val defaultLabel = sp.getInt("myLabel", -1)
 //        //
-
-        val number = countPlaces()
 
         val builder = AlertDialog.Builder(this)
         val alert = builder.create()
@@ -387,9 +376,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
         checkBox.setOnCheckedChangeListener { _, isChecked  ->
 
             if(isChecked){
-                val string = getString(R.string.place)
                 label.isEnabled = false
-                label.setText("$string ${countPlaces()}")
+                label.setText(locationSearch)
             }else{
                 label.isEnabled = true
                 label.setText("")
@@ -404,8 +392,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
             btnOk.setOnClickListener {
 
-                savePlaceToFB(label.text.toString())
+                savePlaceToFB(locationSearch)
                 cancel()
+                val intent = Intent(this@MapsActivity, MapActivity::class.java)
+                startActivity(intent)
             }
 
             btnCancel.setOnClickListener {

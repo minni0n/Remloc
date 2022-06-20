@@ -95,8 +95,12 @@ class HomeActivity : AppCompatActivity() {
 
             it.isChecked = true
 
+            val intent = Intent(this, MapActivity::class.java)
+
+
             when(it.itemId){
-                R.id.nav_places -> replaceFragment(PlacesFragment(), it.title.toString())
+                R.id.nav_places ->startActivity(intent)
+//                R.id.nav_places -> replaceFragment(PlacesFragment(), it.title.toString())
                 R.id.nav_actions -> replaceFragment(ActionsFragment(), it.title.toString())
                 R.id.nav_game_miejska -> replaceFragment(GameMiejskaFragment(), it.title.toString())
                 R.id.nav_settings -> replaceFragment(SettingsFragment(), it.title.toString())
@@ -208,8 +212,8 @@ class HomeActivity : AppCompatActivity() {
             edit.apply()
 
         } else {
-            Toast.makeText(
-                this@HomeActivity, getString(R.string.already_selected), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(
+//                this@HomeActivity, getString(R.string.already_selected), Toast.LENGTH_SHORT).show();
         }
     }
     override fun onBackPressed() {
