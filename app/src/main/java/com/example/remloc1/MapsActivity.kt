@@ -95,7 +95,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
         }
 
         saveBtn.setOnClickListener {
-            showChooseNameDialog()
+            showChooseNameDialog(locationSearch.text.toString())
         }
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.myMaps) as SupportMapFragment
@@ -321,19 +321,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
             val address = addressList!![0]
 
-//            //Get label from sharedPref
-//            val sp: SharedPreferences = getSharedPreferences("Label", MODE_PRIVATE)
-//            val defaultLabel = sp.getInt("myLabel", -1)
-//            //
-//
-//            //Save label to SharedPref
-//            val edit: SharedPreferences.Editor
-//            val sp1: SharedPreferences = getSharedPreferences("Label", MODE_PRIVATE)
-//            edit = sp1.edit()
-//            edit.putInt("myLabel", defaultLabel+1)
-//            edit.apply()
-//            //
-
             saveDataToFirebase(address, labelName)
         }
 
@@ -367,7 +354,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
 
     @SuppressLint("SetTextI18n")
-    private fun showChooseNameDialog(){
+    private fun showChooseNameDialog(locationSearch: String){
 
 //        //Get label from sharedPref
 //        val sp: SharedPreferences = getSharedPreferences("Label", MODE_PRIVATE)
@@ -375,7 +362,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 //        //
 
         val number = countPlaces()
-
+//        val location: String = locationSearch.text.toString().trim()
         val builder = AlertDialog.Builder(this)
         val alert = builder.create()
         val inflater = layoutInflater
@@ -387,9 +374,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
         checkBox.setOnCheckedChangeListener { _, isChecked  ->
 
             if(isChecked){
-                val string = getString(R.string.place)
                 label.isEnabled = false
-                label.setText("$string ${countPlaces()}")
+                label.setText(locationSearch)
             }else{
                 label.isEnabled = true
                 label.setText("")

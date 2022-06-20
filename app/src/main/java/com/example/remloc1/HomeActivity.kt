@@ -205,8 +205,8 @@ class HomeActivity : AppCompatActivity() {
             edit.apply()
 
         } else {
-            Toast.makeText(
-                this@HomeActivity, getString(R.string.already_selected), Toast.LENGTH_SHORT).show();
+//            Toast.makeText(
+//                this@HomeActivity, getString(R.string.already_selected), Toast.LENGTH_SHORT).show();
         }
     }
     override fun onBackPressed() {
