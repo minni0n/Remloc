@@ -1,7 +1,9 @@
 package com.example.remloc1.HomeFragments
 
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,7 +34,7 @@ class PlacesFragment : Fragment() {
     private lateinit var longitudeArray: ArrayList<Double>
     private lateinit var latitudeArray: ArrayList<Double>
     private lateinit var keys: ArrayList<String>
-    private lateinit var data: ArrayList<PlacesData>
+//    private lateinit var data: ArrayList<PlacesData>
 
 
     override fun onCreateView(
@@ -45,9 +47,14 @@ class PlacesFragment : Fragment() {
 
         val listOfPlaces: ListView = binding.listOfPlaces
 
-        data = arrayListOf(PlacesData("addressLineArray", "placeNameArray", 0.0, 0.0))
+//        data = arrayListOf(PlacesData("addressLineArray", "placeNameArray", 0.0, 0.0))
+
+        var data: ArrayList<PlacesData> = ArrayList()
 
 
+        data.add(PlacesData("addressLineArray", "placeNameArray", 0.0, 0.0))
+
+//        data = ArrayList()
         placeNameArray = ArrayList()
         addressLineArray = ArrayList()
         longitudeArray = ArrayList()
@@ -55,7 +62,9 @@ class PlacesFragment : Fragment() {
         keys = ArrayList()
 
 
-        readData()
+        data = readData()
+
+//        Toast.makeText(activity, data.toString(), Toast.LENGTH_LONG).show()
 
         val arrayAdapter: ArrayAdapter<String>? = activity?.let {
             ArrayAdapter(
@@ -63,10 +72,12 @@ class PlacesFragment : Fragment() {
             )
         }
 
-        listOfPlaces.adapter = arrayAdapter
 
 
-//        listOfPlaces.adapter = activity?.let { PlaceAdapter(it, data!!) }
+//        listOfPlaces.adapter = arrayAdapter
+
+
+        listOfPlaces.adapter = activity?.let { PlaceAdapter(it, data!!) }
 
         binding.listOfPlaces.setOnItemClickListener { _: AdapterView<*>, _: View, i: Int, _: Long ->
 //            Toast.makeText(activity,  places[i], Toast.LENGTH_SHORT).show()
@@ -82,9 +93,13 @@ class PlacesFragment : Fragment() {
     }
 
 
-    private fun readData(){
+
+
+    private fun readData() : ArrayList<PlacesData> {
         auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid
+
+        val dataNow: ArrayList<PlacesData> = ArrayList()
 
         if (uid != null) {
 
@@ -105,6 +120,7 @@ class PlacesFragment : Fragment() {
                         val longitude = placeInfo.child("longitude").value
                         val latitude = placeInfo.child("latitude").value
 
+
                         placeNameArray.add(placeName)
                         addressLineArray.add(addressLine)
                         longitudeArray.add(longitude as Double)
@@ -113,7 +129,8 @@ class PlacesFragment : Fragment() {
 
                         val place = PlacesData(addressLine, placeName, longitude as Double?, latitude as Double?)
 
-                        data.add(place)
+                        dataNow.add(place)
+//                        Log.d(TAG, dataNow.toString())
 
                     }
                 }
@@ -122,6 +139,7 @@ class PlacesFragment : Fragment() {
                 Toast.makeText(activity, "Failed",Toast.LENGTH_SHORT).show()
             }
         }
-
+//        Log.d(TAG, dataNow.toString())
+        return dataNow
     }
 }

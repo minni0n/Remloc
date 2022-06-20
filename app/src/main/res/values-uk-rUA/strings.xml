@@ -48,4 +48,5 @@
     <string name="already_selected">Мова вже вибрана</string>
     <string name="provide_label">Введіть назву</string>
     <string name="place">Місце</string>
+    <string name="select">Вибрати</string>
 </resources>

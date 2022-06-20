@@ -49,4 +49,5 @@
     <string name="already_selected">Język już wybrany</string>
     <string name="provide_label">Wpisz tytuł</string>
     <string name="place">Miejsce</string>
+    <string name="select">Wybrać</string>
 </resources>

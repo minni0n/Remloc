@@ -49,5 +49,6 @@
     <string name="already_selected">Language already selected</string>
     <string name="provide_label">Enter the title</string>
     <string name="place">Place</string>
+    <string name="select">Select</string>
 
 </resources>
