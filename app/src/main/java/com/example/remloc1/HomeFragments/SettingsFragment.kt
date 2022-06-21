@@ -36,6 +36,10 @@ class SettingsFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var uid: String
 
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -103,10 +107,8 @@ class SettingsFragment : Fragment() {
         binding.locationSwitch.setOnCheckedChangeListener { compoundButton, b ->
 
             if (b){
-
+                checkLocationPermition()
             }
-
-
         }
 //
 //        binding.contactsSwitch.setOnCheckedChangeListener { compoundButton, b ->
@@ -149,6 +151,21 @@ class SettingsFragment : Fragment() {
 
         builder.show()
 
+    }
+
+    private fun checkLocationPermition() {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
+            return
+        }
     }
 
 }
