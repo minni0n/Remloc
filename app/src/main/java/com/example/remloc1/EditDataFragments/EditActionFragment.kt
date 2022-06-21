@@ -142,6 +142,15 @@ class EditActionFragment(private val key: String , private val actionType: Strin
 
                     }
                 }
+
+                deleteBtn.setOnClickListener{
+
+                    database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
+                    database.child("Actions//Sms//$key").removeValue()
+
+                    (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
+
+                }
             }
             "Mute" -> {
                 unnecessaryLayout.visibility = View.GONE
@@ -155,6 +164,15 @@ class EditActionFragment(private val key: String , private val actionType: Strin
                         placeName.text = placeNameRes
 
                     }
+                }
+
+                deleteBtn.setOnClickListener{
+
+                    database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
+                    database.child("Actions//Mute//$key").removeValue()
+
+                    (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
+
                 }
             }
             "Notification" -> {
@@ -170,17 +188,19 @@ class EditActionFragment(private val key: String , private val actionType: Strin
 
                     }
                 }
+
+                deleteBtn.setOnClickListener{
+
+                    database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
+                    database.child("Actions//Notification//$key").removeValue()
+
+                    (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
+
+                }
             }
         }
 
-        deleteBtn.setOnClickListener{
 
-            database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
-            database.child("Actions//$key").removeValue()
-
-            (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
-
-        }
 
         saveChangesBtn.setOnClickListener{
 
@@ -192,7 +212,7 @@ class EditActionFragment(private val key: String , private val actionType: Strin
 
                 if (placesSpinner.selectedItem.toString()!=getString(R.string.choose_place)){
                     database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
-                    database.child("Actions//$key//placeName").setValue(placesSpinner.selectedItem.toString())
+                    database.child("Actions//Sms//$key//placeName").setValue(placesSpinner.selectedItem.toString())
                 }
 
                 if (contactsSpinner.selectedItem.toString()!=getString(R.string.choose_contact)){
@@ -205,13 +225,13 @@ class EditActionFragment(private val key: String , private val actionType: Strin
                     ///
 
                     database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
-                    database.child("Actions//$key//phoneNumber").setValue(strPhoneNumber)
-                    database.child("Actions//$key//contactName").setValue(contactName)
+                    database.child("Actions//Sms//$key//phoneNumber").setValue(strPhoneNumber)
+                    database.child("Actions//Sms//$key//contactName").setValue(contactName)
                 }
 
                 if (smsTextEdit.text.toString()!=""){
                     database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
-                    database.child("Actions//$key//smsText").setValue(smsTextEdit.text.toString())
+                    database.child("Actions//Sms//$key//smsText").setValue(smsTextEdit.text.toString())
                 }
 
                 (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))

@@ -3,6 +3,7 @@ package com.example.remloc1
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Address
@@ -11,10 +12,14 @@ import android.location.Location
 import android.location.LocationListener
 import android.os.Build
 import android.os.Bundle
-import android.system.Os.remove
 import android.util.Log
+import android.view.KeyEvent
 import android.view.View
+import android.view.WindowManager
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import android.widget.TextView.OnEditorActionListener
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -36,6 +41,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_maps.*
 import java.io.IOException
+import java.security.AccessController.getContext
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, GoogleMap.OnMapClickListener,
@@ -91,10 +97,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
         saveBtn.isEnabled = searchActive
 
+        locationSearch.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
+                searchLocation()
+                saveBtn.isEnabled = searchActive
+                hideKeybord()
+            }
+            false
+        })
+
         searchBtn.setOnClickListener {
 
             searchLocation()
             saveBtn.isEnabled = searchActive
+            hideKeybord()
         }
 
         saveBtn.setOnClickListener {
@@ -104,6 +120,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.myMaps) as SupportMapFragment
         mapFragment.getMapAsync(this)
+    }
+
+    private fun hideKeybord() {
+        val view = this.currentFocus
+        if (view != null) {
+            val hideKey = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            hideKey.hideSoftInputFromWindow(view.windowToken, 0)
+        } else {
+            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN)
+        }
     }
 
     @SuppressLint("MissingPermission")

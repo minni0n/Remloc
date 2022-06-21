@@ -108,18 +108,48 @@ class ActionsFragment : Fragment() {
 
                             actionTypeArray.add(actionType)
 
-                            val action1 = ActionsData(
-                                contactName,
-                                phoneNumber,
-                                smsText,
-                                placeName,
-                                actionType,
-                                latitude,
-                                longitude
-                            )
+                            when(actionType){
+                                "Sms" -> {
+                                    val action1 = ActionsData(
+                                        contactName,
+                                        phoneNumber,
+                                        smsText,
+                                        placeName,
+                                        getString(R.string.sms),
+                                        latitude,
+                                        longitude
+                                    )
 
-                            dataNow.add(action1)
+                                    dataNow.add(action1)
+                                }
+                                "Mute" -> {
+                                    val action1 = ActionsData(
+                                        contactName,
+                                        phoneNumber,
+                                        smsText,
+                                        placeName,
+                                        getString(R.string.mute_the_sound),
+                                        latitude,
+                                        longitude
+                                    )
 
+                                    dataNow.add(action1)
+                                }
+                                "Notification" -> {
+                                    val action1 = ActionsData(
+                                        contactName,
+                                        phoneNumber,
+                                        smsText,
+                                        placeName,
+                                        getString(R.string.notification),
+                                        latitude,
+                                        longitude
+                                    )
+
+                                    dataNow.add(action1)
+                                }
+
+                            }
                         }
                     }
                 }

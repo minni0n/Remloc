@@ -3,9 +3,11 @@ package com.example.remloc1.AddDataFragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.remloc1.Data.ActionMuteData
@@ -132,9 +134,6 @@ class AddActionFragment : Fragment() {
         }
 
 
-
-
-
         spinnerPlaces.adapter = adapter1
         spinnerContacts.adapter = adapter2
 
@@ -145,114 +144,122 @@ class AddActionFragment : Fragment() {
 
 //        Toast.makeText(activity, places.toString(), Toast.LENGTH_SHORT).show()
 
+
+
         buttonSave.setOnClickListener{
 
-            when(typeOfAction){
-
-                1-> {
-                    smsText = binding.smsText
-                    placeName = binding.placesSpinner
-                    contactInfo = binding.contactsSpinner
-
-                    val placeIndex = placeName.selectedItemId.toInt()-1
-
-                    val strPhoneNumberOld = binding.contactsSpinner.selectedItem.toString()
-                    val strSmsText = smsText.text.toString()
-                    val strPlaceName: String = binding.placesSpinner.selectedItem.toString()
-
-                    if (strSmsText!="" && strPlaceName != getString(R.string.choose_place) && strPhoneNumberOld!= getString(R.string.choose_contact)){
-
-                        ///
-                        val index = strPhoneNumberOld.indexOf(": ") + 2
-                        val len = strPhoneNumberOld.length
-                        val strPhoneNumber = strPhoneNumberOld.subSequence(index, len).toString()
-                        val contactName = strPhoneNumberOld.subSequence(0, index-2).toString()
-                        ///
-
-                        if (uid!= null){
-
-                            database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
-                            val key: String? = database.push().key
-                            val action = ActionsData(contactName, strPhoneNumber, strSmsText, strPlaceName, "Sms", latitudes[placeIndex], longitudes[placeIndex])
-
-                            database.child("Actions//Sms//$key").setValue(action).addOnCompleteListener{
-                                if(it.isSuccessful){
-                                    Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show()
-                                    (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
-
-                                }else{
-
-                                    Toast.makeText(activity, "Failed to update data", Toast.LENGTH_SHORT).show()
-
-                                }
-                            }
-                        }
-                    }else{
-                        Toast.makeText(activity, "Set all of the parametrs",Toast.LENGTH_SHORT).show()
-                    }
-
-                }
-                2-> {
-
-                    placeName = binding.placesSpinner
-
-                    val placeIndex = placeName.selectedItemId.toInt()-1
-                    val strPlaceName: String = binding.placesSpinner.selectedItem.toString()
-
-                    if (uid!= null){
-
-                        database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
-                        val key: String? = database.push().key
-                        val action = ActionMuteData(strPlaceName, "Mute", latitudes[placeIndex], longitudes[placeIndex])
-
-                        database.child("Actions//Mute//$key").setValue(action).addOnCompleteListener{
-                            if(it.isSuccessful){
-                                Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show()
-                                (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
-
-                            }else{
-
-                                Toast.makeText(activity, "Failed to update data", Toast.LENGTH_SHORT).show()
-
-                            }
-                        }
-                    }
-
-                }
-                3-> {
-
-                    placeName = binding.placesSpinner
-
-                    val placeIndex = placeName.selectedItemId.toInt()-1
-                    val strPlaceName: String = binding.placesSpinner.selectedItem.toString()
-
-                    if (uid!= null){
-
-                        database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
-                        val key: String? = database.push().key
-                        val action = ActionNotificationData(strPlaceName, "Notification", latitudes[placeIndex], longitudes[placeIndex])
-
-                        database.child("Actions//Notification//$key").setValue(action).addOnCompleteListener{
-                            if(it.isSuccessful){
-                                Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show()
-                                (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
-
-                            }else{
-
-                                Toast.makeText(activity, "Failed to update data", Toast.LENGTH_SHORT).show()
-
-                            }
-                        }
-                    }
-
-                }
-            }
-
+           saveData()
         }
 
         return binding.root
     }
 
+    private fun saveData(){
+
+        auth = FirebaseAuth.getInstance()
+        val uid = auth.currentUser?.uid
+
+        when(typeOfAction){
+
+            1-> {
+                smsText = binding.smsText
+                placeName = binding.placesSpinner
+                contactInfo = binding.contactsSpinner
+
+                val placeIndex = placeName.selectedItemId.toInt()-1
+
+                val strPhoneNumberOld = binding.contactsSpinner.selectedItem.toString()
+                val strSmsText = smsText.text.toString()
+                val strPlaceName: String = binding.placesSpinner.selectedItem.toString()
+
+                if (strSmsText!="" && strPlaceName != getString(R.string.choose_place) && strPhoneNumberOld!= getString(R.string.choose_contact)){
+
+                    ///
+                    val index = strPhoneNumberOld.indexOf(": ") + 2
+                    val len = strPhoneNumberOld.length
+                    val strPhoneNumber = strPhoneNumberOld.subSequence(index, len).toString()
+                    val contactName = strPhoneNumberOld.subSequence(0, index-2).toString()
+                    ///
+
+                    if (uid!= null){
+
+                        database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
+                        val key: String? = database.push().key
+                        val action = ActionsData(contactName, strPhoneNumber, strSmsText, strPlaceName, "Sms", latitudes[placeIndex], longitudes[placeIndex])
+
+                        database.child("Actions//Sms//$key").setValue(action).addOnCompleteListener{
+                            if(it.isSuccessful){
+                                Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show()
+                                (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
+
+                            }else{
+
+                                Toast.makeText(activity, "Failed to update data", Toast.LENGTH_SHORT).show()
+
+                            }
+                        }
+                    }
+                }else{
+                    Toast.makeText(activity, "Set all of the parametrs",Toast.LENGTH_SHORT).show()
+                }
+
+            }
+            2-> {
+
+                placeName = binding.placesSpinner
+
+                val placeIndex = placeName.selectedItemId.toInt()-1
+                val strPlaceName: String = binding.placesSpinner.selectedItem.toString()
+
+                if (uid!= null){
+
+                    database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
+                    val key: String? = database.push().key
+                    val action = ActionMuteData(strPlaceName, "Mute", latitudes[placeIndex], longitudes[placeIndex])
+
+                    database.child("Actions//Mute//$key").setValue(action).addOnCompleteListener{
+                        if(it.isSuccessful){
+                            Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show()
+                            (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
+
+                        }else{
+
+                            Toast.makeText(activity, "Failed to update data", Toast.LENGTH_SHORT).show()
+
+                        }
+                    }
+                }
+
+            }
+            3-> {
+
+                placeName = binding.placesSpinner
+
+                val placeIndex = placeName.selectedItemId.toInt()-1
+                val strPlaceName: String = binding.placesSpinner.selectedItem.toString()
+
+                if (uid!= null){
+
+                    database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
+                    val key: String? = database.push().key
+                    val action = ActionNotificationData(strPlaceName, "Notification", latitudes[placeIndex], longitudes[placeIndex])
+
+                    database.child("Actions//Notification//$key").setValue(action).addOnCompleteListener{
+                        if(it.isSuccessful){
+                            Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show()
+                            (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
+
+                        }else{
+
+                            Toast.makeText(activity, "Failed to update data", Toast.LENGTH_SHORT).show()
+
+                        }
+                    }
+                }
+
+            }
+        }
+    }
 
     private fun readData(){
         auth = FirebaseAuth.getInstance()

@@ -2,6 +2,7 @@ package com.example.remloc1.DataAdapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,7 @@ import com.example.remloc1.Data.PlacesData
 import com.example.remloc1.R
 
 
-class ActionAdapter(private val context: Activity, private val arrayList: ArrayList<ActionsData>) : ArrayAdapter<ActionsData>(context, R.layout.action_item, arrayList){
+class ActionAdapter(private val context: Activity, private val arrayList: ArrayList<ActionsData>,) : ArrayAdapter<ActionsData>(context, R.layout.action_item, arrayList){
 
     @SuppressLint("ViewHolder", "InflateParams")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -23,8 +24,10 @@ class ActionAdapter(private val context: Activity, private val arrayList: ArrayL
         val placeName: TextView = view.findViewById(R.id.placeName2)
         val actionType: TextView = view.findViewById(R.id.actionName)
 
+
         placeName.text = arrayList[position].placeName
         actionType.text = arrayList[position].actionType
+
 
         return view
     }
