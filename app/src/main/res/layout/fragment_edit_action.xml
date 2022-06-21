@@ -50,14 +50,25 @@ android:orientation="vertical">
         android:hint="@string/edit_sms_text"
         android:textColor="@android:color/black" />
 
-    <EditText
-        android:id="@+id/phoneNumberEdit"
+    <LinearLayout
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/edit_phone_number"
-        android:textColor="@android:color/black" />
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginStart="5dp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/change_contact"/>
+
+        <Spinner
+            android:id="@+id/contactsSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_marginTop="20dp"
@@ -65,7 +76,8 @@ android:orientation="vertical">
         android:layout_height="wrap_content">
 
         <TextView
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="20sp"

@@ -37,11 +37,12 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_map.*
 import kotlinx.android.synthetic.main.activity_maps.*
 import java.io.IOException
 
-class MapActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, GoogleMap.OnMapClickListener,
+public class MapActivity: AppCompatActivity(), OnMapReadyCallback, LocationListener, GoogleMap.OnMapClickListener,
     GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
     private lateinit var auth: FirebaseAuth
@@ -60,6 +61,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, G
         setContentView(R.layout.activity_map)
 
         addPlaceBtn = findViewById(R.id.addPlaceScreen)
+
+        title = getString(R.string.places)
 
         mapView = myMap.requireView()
         val locationButton= (mapView.findViewById<View>(Integer.parseInt("1")).parent as View).findViewById<View>(Integer.parseInt("2"))

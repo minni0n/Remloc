@@ -17,7 +17,7 @@
     <string name="search_location">Знайти місце</string>
     <string name="enter_phone_number">Введіть номер телефону</string>
     <string name="select_contact">Виберіть контакт:</string>
-    <string name="enter_your_text_message">Введіть текстове повідомлення</string>
+    <string name="enter_your_text_message">Введіть повідомлення</string>
     <string name="select_place">Виберіть місце:</string>
     <string name="save_action">Зберегти дію</string>
     <string name="place_name">Назва місця</string>
@@ -44,8 +44,13 @@
     <string name="add_action">Додати дію</string>
     <string name="choose_language">Оберіть мову:</string>
     <string name="choose_place">Оберіть місце</string>
-    <string name="choose_contact">Оберіть контакт:</string>
+    <string name="choose_contact">Оберіть контакт</string>
     <string name="already_selected">Мова вже вибрана</string>
     <string name="provide_label">Введіть назву</string>
     <string name="place">Місце</string>
+    <string name="change_contact">Змінити контакт:</string>
+    <string name="select_type_of_action">Виберіть тип дії</string>
+    <string name="sms">Cмс</string>
+    <string name="mute_the_sound">Вимкнути звук</string>
+    <string name="notification">Повідомлення</string>
 </resources>

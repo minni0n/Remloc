@@ -10,6 +10,10 @@ import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.remloc1.AddDataFragment.AddActionFragment
+import com.example.remloc1.Data.ActionsData
+import com.example.remloc1.Data.PlacesData
+import com.example.remloc1.DataAdapter.ActionAdapter
+import com.example.remloc1.DataAdapter.PlaceAdapter
 import com.example.remloc1.EditDataFragments.EditActionFragment
 import com.example.remloc1.HomeActivity
 import com.example.remloc1.R
@@ -37,25 +41,21 @@ class ActionsFragment : Fragment() {
 
         binding = FragmentActionsBinding.inflate(layoutInflater)
 
-        val listView: ListView = binding.listOfActions
+        val listOfActions: ListView = binding.listOfActions
+        var data: ArrayList<ActionsData> = ArrayList()
+
         actions = mutableListOf("")
         actions.clear()
         keys = mutableListOf("")
         keys.clear()
-        listView.invalidateViews()
 
-        readData()
+        data = readData()
 
-        val arrayAdapter: ArrayAdapter<String>? = activity?.let {
-            ArrayAdapter(
-                it, android.R.layout.simple_list_item_1, actions
-            )
-        }
+        listOfActions.adapter = activity?.let { ActionAdapter(it, data) }
 
-        listView.adapter = arrayAdapter
 
         binding.listOfActions.setOnItemClickListener { _: AdapterView<*>, _: View, i: Int, _: Long ->
-//            Toast.makeText(activity, keys[i], Toast.LENGTH_SHORT).show()
+
             (activity as HomeActivity?)!!.replaceFragment(EditActionFragment(keys[i]), getString(R.string.edit_action))
         }
 
@@ -69,9 +69,11 @@ class ActionsFragment : Fragment() {
     }
 
 
-    private fun readData(){
+    private fun readData(): ArrayList<ActionsData>{
         auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid
+
+        val dataNow: ArrayList<ActionsData> = ArrayList()
 
         if (uid != null) {
 
@@ -87,12 +89,18 @@ class ActionsFragment : Fragment() {
                         }
 //                        Toast.makeText(activity, id, Toast.LENGTH_SHORT).show()
 
-                        val phoneNumber = action.child("phoneNumber").value
-                        val smsText = action.child("smsText").value
-                        val placeName = action.child("placeName").value
+                        val contactName = action.child("contactName").value.toString()
+                        val phoneNumber = action.child("phoneNumber").value.toString()
+                        val smsText = action.child("smsText").value.toString()
+                        val placeName = action.child("placeName").value.toString()
+                        val actionType = action.child("actionType").value.toString()
 
-                        actions.add(smsText.toString()+"\n"+placeName.toString())
+                        actions.add(smsText+"\n"+placeName)
                         binding.listOfActions.invalidateViews()
+
+                        val action1 = ActionsData(contactName, phoneNumber, smsText, placeName, actionType)
+
+                        dataNow.add(action1)
 
                     }
 
@@ -105,6 +113,8 @@ class ActionsFragment : Fragment() {
 
             }
         }
+
+        return dataNow
 
     }
 

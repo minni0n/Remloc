@@ -32,7 +32,6 @@ class PlacesFragment : Fragment() {
     private lateinit var longitudeArray: ArrayList<Double>
     private lateinit var latitudeArray: ArrayList<Double>
     private lateinit var keys: ArrayList<String>
-//    private lateinit var data: ArrayList<PlacesData>
 
 
     override fun onCreateView(
@@ -61,12 +60,12 @@ class PlacesFragment : Fragment() {
 
         binding.listOfPlaces.setOnItemClickListener { _: AdapterView<*>, _: View, i: Int, _: Long ->
 
-            (activity as HomeActivity?)!!.replaceFragment(EditPlaceFragment(keys[i]), getString(R.string.edit_place))
-        }
 
-        binding.addPlaceBtn.setOnClickListener{
-            val intent = Intent(activity, MapActivity::class.java)
+            val intent = Intent(activity, HomeActivity::class.java)
+            intent.putExtra("key123",keys[i])
             startActivity(intent)
+//            Toast.makeText(activity, keys[i], Toast.LENGTH_SHORT).show()
+//            (activity as HomeActivity?)!!.replaceFragment(EditPlaceFragment(keys[i]), getString(R.string.edit_place))
         }
 
         return binding.root

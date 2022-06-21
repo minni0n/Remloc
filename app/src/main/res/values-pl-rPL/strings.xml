@@ -18,7 +18,7 @@
     <string name="search_location">Wyszukaj lokalizację</string>
     <string name="enter_phone_number">Wpisz numer telefonu</string>
     <string name="select_contact">Wybierz kontakt:</string>
-    <string name="enter_your_text_message">Wpisz swoją wiadomość tekstową</string>
+    <string name="enter_your_text_message">Wpisz swoją wiadomość</string>
     <string name="select_place">Wybierz miejsce:</string>
     <string name="save_action">Zapisz akcję</string>
     <string name="place_name">Nazwa miejsca</string>
@@ -45,8 +45,13 @@
     <string name="add_action">Dodaj akcję</string>
     <string name="choose_language">Wybierz język:</string>
     <string name="choose_place">Wybierz miejsce</string>
-    <string name="choose_contact">Wybierz kontakt:</string>
+    <string name="choose_contact">Wybierz kontakt</string>
     <string name="already_selected">Język już wybrany</string>
     <string name="provide_label">Wpisz tytuł</string>
     <string name="place">Miejsce</string>
+    <string name="change_contact">Zmień kontakt:</string>
+    <string name="select_type_of_action">Wybierz rodzaj akcji</string>
+    <string name="sms">Sms</string>
+    <string name="mute_the_sound">Wycisz dźwięk</string>
+    <string name="notification">Powiadomienie</string>
 </resources>

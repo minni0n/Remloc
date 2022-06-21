@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
 
-class EditPlaceFragment(val key: String) : Fragment() {
+class EditPlaceFragment(private val key: String) : Fragment() {
 
     private lateinit var binding : FragmentEditPlaceBinding
     private lateinit var database : DatabaseReference

@@ -19,10 +19,10 @@ import com.example.remloc1.databinding.FragmentAddActionBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import java.util.ArrayList
 
 
-
-class AddActionFragment : Fragment(), AdapterView.OnItemSelectedListener {
+class AddActionFragment : Fragment() {
 
     private lateinit var binding : FragmentAddActionBinding
     private lateinit var database : DatabaseReference
@@ -30,6 +30,7 @@ class AddActionFragment : Fragment(), AdapterView.OnItemSelectedListener {
     private lateinit var phoneNumber: EditText
     private lateinit var smsText: EditText
     private lateinit var placeName: Spinner
+    private lateinit var contactInfo: Spinner
     private lateinit var button: Button
     private lateinit var spinnerPlaces: Spinner
     private lateinit var spinnerContacts: Spinner
@@ -49,7 +50,7 @@ class AddActionFragment : Fragment(), AdapterView.OnItemSelectedListener {
         binding = FragmentAddActionBinding.inflate(layoutInflater)
 
         places = mutableListOf(getString(R.string.choose_place))
-        contacts = mutableListOf("Choose contact")
+        contacts = mutableListOf("")
 //        places.clear()
 
 
@@ -63,17 +64,72 @@ class AddActionFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val adapter1: ArrayAdapter<String>? = activity?.let {
             ArrayAdapter<String>(
                 it,
-                android.R.layout.simple_spinner_item, places
+                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, places
             )
         }
 
         val adapter2: ArrayAdapter<String>? = activity?.let {
             ArrayAdapter<String>(
                 it,
-                android.R.layout.simple_spinner_item, contacts
+                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, contacts
             )
         }
 
+
+        val actionsList = ArrayList<String>()
+        actionsList.add(getString(R.string.select_type_of_action))
+        actionsList.add(getString(R.string.sms))
+        actionsList.add(getString(R.string.mute_the_sound))
+        actionsList.add(getString(R.string.notification))
+
+        val adapter = activity?.let { ArrayAdapter(it, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, actionsList) }
+        binding.typeOfActionSpinner.adapter = adapter
+
+        binding.typeOfActionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+
+            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+
+                when(p2){
+
+                    0->{
+                        binding.contactsSpinner.setBackgroundResource(R.color.pastel_gray)
+                        binding.smsText.setBackgroundResource(R.color.pastel_gray)
+                        binding.smsText.setText("")
+                        binding.contactsSpinner.setSelection(0)
+                        binding.contactsSpinner.isEnabled = false
+                        binding.smsText.isEnabled = false
+                    }
+                    1-> {
+                        binding.contactsSpinner.setBackgroundResource(R.color.white)
+                        binding.smsText.setBackgroundResource(R.color.white)
+                        binding.contactsSpinner.isEnabled = true
+                        binding.smsText.isEnabled = true
+                    }
+                    2-> {
+                        binding.contactsSpinner.setBackgroundResource(R.color.pastel_gray)
+                        binding.smsText.setBackgroundResource(R.color.pastel_gray)
+                        binding.smsText.setText("")
+                        binding.contactsSpinner.setSelection(0)
+                        binding.contactsSpinner.isEnabled = false
+                        binding.smsText.isEnabled = false
+                    }
+                    3-> {
+                        binding.contactsSpinner.setBackgroundResource(R.color.pastel_gray)
+                        binding.smsText.setBackgroundResource(R.color.pastel_gray)
+                        binding.smsText.setText("")
+                        binding.contactsSpinner.setSelection(0)
+                        binding.contactsSpinner.isEnabled = false
+                        binding.smsText.isEnabled = false
+                    }
+                }
+
+            }
+
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+
+        }
 
 
 
@@ -91,37 +147,56 @@ class AddActionFragment : Fragment(), AdapterView.OnItemSelectedListener {
 
         button.setOnClickListener{
 
-            phoneNumber = binding.phoneNumber
             smsText = binding.smsText
             placeName = binding.placesSpinner
-
-            val strPhoneNumber = phoneNumber.text.toString()
+            contactInfo = binding.contactsSpinner
+            val strPhoneNumberOld = binding.contactsSpinner.selectedItem.toString()
             val strSmsText = smsText.text.toString()
-            //val strPlaceName = placeName.toString()
             val strPlaceName: String = binding.placesSpinner.selectedItem.toString()
 
 
-            if (uid!= null){
+            if (strSmsText!="" && strPlaceName != getString(R.string.choose_place) && strPhoneNumberOld!= getString(R.string.choose_contact)){
 
-                database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
-                val key: String? = database.push().key
-                val action = ActionsData(strPhoneNumber, strSmsText, strPlaceName)
+                ///
+                val index = strPhoneNumberOld.indexOf(": ") + 2
+                val len = strPhoneNumberOld.length
+                val strPhoneNumber = strPhoneNumberOld.subSequence(index, len).toString()
+                val contactName = strPhoneNumberOld.subSequence(0, index-2).toString()
+                ///
 
-                database.child("Actions//$key").setValue(action).addOnCompleteListener{
-                    if(it.isSuccessful){
-                        Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show()
-                        (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
+                val actionType = binding.typeOfActionSpinner.selectedItem.toString()
 
-                    }else{
-
-                        Toast.makeText(activity, "Failed to update data", Toast.LENGTH_SHORT).show()
-
-                    }
+                when (actionType) {
+                    getString(R.string.sms) -> print("x == 1")
+                    getString(R.string.mute_the_sound) -> print("x == 2")
+                    getString(R.string.notification) -> print("x == 2")
                 }
 
+
+                if (uid!= null){
+
+                    database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
+                    val key: String? = database.push().key
+                    val action = ActionsData(contactName, strPhoneNumber, strSmsText, strPlaceName, actionType)
+
+                    database.child("Actions//$key").setValue(action).addOnCompleteListener{
+                        if(it.isSuccessful){
+                            Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show()
+                            (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
+
+                        }else{
+
+                            Toast.makeText(activity, "Failed to update data", Toast.LENGTH_SHORT).show()
+
+                        }
+                    }
+                }
+            }else{
+                Toast.makeText(activity, "Set all of the parametrs",Toast.LENGTH_SHORT).show()
             }
 
-           // sendMessage()
+
+
         }
 
         return binding.root
@@ -159,14 +234,6 @@ class AddActionFragment : Fragment(), AdapterView.OnItemSelectedListener {
             }
         }
 
-    }
-
-    override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onNothingSelected(p0: AdapterView<*>?) {
-        TODO("Not yet implemented")
     }
 
 

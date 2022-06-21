@@ -11,6 +11,7 @@ import android.location.Location
 import android.location.LocationListener
 import android.os.Build
 import android.os.Bundle
+import android.system.Os.remove
 import android.util.Log
 import android.view.View
 import android.widget.*
@@ -62,6 +63,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
     private lateinit var searchBtn: ImageButton
     private lateinit var saveBtn: Button
     private lateinit var mapView: View
+    private var marker: Marker? = null
     private var searchActive: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -112,6 +114,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
         moveCompass(mapView,30,160,-1,-1, horizontal = true, vertical = false)
         mMap!!.uiSettings.isZoomControlsEnabled = true
 
+
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if (ContextCompat.checkSelfPermission(
                     this,
@@ -136,6 +140,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
     }
 
     override fun onLocationChanged(location: Location) {
+
         mLastLocation = location
         mCurrLocationMarker?.remove()
 
@@ -148,8 +153,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
         mCurrLocationMarker = mMap!!.addMarker(markerOptions)
 
-        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(latLng))
-        mMap!!.moveCamera(CameraUpdateFactory.zoomTo(11f))
+        mMap!!.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11f))
 
         if (mGoogleApiClient != null){
             LocationServices.getFusedLocationProviderClient(this)
@@ -274,6 +278,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
     private fun searchLocation() {
 
+        marker?.remove()
 
         val location: String = this.locationSearch.text.toString().trim()
         var addressList: List<Address>? = null
@@ -296,8 +301,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
             searchActive = true
 
-            mMap!!.addMarker(markerOnMap!!)
-            mMap!!.animateCamera(CameraUpdateFactory.newLatLng(latLng))
+            marker = mMap!!.addMarker(markerOnMap!!)
+            mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15F))
+//            mMap!!.animateCamera(CameraUpdateFactory.newLatLng(latLng))
         }
     }
 
@@ -330,31 +336,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
     }
 
-
-    private fun countPlaces(): String {
-        var counter = 0
-        auth = FirebaseAuth.getInstance()
-        val uid = auth.currentUser?.uid
-
-        if (uid != null) {
-
-            database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
-            database.child("Places").get().addOnSuccessListener {
-                if(it.exists()) {
-                    it.children.forEach { placeInfo ->
-                        val id = placeInfo.key
-
-                        counter += 1
-
-
-
-                    }
-                }
-            }
-        }
-        Toast.makeText(this, counter.toString(), Toast.LENGTH_SHORT).show()
-        return counter.toString()
-    }
 
 
     @SuppressLint("SetTextI18n")
@@ -392,7 +373,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
             btnOk.setOnClickListener {
 
-                savePlaceToFB(locationSearch)
+                savePlaceToFB(label.text.toString())
                 cancel()
                 val intent = Intent(this@MapsActivity, MapActivity::class.java)
                 startActivity(intent)

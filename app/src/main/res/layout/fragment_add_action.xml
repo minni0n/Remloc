@@ -3,62 +3,49 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/pastel_gray"
     android:orientation="vertical"
-    android:padding="4dp"
+
     tools:context=".AddDataFragment.AddActionFragment">
-    <EditText
-        android:id="@+id/phoneNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
-        android:inputType="phone"
-        android:hint="@string/enter_phone_number"
-        android:textColor="@android:color/black" />
+
     <LinearLayout
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!--<TextView
-            android:layout_marginLeft="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/select_contact"/>-->
-
         <Spinner
-            android:id="@+id/contacts_spinner"
+            android:id="@+id/places_spinner"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:background="@color/white"
+            android:layout_height="40dp"
             android:spinnerMode="dropdown"/>
 
     </LinearLayout>
+
+    <Spinner
+        android:id="@+id/typeOfActionSpinner"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="40dp"
+        android:spinnerMode="dropdown"/>
+
+
+    <Spinner
+        android:id="@+id/contacts_spinner"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="40dp" />
+
+
     <EditText
         android:id="@+id/smsText"
-        android:layout_marginTop="20dp"
+        android:layout_marginVertical="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/enter_your_text_message"
         android:textColor="@android:color/black" />
 
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_marginLeft="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/select_place"/>
-
-        <Spinner
-            android:id="@+id/places_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
 
     <Button
         android:id="@+id/btnSaveAction"
