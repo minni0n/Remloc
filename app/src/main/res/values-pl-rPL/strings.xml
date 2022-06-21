@@ -54,4 +54,5 @@
     <string name="sms">Sms</string>
     <string name="mute_the_sound">Wycisz dźwięk</string>
     <string name="notification">Powiadomienie</string>
+    <string name="select">Wybrać</string>
 </resources>

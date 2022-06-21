@@ -53,4 +53,5 @@
     <string name="sms">Cмс</string>
     <string name="mute_the_sound">Отключить звук</string>
     <string name="notification">Уведомление</string>
+    <string name="select">Выбрать</string>
 </resources>

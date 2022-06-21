@@ -55,5 +55,6 @@
     <string name="sms">Sms</string>
     <string name="mute_the_sound">Mute the sound</string>
     <string name="notification">Notification</string>
+    <string name="select">Select</string>
 
 </resources>

@@ -15,7 +15,7 @@
             android:id="@+id/myMap"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="400dp">
+            android:layout_height="350dp">
         </fragment>
 
         <fragment
