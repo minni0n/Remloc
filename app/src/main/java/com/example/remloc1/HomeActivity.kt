@@ -105,7 +105,7 @@ class HomeActivity : AppCompatActivity() {
 //            4 -> replaceFragment(HelpReviewFragment(), getString(R.string.actions))
 //        }
 
-//        replaceFragment(ActionsFragment(), getString(R.string.actions))
+        replaceFragment(ActionsFragment(), getString(R.string.actions))
 
 
 

@@ -28,7 +28,7 @@
             android:layout_width="0dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:layout_marginLeft="15dp"
+            android:layout_marginStart="15dp"
             android:backgroundTint="@android:color/transparent"
             android:hint="@string/search_location"
             android:inputType="textPersonName"

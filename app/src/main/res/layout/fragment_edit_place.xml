@@ -3,78 +3,125 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/pastel_gray"
+    android:background="@color/slight_gray"
     tools:context=".EditDataFragments.EditPlaceFragment"
     android:orientation="vertical">
 
-
-    <LinearLayout
-        android:layout_width="wrap_content"
+    <TextView
         android:layout_marginTop="20dp"
-        android:layout_marginStart="5dp"
-        android:paddingHorizontal="5dp"
-        android:paddingVertical="5dp"
-        android:background="@drawable/bg_round_pastel_blue"
-        android:layout_height="wrap_content">
+        android:layout_marginStart="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray"
+        android:text="@string/place_name"
+        android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/placeOriginalName"
-            android:textSize="30sp"
-            android:textColor="@color/black"
-            android:text="@string/place_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/placeOriginalName"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/place_name"
+        android:textSize="20sp" />
 
-    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
 
 
     <TextView
-        android:id="@+id/addressLineTextView"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="5dp"
-        android:textSize="20sp"
-        android:textColor="@color/black"
-        android:text="@string/address"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:textColor="@color/gray"
+        android:text="@string/address"
+        android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/placeLatitude"
-            android:layout_marginTop="20dp"
-            android:textSize="20sp"
-            android:layout_marginStart="5dp"
-            android:textColor="@color/black"
-            android:text="Lat"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/addressLineTextView"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/address"
+        android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/placeLongitude"
-            android:layout_marginTop="20dp"
-            android:textSize="20sp"
-            android:layout_marginStart="5dp"
-            android:textColor="@color/black"
-            android:text="Long"
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray"
+        android:text="@string/coordinates"
+        android:textSize="16sp" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginStart="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:text="Latitude: "
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/placeLatitude"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="23456"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_marginStart="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:text="Longitude: "
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/placeLongitude"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="23456"
+                android:textSize="20sp" />
+        </LinearLayout>
 
     </LinearLayout>
 
+    <View
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
 
-
-    <Button
-        android:id="@+id/btnDeletePlace"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="5dp"
-        android:backgroundTint="@color/red"
-        android:layout_height="wrap_content"
-        android:text="@string/remove_place" />
 
     <EditText
         android:id="@+id/placeNameEdit"
@@ -86,11 +133,29 @@
         android:textColor="@android:color/black" />
 
     <Button
+        android:id="@+id/btnEditData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="@string/edit_place" />
+
+
+    <Button
         android:id="@+id/btnSavePlaceChanges"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:text="@string/save_changes" />
+
+    <Button
+        android:id="@+id/btnDeletePlace"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/red"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:text="@string/remove_place" />
 
 </LinearLayout>

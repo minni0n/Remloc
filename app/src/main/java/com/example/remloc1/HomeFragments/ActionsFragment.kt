@@ -1,6 +1,7 @@
 package com.example.remloc1.HomeFragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,7 @@ class ActionsFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private lateinit var actions: MutableList<String>
     private lateinit var keys: MutableList<String>
+    private lateinit var actionTypeArray: MutableList<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +46,8 @@ class ActionsFragment : Fragment() {
         val listOfActions: ListView = binding.listOfActions
         var data: ArrayList<ActionsData> = ArrayList()
 
+        actionTypeArray = mutableListOf("")
+        actionTypeArray.clear()
         actions = mutableListOf("")
         actions.clear()
         keys = mutableListOf("")
@@ -56,7 +60,7 @@ class ActionsFragment : Fragment() {
 
         binding.listOfActions.setOnItemClickListener { _: AdapterView<*>, _: View, i: Int, _: Long ->
 
-            (activity as HomeActivity?)!!.replaceFragment(EditActionFragment(keys[i]), getString(R.string.edit_action))
+            (activity as HomeActivity?)!!.replaceFragment(EditActionFragment(keys[i], actionTypeArray[i]), getString(R.string.edit_action))
         }
 
         binding.addAction.setOnClickListener {
@@ -81,29 +85,43 @@ class ActionsFragment : Fragment() {
             database.child("Actions").get().addOnSuccessListener {
                 if(it.exists()){
 
-                    it.children.forEach{ action ->
+                    it.children.forEach { actionTypes ->
 
-                        val id = action.key
-                        if (id != null) {
-                            keys.add(id)
+                        actionTypes.children.forEach { action ->
+
+                            val id = action.key
+                            if (id != null) {
+                                keys.add(id)
+                            }
+                            //                        Toast.makeText(activity, id, Toast.LENGTH_SHORT).show()
+
+                            val contactName = action.child("contactName").value.toString()
+                            val phoneNumber = action.child("phoneNumber").value.toString()
+                            val smsText = action.child("smsText").value.toString()
+                            val placeName = action.child("placeName").value.toString()
+                            val actionType = action.child("actionType").value.toString()
+                            val latitude = action.child("latitude").value as Double
+                            val longitude = action.child("longitude").value as Double
+
+                            actions.add(smsText + "\n" + placeName)
+                            binding.listOfActions.invalidateViews()
+
+                            actionTypeArray.add(actionType)
+
+                            val action1 = ActionsData(
+                                contactName,
+                                phoneNumber,
+                                smsText,
+                                placeName,
+                                actionType,
+                                latitude,
+                                longitude
+                            )
+
+                            dataNow.add(action1)
+
                         }
-//                        Toast.makeText(activity, id, Toast.LENGTH_SHORT).show()
-
-                        val contactName = action.child("contactName").value.toString()
-                        val phoneNumber = action.child("phoneNumber").value.toString()
-                        val smsText = action.child("smsText").value.toString()
-                        val placeName = action.child("placeName").value.toString()
-                        val actionType = action.child("actionType").value.toString()
-
-                        actions.add(smsText+"\n"+placeName)
-                        binding.listOfActions.invalidateViews()
-
-                        val action1 = ActionsData(contactName, phoneNumber, smsText, placeName, actionType)
-
-                        dataNow.add(action1)
-
                     }
-
                 }
 
 

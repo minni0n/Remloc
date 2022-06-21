@@ -5,9 +5,20 @@
     android:id="@+id/drawerPlacesLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/slight_gray"
     tools:context=".HomeFragments.PlacesFragment">
 
+    <TextView
+        android:layout_marginHorizontal="5dp"
+        android:layout_marginStart="15dp"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:text="List of places"
+        android:textStyle="bold"
+        android:layout_height="wrap_content"/>
+
     <ListView
+        android:layout_marginTop="25dp"
         android:id="@+id/listOfPlaces"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

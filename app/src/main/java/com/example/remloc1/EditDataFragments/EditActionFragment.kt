@@ -1,16 +1,21 @@
 package com.example.remloc1.EditDataFragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
+import android.os.Message
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.appcompat.app.AlertDialog
 import com.example.remloc1.AddDataFragment.AddActionFragment
 import com.example.remloc1.HomeActivity
 import com.example.remloc1.HomeFragments.ActionsFragment
 import com.example.remloc1.HomeFragments.PlacesFragment
+import com.example.remloc1.MapActivity
 import com.example.remloc1.R
 import com.example.remloc1.databinding.FragmentEditActionBinding
 import com.example.remloc1.databinding.FragmentEditPlaceBinding
@@ -18,21 +23,25 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
-class EditActionFragment(private val key: String) : Fragment() {
+class EditActionFragment(private val key: String , private val actionType: String) : Fragment() {
 
     private lateinit var binding : FragmentEditActionBinding
     private lateinit var database : DatabaseReference
     private lateinit var deleteBtn: Button
     private lateinit var saveChangesBtn: Button
+    private lateinit var editAction: Button
     private lateinit var auth: FirebaseAuth
     private lateinit var smsTextEdit: EditText
+    private lateinit var actionTypeTV: TextView
     private lateinit var placeName: TextView
+    private lateinit var contactName: TextView
     private lateinit var smsText: TextView
     private lateinit var phoneNumber: TextView
     private lateinit var placesSpinner: Spinner
     private lateinit var contactsSpinner: Spinner
     private lateinit var places: MutableList<String>
     private lateinit var contacts: MutableList<String>
+    private lateinit var unnecessaryLayout: LinearLayout
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -43,40 +52,68 @@ class EditActionFragment(private val key: String) : Fragment() {
 
 
 
-
+        // initialization of data
         smsTextEdit = binding.smsTextEdit
+        placesSpinner = binding.placesSpinner
+        contactsSpinner = binding.contactsSpinner
+
+        unnecessaryLayout = binding.unnecessaryLayout
+
+        actionTypeTV = binding.actionTypeTV
         placeName = binding.placeName
         smsText = binding.smsText
         phoneNumber = binding.phoneNumber
         deleteBtn = binding.btnDeleteAction
         saveChangesBtn = binding.btnSavePlaceChanges
+        contactName = binding.contactName
+        editAction = binding.btnEditData
 
+        // unable of edit data
+        smsTextEdit.visibility = View.GONE
+        placesSpinner.visibility = View.GONE
+        contactsSpinner.visibility = View.GONE
+        saveChangesBtn.visibility = View.GONE
+        deleteBtn.visibility = View.GONE
+
+
+        //Spinners auth
         places = mutableListOf(getString(R.string.choose_place))
         contacts = mutableListOf("")
         contacts = (activity as HomeActivity?)!!.readContacts()
 
-        val adapter2: ArrayAdapter<String>? = activity?.let {
-            ArrayAdapter<String>(
-                it,
-                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, contacts
-            )
-        }
-
-//        places.clear()
-        placesSpinner = binding.placesSpinner
-        contactsSpinner = binding.contactsSpinner
-
         readPlaceData()
-        val adapter: ArrayAdapter<String>? = activity?.let {
+
+        //Adapters creation and loading
+        val adapterPlaces: ArrayAdapter<String>? = activity?.let {
             ArrayAdapter<String>(
                 it,
                 android.R.layout.simple_spinner_item, places
             )
         }
 
+        val adapterContacts: ArrayAdapter<String>? = activity?.let {
+            ArrayAdapter<String>(
+                it,
+                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, contacts
+            )
+        }
 
-        placesSpinner.adapter = adapter
-        contactsSpinner.adapter = adapter2
+        placesSpinner.adapter = adapterPlaces
+        contactsSpinner.adapter = adapterContacts
+
+
+        editAction.setOnClickListener {
+
+            editAction.visibility = View.GONE
+            smsTextEdit.visibility = View.VISIBLE
+            placesSpinner.visibility = View.VISIBLE
+            contactsSpinner.visibility = View.VISIBLE
+            saveChangesBtn.visibility = View.VISIBLE
+            deleteBtn.visibility = View.VISIBLE
+
+        }
+
+        //
 
         auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid
@@ -86,21 +123,54 @@ class EditActionFragment(private val key: String) : Fragment() {
                 it
             )
         }!!
-        database.child("Actions//$key").get().addOnSuccessListener {
-            if(it.exists()){
 
-                val placeNameRes = it.child("placeName").value.toString()
-                val phoneNumberRes = it.child("phoneNumber").value.toString()
-                val contactName = it.child("contactName").value.toString()
-                val smsTextRes = it.child("smsText").value.toString()
+        when(actionType){
+            "Sms" -> {
+                database.child("Actions//Sms//$key").get().addOnSuccessListener {
+                    if(it.exists()){
 
-                placeName.text = "${getString(R.string.place)}: $placeNameRes"
-                phoneNumber.text = "$contactName: $phoneNumberRes"
-                smsText.text = "${getString(R.string.sms_text)}: $smsTextRes"
+                        val placeNameRes = it.child("placeName").value.toString()
+                        val phoneNumberRes = it.child("phoneNumber").value.toString()
+                        val contactNameRes = it.child("contactName").value.toString()
+                        val smsTextRes = it.child("smsText").value.toString()
 
+                        actionTypeTV.text = getString(R.string.sms)
+                        placeName.text = placeNameRes
+                        phoneNumber.text = phoneNumberRes
+                        smsText.text = smsTextRes
+                        contactName.text = contactNameRes
+
+                    }
+                }
             }
+            "Mute" -> {
+                unnecessaryLayout.visibility = View.GONE
+                editAction.visibility = View.GONE
+                deleteBtn.visibility = View.VISIBLE
+                database.child("Actions//Mute//$key").get().addOnSuccessListener {
+                    if(it.exists()){
 
-//                    Toast.makeText(activity, keys.toString(), Toast.LENGTH_SHORT).show()
+                        val placeNameRes = it.child("placeName").value.toString()
+                        actionTypeTV.text = getString(R.string.mute_the_sound)
+                        placeName.text = placeNameRes
+
+                    }
+                }
+            }
+            "Notification" -> {
+                unnecessaryLayout.visibility = View.GONE
+                editAction.visibility = View.GONE
+                deleteBtn.visibility = View.VISIBLE
+                database.child("Actions//Notification//$key").get().addOnSuccessListener {
+                    if(it.exists()){
+
+                        val placeNameRes = it.child("placeName").value.toString()
+                        actionTypeTV.text = getString(R.string.notification)
+                        placeName.text = placeNameRes
+
+                    }
+                }
+            }
         }
 
         deleteBtn.setOnClickListener{
@@ -151,6 +221,8 @@ class EditActionFragment(private val key: String) : Fragment() {
 
         return binding.root
     }
+
+
 
     private fun readPlaceData(){
         auth = FirebaseAuth.getInstance()

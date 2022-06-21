@@ -22,6 +22,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_home.*
+import kotlinx.android.synthetic.main.activity_map.*
 
 class PlacesFragment : Fragment() {
 
@@ -45,6 +46,8 @@ class PlacesFragment : Fragment() {
 
         val listOfPlaces: ListView = binding.listOfPlaces
 
+
+
         var data: ArrayList<PlacesData> = ArrayList()
 
         placeNameArray = ArrayList()
@@ -62,10 +65,6 @@ class PlacesFragment : Fragment() {
         binding.listOfPlaces.setOnItemClickListener { _: AdapterView<*>, _: View, i: Int, _: Long ->
 
             (activity as MapActivity?)!!.replaceFragment(EditPlaceFragment(keys[i]), getString(R.string.edit_place))
-//            val intent = Intent(activity, HomeActivity::class.java)
-//            intent.putExtra("key123",keys[i])
-//            startActivity(intent)
-//            Toast.makeText(activity, keys[i], Toast.LENGTH_SHORT).show()
 
         }
 

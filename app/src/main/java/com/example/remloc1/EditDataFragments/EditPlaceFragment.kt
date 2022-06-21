@@ -1,6 +1,7 @@
 package com.example.remloc1.EditDataFragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,6 +13,8 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.remloc1.HomeActivity
 import com.example.remloc1.HomeFragments.PlacesFragment
+import com.example.remloc1.MapActivity
+import com.example.remloc1.MapsActivity
 import com.example.remloc1.R
 import com.example.remloc1.databinding.FragmentEditPlaceBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -25,10 +28,12 @@ class EditPlaceFragment(private val key: String) : Fragment() {
     private lateinit var database : DatabaseReference
     private lateinit var deleteBtn: Button
     private lateinit var saveChangesBtn: Button
+    private lateinit var editPlace: Button
     private lateinit var auth: FirebaseAuth
     private lateinit var placeName: EditText
     private lateinit var placeOriginalName: TextView
-    private lateinit var placeCoordinates: TextView
+    private lateinit var placeLatitude: TextView
+    private lateinit var placeLongitude: TextView
     private lateinit var addressLineTextView: TextView
 
     @SuppressLint("SetTextI18n")
@@ -42,9 +47,32 @@ class EditPlaceFragment(private val key: String) : Fragment() {
         auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid
 
+        // initialization
+        placeName = binding.placeNameEdit
+        deleteBtn = binding.btnDeletePlace
+        saveChangesBtn = binding.btnSavePlaceChanges
+        editPlace = binding.btnEditData
+
         placeOriginalName = binding.placeOriginalName
-        placeCoordinates = binding.placeLongitude
+        placeLatitude = binding.placeLatitude
+        placeLongitude = binding.placeLongitude
         addressLineTextView = binding.addressLineTextView
+
+        // unable of edit data
+        placeName.visibility = View.GONE
+        deleteBtn.visibility = View.GONE
+        saveChangesBtn.visibility = View.GONE
+
+        editPlace.setOnClickListener {
+
+            editPlace.visibility = View.GONE
+
+            placeName.visibility = View.VISIBLE
+            deleteBtn.visibility = View.VISIBLE
+            saveChangesBtn.visibility = View.VISIBLE
+
+        }
+
 
         database = uid?.let {
             FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(
@@ -60,7 +88,8 @@ class EditPlaceFragment(private val key: String) : Fragment() {
                 val latitude = it.child("latitude").value.toString()
 
                 placeOriginalName.text = placeName
-                placeCoordinates.text = "Coordinates: $longitude, $latitude"
+                placeLatitude.text = latitude
+                placeLongitude.text = longitude
                 addressLineTextView.text = addressLine
 
             }
@@ -68,16 +97,15 @@ class EditPlaceFragment(private val key: String) : Fragment() {
 //                    Toast.makeText(activity, keys.toString(), Toast.LENGTH_SHORT).show()
         }
 
-        deleteBtn = binding.btnDeletePlace
-        saveChangesBtn = binding.btnSavePlaceChanges
-        placeName = binding.placeNameEdit
+
 
         deleteBtn.setOnClickListener{
 
             database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
             database.child("Places//$key").removeValue()
 
-            (activity as HomeActivity?)!!.replaceFragment(PlacesFragment(), getString(R.string.places))
+            val intent = Intent(requireActivity(), MapActivity::class.java)
+            startActivity(intent)
 
         }
 
@@ -90,8 +118,8 @@ class EditPlaceFragment(private val key: String) : Fragment() {
 
             }
 
-            Toast.makeText(activity, "Successfully changed!", Toast.LENGTH_SHORT).show()
-            (activity as HomeActivity?)!!.replaceFragment(PlacesFragment(), getString(R.string.places))
+            val intent = Intent(requireActivity(), MapActivity::class.java)
+            startActivity(intent)
 
         }
 

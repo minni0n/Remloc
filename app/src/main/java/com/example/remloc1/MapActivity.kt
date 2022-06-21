@@ -12,10 +12,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RelativeLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -55,6 +52,7 @@ public class MapActivity: AppCompatActivity(), OnMapReadyCallback, LocationListe
     private var mGoogleApiClient: GoogleApiClient? = null
     private lateinit var addPlaceBtn: FloatingActionButton
     private lateinit var mLocationRequest: LocationRequest
+    private lateinit var placesList: TextView
     private lateinit var mapView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {

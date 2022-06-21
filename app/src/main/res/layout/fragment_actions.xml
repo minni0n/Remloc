@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawerPlacesLayout"
     android:layout_width="match_parent"
+    android:background="@color/slight_gray"
     android:layout_height="match_parent"
     tools:context=".HomeFragments.ActionsFragment">
     

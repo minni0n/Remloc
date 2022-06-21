@@ -3,93 +3,162 @@
 xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="match_parent"
+android:background="@color/slight_gray"
 tools:context=".EditDataFragments.EditActionFragment"
 android:orientation="vertical">
 
     <TextView
-        android:id="@+id/placeName"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="5dp"
-        android:textSize="30sp"
-        android:text="@string/place_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/smsText"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="5dp"
-        android:textSize="20sp"
-        android:text="@string/sms_text"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:id="@+id/phoneNumber"
-        android:layout_marginTop="20dp"
-        android:textSize="20sp"
-        android:layout_marginLeft="5dp"
-        android:text="@string/coordinates"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-
-    <Button
-        android:id="@+id/btnDeleteAction"
-        android:layout_width="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="5dp"
         android:layout_height="wrap_content"
-        android:text="@string/remove_action" />
+        android:textColor="@color/gray"
+        android:text="Action type"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/actionTypeTV"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sms"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
+    <TextView
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray"
+        android:text="@string/place_name"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/placeName"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/home"
+        android:textSize="20sp" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider" />
+
+
+    <LinearLayout
+        android:id="@+id/unnecessaryLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:text="@string/sms_text"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/smsText"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Im home"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:text="Contact name and phone number"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/contactName"
+                android:layout_marginStart="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Serhii"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/phoneNumber"
+                android:layout_marginStart="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="+48 537 606 413"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+    </LinearLayout>
+
+
+
+
 
     <EditText
         android:id="@+id/smsTextEdit"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/edit_sms_text"
         android:textColor="@android:color/black" />
 
-    <LinearLayout
+    <Spinner
         android:layout_marginTop="20dp"
+        android:id="@+id/contactsSpinner"
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="40dp" />
 
-        <TextView
-            android:layout_marginStart="5dp"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/change_contact"/>
-
-        <Spinner
-            android:id="@+id/contactsSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
-    </LinearLayout>
-
-    <LinearLayout
+    <Spinner
         android:layout_marginTop="20dp"
+        android:id="@+id/placesSpinner"
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="40dp" />
 
-        <TextView
-            android:layout_marginStart="5dp"
-            android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/change_place"/>
 
-        <Spinner
-            android:id="@+id/placesSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
-    </LinearLayout>
-
+    <Button
+        android:id="@+id/btnEditData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:text="@string/edit_action" />
 
     <Button
         android:id="@+id/btnSavePlaceChanges"
@@ -98,5 +167,16 @@ android:orientation="vertical">
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:text="@string/save_changes" />
+
+
+
+    <Button
+        android:id="@+id/btnDeleteAction"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/red"
+        android:text="@string/remove_action" />
 
 </LinearLayout>
