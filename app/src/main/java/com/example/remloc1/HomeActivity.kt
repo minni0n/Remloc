@@ -19,10 +19,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.example.remloc1.EditDataFragments.EditPlaceFragment
-import com.example.remloc1.HomeFragments.ActionsFragment
-import com.example.remloc1.HomeFragments.GameMiejskaFragment
-import com.example.remloc1.HomeFragments.HelpReviewFragment
-import com.example.remloc1.HomeFragments.SettingsFragment
+import com.example.remloc1.HomeFragments.*
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -45,6 +42,7 @@ class HomeActivity : AppCompatActivity() {
     private var currentLang: String? = null
     private val contactsList: MutableList<String> = ArrayList()
 
+    @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -82,25 +80,30 @@ class HomeActivity : AppCompatActivity() {
         val index = sp2.getInt("LastFr", -1)
 
 
-//        val fragments = arrayListOf<Fragment>(
-//            R.id.nav_places,
-//            R.id.nav_actions,
-//            R.id.nav_game_miejska,
-//            R.id.nav_settings,
-//            R.id.nav_help_review
-//        )
 
-        val intent2 = intent
-        val value = intent2.getStringExtra("key123")
+        val fragments = arrayListOf<Fragment>(
+            Fragment(R.id.nav_places),
+            Fragment(R.id.nav_actions),
+            Fragment(R.id.nav_game_miejska),
+            Fragment(R.id.nav_settings),
+            Fragment(R.id.nav_help_review)
+        )
 
-        Toast.makeText(this, value.toString(), Toast.LENGTH_SHORT).show()
+//        if (value!= null){
+//
+//            replaceFragment(EditPlaceFragment(value.toString()), getString(R.string.edit_place))
+//        }else{
+//            replaceFragment(ActionsFragment(), getString(R.string.actions))
+//        }
 
-        if (value!= null){
-
-            replaceFragment(EditPlaceFragment(value.toString()), getString(R.string.edit_place))
-        }else{
-            replaceFragment(ActionsFragment(), getString(R.string.actions))
-        }
+//        when (index) {
+//            -1 -> replaceFragment(ActionsFragment(), getString(R.string.actions))
+//            0 -> replaceFragment(PlacesFragment(), getString(R.string.actions))
+//            1 -> replaceFragment(ActionsFragment(), getString(R.string.actions))
+//            2 -> replaceFragment(GameMiejskaFragment(), getString(R.string.actions))
+//            3 -> replaceFragment(SettingsFragment(), getString(R.string.actions))
+//            4 -> replaceFragment(HelpReviewFragment(), getString(R.string.actions))
+//        }
 
 //        replaceFragment(ActionsFragment(), getString(R.string.actions))
 
@@ -231,6 +234,8 @@ class HomeActivity : AppCompatActivity() {
 //                this@HomeActivity, getString(R.string.already_selected), Toast.LENGTH_SHORT).show();
         }
     }
+
+    @Override
     override fun onBackPressed() {
         val intent = Intent(Intent.ACTION_MAIN)
         intent.addCategory(Intent.CATEGORY_HOME)

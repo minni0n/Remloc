@@ -54,4 +54,5 @@
     <string name="mute_the_sound">Отключить звук</string>
     <string name="notification">Уведомление</string>
     <string name="select">Выбрать</string>
+    <string name="find_place">Найти место</string>
 </resources>

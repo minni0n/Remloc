@@ -18,6 +18,7 @@ import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.example.remloc1.Data.PlacesData
 import com.example.remloc1.databinding.ActivityMapBinding
 import com.google.android.gms.common.ConnectionResult
@@ -85,6 +86,17 @@ public class MapActivity: AppCompatActivity(), OnMapReadyCallback, LocationListe
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.myMap) as SupportMapFragment
         mapFragment.getMapAsync(this)
+    }
+
+    fun replaceFragment(fragment: Fragment, title: String){
+
+        val fragmentManager = supportFragmentManager
+        val fragmentTransaction = fragmentManager.beginTransaction()
+
+        fragmentTransaction.replace(R.id.mapLayout, fragment)
+        fragmentTransaction.commit()
+        setTitle(title)
+
     }
 
     @SuppressLint("MissingPermission")

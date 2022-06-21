@@ -70,6 +70,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
 
+        title = getString(R.string.find_place)
+
         locationSearch = findViewById(R.id.et_search)
         searchBtn = findViewById(R.id.search)
         saveBtn = findViewById(R.id.savePlaceBtn)

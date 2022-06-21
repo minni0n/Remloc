@@ -41,7 +41,7 @@
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/activity_home.xml" value="0.31666666666666665" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/activity_home_acrivity.xml" value="0.31666666666666665" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/activity_main.xml" value="0.1875" />
-        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/activity_map.xml" value="0.1" />
+        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/activity_map.xml" value="0.25" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/activity_maps.xml" value="0.2828125" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/activity_places.xml" value="0.25" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/fragment_actions.xml" value="0.33" />
@@ -61,6 +61,8 @@
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/sms_action_layout.xml" value="0.246875" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/menu/nav_menu.xml" value="0.31666666666666665" />
         <entry key="..\:/Users/Serhii/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_list_item_1.xml" value="0.259375" />
+        <entry key="..\:/Users/arciom/AndroidStudioProjects/Remloc/app/src/main/res/layout/fragment_add_action.xml" value="0.264" />
+        <entry key="..\:/Users/arciom/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_spinner_item.xml" value="0.1109375" />
       </map>
     </option>
   </component>

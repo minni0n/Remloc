@@ -92,34 +92,28 @@ class AddActionFragment : Fragment() {
                 when(p2){
 
                     0->{
-                        binding.contactsSpinner.setBackgroundResource(R.color.pastel_gray)
-                        binding.smsText.setBackgroundResource(R.color.pastel_gray)
                         binding.smsText.setText("")
                         binding.contactsSpinner.setSelection(0)
-                        binding.contactsSpinner.isEnabled = false
-                        binding.smsText.isEnabled = false
+                        binding.smsText.visibility = View.GONE
+                        binding.contactsSpinner.visibility = View.GONE
                     }
                     1-> {
-                        binding.contactsSpinner.setBackgroundResource(R.color.white)
-                        binding.smsText.setBackgroundResource(R.color.white)
                         binding.contactsSpinner.isEnabled = true
                         binding.smsText.isEnabled = true
+                        binding.smsText.visibility = View.VISIBLE
+                        binding.contactsSpinner.visibility = View.VISIBLE
                     }
                     2-> {
-                        binding.contactsSpinner.setBackgroundResource(R.color.pastel_gray)
-                        binding.smsText.setBackgroundResource(R.color.pastel_gray)
                         binding.smsText.setText("")
                         binding.contactsSpinner.setSelection(0)
-                        binding.contactsSpinner.isEnabled = false
-                        binding.smsText.isEnabled = false
+                        binding.smsText.visibility = View.GONE
+                        binding.contactsSpinner.visibility = View.GONE
                     }
                     3-> {
-                        binding.contactsSpinner.setBackgroundResource(R.color.pastel_gray)
-                        binding.smsText.setBackgroundResource(R.color.pastel_gray)
                         binding.smsText.setText("")
                         binding.contactsSpinner.setSelection(0)
-                        binding.contactsSpinner.isEnabled = false
-                        binding.smsText.isEnabled = false
+                        binding.smsText.visibility = View.GONE
+                        binding.contactsSpinner.visibility = View.GONE
                     }
                 }
 

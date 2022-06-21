@@ -12,6 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/action_item"
+        android:divider="@null"
+        android:dividerHeight="0dp"
         android:orientation="vertical"
         android:padding="4dp"/>
 

@@ -21,6 +21,7 @@ import com.example.remloc1.databinding.FragmentPlacesBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.activity_home.*
 
 class PlacesFragment : Fragment() {
 
@@ -60,17 +61,16 @@ class PlacesFragment : Fragment() {
 
         binding.listOfPlaces.setOnItemClickListener { _: AdapterView<*>, _: View, i: Int, _: Long ->
 
-
-            val intent = Intent(activity, HomeActivity::class.java)
-            intent.putExtra("key123",keys[i])
-            startActivity(intent)
+            (activity as MapActivity?)!!.replaceFragment(EditPlaceFragment(keys[i]), getString(R.string.edit_place))
+//            val intent = Intent(activity, HomeActivity::class.java)
+//            intent.putExtra("key123",keys[i])
+//            startActivity(intent)
 //            Toast.makeText(activity, keys[i], Toast.LENGTH_SHORT).show()
-//            (activity as HomeActivity?)!!.replaceFragment(EditPlaceFragment(keys[i]), getString(R.string.edit_place))
+
         }
 
         return binding.root
     }
-
 
     private fun readData(): ArrayList<PlacesData> {
         auth = FirebaseAuth.getInstance()
