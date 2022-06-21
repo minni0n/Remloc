@@ -12,12 +12,14 @@
     <color name="yellow">#DD9E8013</color>
     <color name="underlineColor">#BDB8B8</color>
 
-    //pastel colors
+
     <color name="pastel_gray">#d8deea</color>
     <color name="pastel_gray_dark">#a9a9a9</color>
     <color name="pastel_yellow">#fcefcb</color>
     <color name="pastel_pink">#f9cfe0 </color>
     <color name="pastel_blue">#8dbcf1 </color>
+    <color name="gray_blue">#C5D3E3</color>
     <color name="pastel_green">#BFFCC6 </color>
     <color name="pastel_violet">#A79AFF </color>
+    <color name="slight_gray">#EFF0F3</color>
 </resources>

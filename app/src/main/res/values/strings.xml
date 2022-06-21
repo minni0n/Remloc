@@ -57,5 +57,6 @@
     <string name="notification">Notification</string>
     <string name="select">Select</string>
     <string name="find_place">Find place</string>
+    <string name="language">Language</string>
 
 </resources>

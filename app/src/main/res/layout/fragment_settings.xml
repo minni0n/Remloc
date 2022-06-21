@@ -3,98 +3,124 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="5dp"
+
     android:orientation="vertical"
+    android:background="@color/slight_gray"
     tools:context=".HomeFragments.SettingsFragment">
 
     <TextView
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="3dp"
+        android:layout_marginStart="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Language:"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textColor="@color/gray"
+        android:text="@string/language"
+        android:layout_marginBottom="10dp"
+        android:textSize="20sp" />
 
     <LinearLayout
-        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_marginStart="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/choose_language"/>
-
         <Spinner
             android:id="@+id/languagesSpinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:spinnerMode="dropdown"/>
     </LinearLayout>
 
-    <View
-        android:id="@+id/divider2"
-        android:layout_marginTop="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="?android:attr/listDivider" />
 
     <TextView
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="15dp"
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
         android:layout_height="wrap_content"
-        android:text="Permissions:"
-        android:textSize="20sp"
-        android:textStyle="bold"/>
+        android:textColor="@color/gray"
+        android:layout_marginBottom="10dp"
+        android:text="Permissions"
+        android:textSize="20sp" />
+
 
     <LinearLayout
         android:layout_marginVertical="5dp"
-        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:orientation="vertical"
         android:layout_height="wrap_content">
 
-        <Switch
-            android:id="@+id/locationSwitch"
-            android:layout_marginVertical="5dp"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Location"
-            android:textSize="20sp"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
+            android:background="@drawable/bg_round_pastel_blue_no_border"
+            android:layout_height="wrap_content">
 
-        <Switch
-            android:id="@+id/contactsSwitch"
-            android:layout_marginVertical="5dp"
+            <Switch
+                android:id="@+id/locationSwitch"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Location"
+                android:textSize="20sp"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Contacts"
-            android:textSize="20sp"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
+            android:background="@drawable/bg_round_pastel_blue_no_border"
+            android:layout_height="wrap_content">
+
+            <Switch
+                android:id="@+id/contactsSwitch"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Contacts"
+                android:textSize="20sp"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        </LinearLayout>
 
 
-        <Switch
-            android:id="@+id/smsSwitch"
-            android:layout_marginVertical="5dp"
+        <LinearLayout
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Sms"
-            android:textSize="20sp"
-            tools:ignore="UseSwitchCompatOrMaterialXml" />
+            android:background="@drawable/bg_round_pastel_blue_no_border"
+            android:layout_height="wrap_content">
 
+            <Switch
+                android:id="@+id/smsSwitch"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sms"
+                android:textSize="20sp"
+                tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <View
-        android:id="@+id/divider"
-        android:layout_marginTop="10dp"
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="15dp"
         android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:background="?android:attr/listDivider" />
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray"
+        android:text="If you want to deny a permission, you need to go to:"
 
+        android:textSize="15sp" />
+    <TextView
+        android:layout_marginHorizontal="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray"
+        android:text="Settings > Apps > RemLoc > Permissions"
+
+        android:textSize="15sp" />
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -104,9 +130,10 @@
             android:id="@+id/deleteAllFromDatabase"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/red"
             android:layout_gravity="bottom|center"
             android:layout_marginBottom="20dp"
-            android:text="Delete all data from database"/>
+            android:text="Delete all data from app"/>
 
     </FrameLayout>
 

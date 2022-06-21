@@ -87,18 +87,27 @@ class SettingsFragment : Fragment() {
             Manifest.permission.ACCESS_FINE_LOCATION
         ) == PackageManager.PERMISSION_GRANTED
 
+        if (binding.locationSwitch.isChecked){
+            binding.locationSwitch.isEnabled = false
+        }
 
         binding.contactsSwitch.isChecked = ContextCompat.checkSelfPermission(
             requireActivity(),
             Manifest.permission.READ_CONTACTS
         ) == PackageManager.PERMISSION_GRANTED
 
+        if (binding.contactsSwitch.isChecked){
+            binding.contactsSwitch.isEnabled = false
+        }
+
         binding.smsSwitch.isChecked = ContextCompat.checkSelfPermission(
             requireActivity(),
             Manifest.permission.SEND_SMS
         ) == PackageManager.PERMISSION_GRANTED
 
-
+        if (binding.smsSwitch.isChecked){
+            binding.smsSwitch.isEnabled = false
+        }
 
         binding.deleteAllFromDatabase.setOnClickListener {
             showChooseNameDialog()
@@ -107,8 +116,28 @@ class SettingsFragment : Fragment() {
         binding.locationSwitch.setOnCheckedChangeListener { compoundButton, b ->
 
             if (b){
-                checkLocationPermition()
+                checkLocationPermission()
+                binding.locationSwitch.isEnabled = false
             }
+
+        }
+
+        binding.smsSwitch.setOnCheckedChangeListener { compoundButton, b ->
+
+            if (b){
+                checkSmsPermission()
+                binding.smsSwitch.isEnabled = false
+            }
+
+        }
+
+        binding.contactsSwitch.setOnCheckedChangeListener { compoundButton, b ->
+
+            if (b){
+                checkContactsPermission()
+                binding.contactsSwitch.isEnabled = false
+            }
+
         }
 //
 //        binding.contactsSwitch.setOnCheckedChangeListener { compoundButton, b ->
@@ -145,15 +174,13 @@ class SettingsFragment : Fragment() {
             }
         }
 
-        builder.setNegativeButton("No") { dialog, which ->
-
-        }
+        builder.setNegativeButton("No") { _, _ -> }
 
         builder.show()
 
     }
 
-    private fun checkLocationPermition() {
+    private fun checkLocationPermission() {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
                 android.Manifest.permission.ACCESS_FINE_LOCATION
@@ -168,4 +195,33 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    private fun checkSmsPermission() {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.SEND_SMS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(android.Manifest.permission.SEND_SMS),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
+            return
+        }
+    }
+
+    private fun checkContactsPermission() {
+        if (ActivityCompat.checkSelfPermission(
+                requireContext(),
+                android.Manifest.permission.READ_CONTACTS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            ActivityCompat.requestPermissions(
+                requireActivity(),
+                arrayOf(android.Manifest.permission.READ_CONTACTS),
+                LOCATION_PERMISSION_REQUEST_CODE
+            )
+            return
+        }
+    }
 }

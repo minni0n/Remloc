@@ -60,7 +60,7 @@
                     android:layout_marginVertical="10dp"
                     android:textStyle="bold"
                     android:text="@string/home"
-                    android:textSize="15sp" />
+                    android:textSize="20sp" />
 
             </LinearLayout>
 

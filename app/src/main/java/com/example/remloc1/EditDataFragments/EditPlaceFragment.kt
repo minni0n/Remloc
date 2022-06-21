@@ -43,7 +43,7 @@ class EditPlaceFragment(private val key: String) : Fragment() {
         val uid = auth.currentUser?.uid
 
         placeOriginalName = binding.placeOriginalName
-        placeCoordinates = binding.placeCoordinates
+        placeCoordinates = binding.placeLongitude
         addressLineTextView = binding.addressLineTextView
 
         database = uid?.let {
