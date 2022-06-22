@@ -1,26 +1,12 @@
 package com.example.remloc1.HomeFragments
 
-import android.Manifest
-import android.app.Activity
-import android.app.AlertDialog
-import android.content.Context
-import android.content.DialogInterface
-import android.content.Intent
-import android.content.pm.PackageManager
-import android.location.Location
-import android.location.LocationManager
-import android.media.AudioManager
 import android.os.Bundle
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.Button
 import android.widget.ListView
 import android.widget.Toast
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.remloc1.Actions.MuteDevice
 import com.example.remloc1.Actions.SendNotification
@@ -29,6 +15,7 @@ import com.example.remloc1.AddDataFragment.AddActionFragment
 import com.example.remloc1.Data.ActionsData
 import com.example.remloc1.DataAdapter.ActionAdapter
 import com.example.remloc1.EditDataFragments.EditActionFragment
+import com.example.remloc1.GPSUtils
 import com.example.remloc1.HomeActivity
 import com.example.remloc1.R
 import com.example.remloc1.databinding.FragmentActionsBinding
@@ -86,7 +73,7 @@ class ActionsFragment : Fragment() {
 
                 when(dataLine.actionType){
 
-                    "Sms" ->{
+                    activity?.getString(R.string.sms) ->{
 
                         if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
                             val smsSender = SendSms(dataLine.phoneNumber!!, dataLine.smsText!!, requireActivity())
@@ -94,7 +81,7 @@ class ActionsFragment : Fragment() {
 
                         }
                     }
-                    "Mute the sound" ->{
+                    activity?.getString(R.string.mute_the_sound) ->{
 
                         if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
                             val muteDevice = MuteDevice(requireActivity())
@@ -102,7 +89,7 @@ class ActionsFragment : Fragment() {
                             Toast.makeText(activity, "Phone has been muted!", Toast.LENGTH_SHORT).show()
                         }
                     }
-                    "Notification" ->{
+                    activity?.getString(R.string.notification) ->{
 
                         if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
                             val sendNotification = SendNotification()
@@ -173,7 +160,7 @@ class ActionsFragment : Fragment() {
                                         phoneNumber,
                                         smsText,
                                         placeName,
-                                        getActivity()?.getString(R.string.sms),
+                                        activity?.getString(R.string.sms),
                                         latitude,
                                         longitude
                                     )
@@ -186,7 +173,7 @@ class ActionsFragment : Fragment() {
                                         phoneNumber,
                                         smsText,
                                         placeName,
-                                        getActivity()?.getString(R.string.mute_the_sound),
+                                        activity?.getString(R.string.mute_the_sound),
                                         latitude,
                                         longitude
                                     )
@@ -199,7 +186,7 @@ class ActionsFragment : Fragment() {
                                         phoneNumber,
                                         smsText,
                                         placeName,
-                                        getActivity()?.getString(R.string.notification),
+                                        activity?.getString(R.string.notification),
                                         latitude,
                                         longitude
                                     )

@@ -1,14 +1,18 @@
 package com.example.remloc1.Actions
 
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.NotificationCompat
-import com.example.remloc1.R
+import android.app.Service
+import android.content.Intent
+import android.os.IBinder
 
-class SendNotification(): AppCompatActivity() {
+class SendNotification(): Service() {
 
     fun send(){
 
 
+    }
+
+    override fun onBind(p0: Intent?): IBinder? {
+        TODO("Not yet implemented")
     }
 
 }

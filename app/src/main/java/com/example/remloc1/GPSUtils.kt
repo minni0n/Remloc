@@ -1,4 +1,4 @@
-package com.example.remloc1.HomeFragments
+package com.example.remloc1
 
 import android.Manifest
 import android.app.Activity
