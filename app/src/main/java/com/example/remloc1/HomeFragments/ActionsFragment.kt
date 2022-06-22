@@ -54,14 +54,18 @@ class ActionsFragment : Fragment() {
         keys = mutableListOf("")
         keys.clear()
 
+
+
+        data = readData()
+
         val gpuUtils = GPSUtils()
         gpuUtils.findDeviceLocation(requireActivity())
         val latitude = gpuUtils.getLatitude()!!.toDouble()
         val longitude = gpuUtils.getLongitude()!!.toDouble()
         currentLatLng = LatLng(latitude, longitude)
 
-        data = readData()
 
+//        Toast.makeText(activity, currentLatLng.toString(), Toast.LENGTH_SHORT).show()
 
 
         listOfActions.adapter = activity?.let { ActionAdapter(it, data) }

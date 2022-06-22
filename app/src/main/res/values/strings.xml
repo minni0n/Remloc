@@ -85,5 +85,6 @@
     <string name="you_sure_del_data">You sure you want to delete all of the data?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="cant_find" >Can\'t find the location, please try another!</string>
 
 </resources>

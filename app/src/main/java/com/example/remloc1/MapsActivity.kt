@@ -316,19 +316,27 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
             val geoCoder = Geocoder(this)
             try {
                 addressList = geoCoder.getFromLocationName(location, 1)
+
             }catch (e: IOException){
                 e.printStackTrace()
             }
 
-            val address = addressList!![0]
-            val latLng = LatLng(address.latitude, address.longitude)
+            if (addressList!!.isNotEmpty()){
+                val address = addressList[0]
+                val latLng = LatLng(address.latitude, address.longitude)
 
-            markerOnMap = MarkerOptions().position(latLng).title(location)
+                markerOnMap = MarkerOptions().position(latLng).title(location)
 
-            searchActive = true
+                searchActive = true
 
-            marker = mMap!!.addMarker(markerOnMap!!)
-            mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15F))
+                marker = mMap!!.addMarker(markerOnMap!!)
+                mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15F))
+
+            }else{
+                Toast.makeText(this, getString(R.string.cant_find), Toast.LENGTH_SHORT).show()
+            }
+
+
         }
     }
 

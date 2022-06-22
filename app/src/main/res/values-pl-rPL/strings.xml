@@ -84,4 +84,5 @@
     <string name="you_sure_del_data">Na pewno chcesz usunąć wszystkie dane?</string>
     <string name="yes" >Tak</string>
     <string name="no" >Nie</string>
+    <string name="cant_find" >Nie możliwie znaleźć miejsca, spróbuj innego!</string>
 </resources>

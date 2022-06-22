@@ -83,4 +83,5 @@
     <string name="you_sure_del_data">Вы уверены, что хотите удалить все данные?</string>
     <string name="yes" >Да</string>
     <string name="no" >Нет</string>
+    <string name="cant_find" >Невозможно найти место, попробуйте другое!</string>
 </resources>
