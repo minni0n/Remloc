@@ -221,14 +221,11 @@ class HomeActivity : AppCompatActivity() {
                 contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
 
             contactsList.add("$name: $number")
-
         }
 
         contacts.close()
 
         return contactsList
     }
-
-
 
 }
