@@ -54,7 +54,6 @@ class HomeActivity : AppCompatActivity() {
         setLocale(currentLang!!)
 
         currentLanguage = intent.getStringExtra(currentLang).toString()
-//        readContacts()
 
         drawerLayout = findViewById(R.id.drawerLayout)
         val navView : NavigationView = findViewById(R.id.nav_view)
@@ -214,18 +213,13 @@ class HomeActivity : AppCompatActivity() {
 
         contactsList.add(getString(R.string.choose_contact))
 
-//        var allContacts = ""
+
         while (contacts?.moveToNext()!!) {
             val name =
                 contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME))
             val number =
                 contacts.getString(contacts.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER))
-//            var objDTO = ContactDTO()
-//            objDTO.name = name
-//            objDTO.number = number
-//            allContacts += "$name $number\n"
 
-//            contactsList.add(objDTO)
             contactsList.add("$name: $number")
 
         }

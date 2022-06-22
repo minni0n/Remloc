@@ -18,6 +18,7 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,10 +26,24 @@ class MainActivity : AppCompatActivity() {
     lateinit var mGoogleSignInClient: GoogleSignInClient
     private val Req_Code: Int = 123
     private lateinit var firebaseAuth: FirebaseAuth
+    private lateinit var locale: Locale
+    private var currentLanguage = "en"
+    private var currentLang: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val sp: SharedPreferences = getSharedPreferences("Language", MODE_PRIVATE)
+        val lang = sp.getString("My_Lang", "en")
+
+        if (lang != null) {
+            currentLang = lang
+        }
+
+        setLocale(currentLang!!)
+
+        currentLanguage = intent.getStringExtra(currentLang).toString()
 
         FirebaseApp.initializeApp(this)
 
@@ -94,6 +109,33 @@ class MainActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
+        }
+    }
+
+    private fun setLocale(localeName: String) {
+
+        val currentLanguage = intent.getStringExtra(currentLang).toString()
+
+        if (localeName != currentLanguage) {
+            locale = Locale(localeName)
+            val res = resources
+            val dm = res.displayMetrics
+            val conf = res.configuration
+            conf.locale = locale
+            res.updateConfiguration(conf, dm)
+            val refresh = Intent(
+                this,
+                MainActivity::class.java
+            )
+            refresh.putExtra(currentLang, localeName)
+            startActivity(refresh)
+
+            val edit: SharedPreferences.Editor
+            val sp: SharedPreferences = getSharedPreferences("Language", MODE_PRIVATE)
+            edit = sp.edit()
+            edit.putString("My_Lang", localeName)
+            edit.apply()
+
         }
     }
 

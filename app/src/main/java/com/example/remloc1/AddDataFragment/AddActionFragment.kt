@@ -208,25 +208,47 @@ class AddActionFragment : Fragment() {
                 val placeIndex = placeName.selectedItemId.toInt()-1
                 val strPlaceName: String = binding.placesSpinner.selectedItem.toString()
 
-                if (uid!= null){
+                if (strPlaceName != getString(R.string.choose_place) ) {
+                    if (uid != null) {
 
-                    database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
-                    val key: String? = database.push().key
-                    val action = ActionMuteData(strPlaceName, "Mute", latitudes[placeIndex], longitudes[placeIndex])
+                        database =
+                            FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app")
+                                .getReference(uid)
+                        val key: String? = database.push().key
+                        val action = ActionMuteData(
+                            strPlaceName,
+                            "Mute",
+                            latitudes[placeIndex],
+                            longitudes[placeIndex]
+                        )
 
-                    database.child("Actions//Mute//$key").setValue(action).addOnCompleteListener{
-                        if(it.isSuccessful){
-                            Toast.makeText(activity, getString(R.string.success), Toast.LENGTH_SHORT).show()
-                            (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
+                        database.child("Actions//Mute//$key").setValue(action)
+                            .addOnCompleteListener {
+                                if (it.isSuccessful) {
+                                    Toast.makeText(
+                                        activity,
+                                        getString(R.string.success),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    (activity as HomeActivity?)!!.replaceFragment(
+                                        ActionsFragment(),
+                                        getString(R.string.actions)
+                                    )
 
-                        }else{
+                                } else {
 
-                            Toast.makeText(activity, getString(R.string.failed_to_upd_data), Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        activity,
+                                        getString(R.string.failed_to_upd_data),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
 
-                        }
+                                }
+                            }
                     }
+                }else{
+                    Toast.makeText(activity, getString(R.string.set_parameters),Toast.LENGTH_SHORT).show()
                 }
-
             }
             3-> {
 
@@ -235,25 +257,47 @@ class AddActionFragment : Fragment() {
                 val placeIndex = placeName.selectedItemId.toInt()-1
                 val strPlaceName: String = binding.placesSpinner.selectedItem.toString()
 
-                if (uid!= null){
+                if (strPlaceName != getString(R.string.choose_place) ) {
+                    if (uid != null) {
 
-                    database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid)
-                    val key: String? = database.push().key
-                    val action = ActionNotificationData(strPlaceName, "Notification", latitudes[placeIndex], longitudes[placeIndex])
+                        database =
+                            FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app")
+                                .getReference(uid)
+                        val key: String? = database.push().key
+                        val action = ActionNotificationData(
+                            strPlaceName,
+                            "Notification",
+                            latitudes[placeIndex],
+                            longitudes[placeIndex]
+                        )
 
-                    database.child("Actions//Notification//$key").setValue(action).addOnCompleteListener{
-                        if(it.isSuccessful){
-                            Toast.makeText(activity, getString(R.string.success), Toast.LENGTH_SHORT).show()
-                            (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
+                        database.child("Actions//Notification//$key").setValue(action)
+                            .addOnCompleteListener {
+                                if (it.isSuccessful) {
+                                    Toast.makeText(
+                                        activity,
+                                        getString(R.string.success),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                    (activity as HomeActivity?)!!.replaceFragment(
+                                        ActionsFragment(),
+                                        getString(R.string.actions)
+                                    )
 
-                        }else{
+                                } else {
 
-                            Toast.makeText(activity, getString(R.string.failed_to_upd_data), Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(
+                                        activity,
+                                        getString(R.string.failed_to_upd_data),
+                                        Toast.LENGTH_SHORT
+                                    ).show()
 
-                        }
+                                }
+                            }
                     }
+                }else{
+                    Toast.makeText(activity, getString(R.string.set_parameters),Toast.LENGTH_SHORT).show()
                 }
-
             }
         }
     }
