@@ -1,25 +1,22 @@
 package com.example.remloc1
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.media.AudioManager
-import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
-import android.provider.Settings
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.example.remloc1.EditDataFragments.EditPlaceFragment
-import com.example.remloc1.HomeFragments.*
+import com.example.remloc1.HomeFragments.ActionsFragment
+import com.example.remloc1.HomeFragments.GameMiejskaFragment
+import com.example.remloc1.HomeFragments.HelpReviewFragment
+import com.example.remloc1.HomeFragments.SettingsFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -47,11 +44,6 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-
-        //mute phone
-//        val audiomanager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-//        audiomanager.ringerMode = AudioManager.RINGER_MODE_SILENT
-
         val sp: SharedPreferences = getSharedPreferences("Language", MODE_PRIVATE)
         val lang = sp.getString("My_Lang", "en")
 
@@ -76,34 +68,6 @@ class HomeActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val sp2: SharedPreferences = getSharedPreferences("LastFragment", MODE_PRIVATE)
-        val index = sp2.getInt("LastFr", -1)
-
-
-
-        val fragments = arrayListOf<Fragment>(
-            Fragment(R.id.nav_places),
-            Fragment(R.id.nav_actions),
-            Fragment(R.id.nav_game_miejska),
-            Fragment(R.id.nav_settings),
-            Fragment(R.id.nav_help_review)
-        )
-
-//        if (value!= null){
-//
-//            replaceFragment(EditPlaceFragment(value.toString()), getString(R.string.edit_place))
-//        }else{
-//            replaceFragment(ActionsFragment(), getString(R.string.actions))
-//        }
-
-//        when (index) {
-//            -1 -> replaceFragment(ActionsFragment(), getString(R.string.actions))
-//            0 -> replaceFragment(PlacesFragment(), getString(R.string.actions))
-//            1 -> replaceFragment(ActionsFragment(), getString(R.string.actions))
-//            2 -> replaceFragment(GameMiejskaFragment(), getString(R.string.actions))
-//            3 -> replaceFragment(SettingsFragment(), getString(R.string.actions))
-//            4 -> replaceFragment(HelpReviewFragment(), getString(R.string.actions))
-//        }
 
         replaceFragment(ActionsFragment(), getString(R.string.actions))
 
@@ -118,7 +82,6 @@ class HomeActivity : AppCompatActivity() {
 
             when(it.itemId){
                 R.id.nav_places ->startActivity(intent)
-//                R.id.nav_places -> replaceFragment(PlacesFragment(), it.title.toString())
                 R.id.nav_actions -> replaceFragment(ActionsFragment(), it.title.toString())
                 R.id.nav_game_miejska -> replaceFragment(GameMiejskaFragment(), it.title.toString())
                 R.id.nav_settings -> replaceFragment(SettingsFragment(), it.title.toString())
@@ -159,9 +122,6 @@ class HomeActivity : AppCompatActivity() {
             navUsername.text = name
             navEmail.text = email
 
-            //From shared pref
-//            val sp: SharedPreferences = getSharedPreferences("enter", MODE_PRIVATE)
-//            val url = sp.getString("imgUrl", null)
             Glide
                 .with(this)
                 .load(photoUrl) // the uri you got from Firebase // URI.parse(url)
@@ -177,7 +137,7 @@ class HomeActivity : AppCompatActivity() {
     private fun logoutFromGoogle() {
         mGoogleSignInClient.signOut().addOnCompleteListener {
             val intent = Intent(this, MainActivity::class.java)
-            Toast.makeText(this, "Logging Out", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.log_out), Toast.LENGTH_SHORT).show()
             startActivity(intent)
             finish()
         }
@@ -229,9 +189,6 @@ class HomeActivity : AppCompatActivity() {
             edit.putString("My_Lang", localeName)
             edit.apply()
 
-        } else {
-//            Toast.makeText(
-//                this@HomeActivity, getString(R.string.already_selected), Toast.LENGTH_SHORT).show();
         }
     }
 

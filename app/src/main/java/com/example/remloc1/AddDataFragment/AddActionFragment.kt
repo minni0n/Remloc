@@ -3,11 +3,9 @@ package com.example.remloc1.AddDataFragment
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.remloc1.Data.ActionMuteData
@@ -140,9 +138,8 @@ class AddActionFragment : Fragment() {
 
         buttonSave = binding.btnSaveAction
         auth = FirebaseAuth.getInstance()
-        val uid = auth.currentUser?.uid
 
-//        Toast.makeText(activity, places.toString(), Toast.LENGTH_SHORT).show()
+
 
 
 
@@ -189,18 +186,18 @@ class AddActionFragment : Fragment() {
 
                         database.child("Actions//Sms//$key").setValue(action).addOnCompleteListener{
                             if(it.isSuccessful){
-                                Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(activity, getString(R.string.success), Toast.LENGTH_SHORT).show()
                                 (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
 
                             }else{
 
-                                Toast.makeText(activity, "Failed to update data", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(activity, getString(R.string.failed_to_upd_data), Toast.LENGTH_SHORT).show()
 
                             }
                         }
                     }
                 }else{
-                    Toast.makeText(activity, "Set all of the parametrs",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, getString(R.string.set_parameters),Toast.LENGTH_SHORT).show()
                 }
 
             }
@@ -219,12 +216,12 @@ class AddActionFragment : Fragment() {
 
                     database.child("Actions//Mute//$key").setValue(action).addOnCompleteListener{
                         if(it.isSuccessful){
-                            Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(activity, getString(R.string.success), Toast.LENGTH_SHORT).show()
                             (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
 
                         }else{
 
-                            Toast.makeText(activity, "Failed to update data", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(activity, getString(R.string.failed_to_upd_data), Toast.LENGTH_SHORT).show()
 
                         }
                     }
@@ -246,12 +243,12 @@ class AddActionFragment : Fragment() {
 
                     database.child("Actions//Notification//$key").setValue(action).addOnCompleteListener{
                         if(it.isSuccessful){
-                            Toast.makeText(activity, "Success", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(activity, getString(R.string.success), Toast.LENGTH_SHORT).show()
                             (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
 
                         }else{
 
-                            Toast.makeText(activity, "Failed to update data", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(activity, getString(R.string.failed_to_upd_data), Toast.LENGTH_SHORT).show()
 
                         }
                     }
@@ -287,7 +284,7 @@ class AddActionFragment : Fragment() {
 
             }.addOnFailureListener{
 
-                Toast.makeText(activity, "Failed",Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, getString(R.string.failed),Toast.LENGTH_SHORT).show()
 
             }
         }

@@ -3,19 +3,14 @@ package com.example.remloc1.EditDataFragments
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
-import com.example.remloc1.HomeActivity
-import com.example.remloc1.HomeFragments.PlacesFragment
+import androidx.fragment.app.Fragment
 import com.example.remloc1.MapActivity
-import com.example.remloc1.MapsActivity
-import com.example.remloc1.R
 import com.example.remloc1.databinding.FragmentEditPlaceBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -94,7 +89,6 @@ class EditPlaceFragment(private val key: String) : Fragment() {
 
             }
 
-//                    Toast.makeText(activity, keys.toString(), Toast.LENGTH_SHORT).show()
         }
 
 

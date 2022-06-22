@@ -1,24 +1,16 @@
 package com.example.remloc1.EditDataFragments
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.os.Message
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AlertDialog
-import com.example.remloc1.AddDataFragment.AddActionFragment
+import androidx.fragment.app.Fragment
 import com.example.remloc1.HomeActivity
 import com.example.remloc1.HomeFragments.ActionsFragment
-import com.example.remloc1.HomeFragments.PlacesFragment
-import com.example.remloc1.MapActivity
 import com.example.remloc1.R
 import com.example.remloc1.databinding.FragmentEditActionBinding
-import com.example.remloc1.databinding.FragmentEditPlaceBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -256,11 +248,8 @@ class EditActionFragment(private val key: String , private val actionType: Strin
 
                     it.children.forEach{ placeInfo ->
 
-                        val id = placeInfo.key
 
                         val placeName = placeInfo.child("placeName").value
-//                        val longitude = placeInfo.child("longitude").value
-//                        val latitude = placeInfo.child("latitude").value
 
                         places.add(placeName.toString())
 
@@ -270,7 +259,7 @@ class EditActionFragment(private val key: String , private val actionType: Strin
 
             }.addOnFailureListener{
 
-                Toast.makeText(activity, "Failed", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, getString(R.string.failed), Toast.LENGTH_SHORT).show()
 
             }
         }

@@ -79,7 +79,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray"
-                android:text="Latitude: "
+                android:text="@string/latitude"
                 android:textSize="16sp" />
 
             <TextView
@@ -102,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray"
-                android:text="Longitude: "
+                android:text="@string/longitude"
                 android:textSize="16sp" />
 
             <TextView

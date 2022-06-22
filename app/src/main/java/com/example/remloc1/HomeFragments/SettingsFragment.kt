@@ -2,31 +2,23 @@ package com.example.remloc1.HomeFragments
 
 import android.Manifest
 import android.app.AlertDialog
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.content.res.Configuration
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import androidx.appcompat.view.SupportActionModeWrapper
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
-import androidx.core.app.ActivityCompat.getColorStateList
-import androidx.core.app.ActivityCompat.recreate
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.example.remloc1.HomeActivity
-import com.example.remloc1.MainActivity
 import com.example.remloc1.R
-import com.example.remloc1.databinding.FragmentPlacesBinding
 import com.example.remloc1.databinding.FragmentSettingsBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import java.lang.StringBuilder
-import java.util.*
 
 
 class SettingsFragment : Fragment() {
@@ -43,7 +35,7 @@ class SettingsFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         binding = FragmentSettingsBinding.inflate(layoutInflater)
 
@@ -113,7 +105,7 @@ class SettingsFragment : Fragment() {
             showChooseNameDialog()
         }
 
-        binding.locationSwitch.setOnCheckedChangeListener { compoundButton, b ->
+        binding.locationSwitch.setOnCheckedChangeListener { _, b ->
 
             if (b){
                 checkLocationPermission()
@@ -122,7 +114,7 @@ class SettingsFragment : Fragment() {
 
         }
 
-        binding.smsSwitch.setOnCheckedChangeListener { compoundButton, b ->
+        binding.smsSwitch.setOnCheckedChangeListener { _, b ->
 
             if (b){
                 checkSmsPermission()
@@ -131,7 +123,7 @@ class SettingsFragment : Fragment() {
 
         }
 
-        binding.contactsSwitch.setOnCheckedChangeListener { compoundButton, b ->
+        binding.contactsSwitch.setOnCheckedChangeListener { _, b ->
 
             if (b){
                 checkContactsPermission()
@@ -139,19 +131,6 @@ class SettingsFragment : Fragment() {
             }
 
         }
-//
-//        binding.contactsSwitch.setOnCheckedChangeListener { compoundButton, b ->
-//
-//
-//
-//        }
-//
-//
-//        binding.smsSwitch.setOnCheckedChangeListener { compoundButton, b ->
-//
-//
-//
-//        }
 
 
 
@@ -162,19 +141,21 @@ class SettingsFragment : Fragment() {
     private fun showChooseNameDialog(){
 
         val builder = AlertDialog.Builder(requireActivity())
-        builder.setTitle("Deleting")
-        builder.setMessage("You sure you want to delete all of the data?")
+        builder.setTitle(getString(R.string.deleting))
+        builder.setMessage(getString(R.string.you_sure_del_data))
 
-        builder.setPositiveButton("Yes") { dialog, which ->
-            database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(uid!!)
+        builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
+            database = FirebaseDatabase.getInstance("https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app").getReference(
+                uid
+            )
             database.removeValue().addOnSuccessListener {
-                Toast.makeText(activity, "Successfully deleted!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, getString(R.string.succ_deleted), Toast.LENGTH_SHORT).show()
             }.addOnFailureListener {
-                Toast.makeText(activity, "Failed to delete!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, getString(R.string.failed_to_delete), Toast.LENGTH_SHORT).show()
             }
         }
 
-        builder.setNegativeButton("No") { _, _ -> }
+        builder.setNegativeButton(getString(R.string.no)) { _, _ -> }
 
         builder.show()
 
@@ -183,12 +164,12 @@ class SettingsFragment : Fragment() {
     private fun checkLocationPermission() {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION
+                Manifest.permission.ACCESS_FINE_LOCATION
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
                 requireActivity(),
-                arrayOf(android.Manifest.permission.ACCESS_FINE_LOCATION),
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
                 LOCATION_PERMISSION_REQUEST_CODE
             )
             return
@@ -198,12 +179,12 @@ class SettingsFragment : Fragment() {
     private fun checkSmsPermission() {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
-                android.Manifest.permission.SEND_SMS
+                Manifest.permission.SEND_SMS
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
                 requireActivity(),
-                arrayOf(android.Manifest.permission.SEND_SMS),
+                arrayOf(Manifest.permission.SEND_SMS),
                 LOCATION_PERMISSION_REQUEST_CODE
             )
             return
@@ -213,12 +194,12 @@ class SettingsFragment : Fragment() {
     private fun checkContactsPermission() {
         if (ActivityCompat.checkSelfPermission(
                 requireContext(),
-                android.Manifest.permission.READ_CONTACTS
+                Manifest.permission.READ_CONTACTS
             ) != PackageManager.PERMISSION_GRANTED
         ) {
             ActivityCompat.requestPermissions(
                 requireActivity(),
-                arrayOf(android.Manifest.permission.READ_CONTACTS),
+                arrayOf(Manifest.permission.READ_CONTACTS),
                 LOCATION_PERMISSION_REQUEST_CODE
             )
             return

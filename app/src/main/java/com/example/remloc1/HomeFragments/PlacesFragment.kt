@@ -1,28 +1,22 @@
 package com.example.remloc1.HomeFragments
 
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.remloc1.Data.PlacesData
 import com.example.remloc1.DataAdapter.PlaceAdapter
 import com.example.remloc1.EditDataFragments.EditPlaceFragment
-import com.example.remloc1.HomeActivity
 import com.example.remloc1.MapActivity
-import com.example.remloc1.MapsActivity
 import com.example.remloc1.R
 import com.example.remloc1.databinding.FragmentPlacesBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.activity_map.*
 
 class PlacesFragment : Fragment() {
 
@@ -110,7 +104,7 @@ class PlacesFragment : Fragment() {
                 }
             }.addOnFailureListener{
 
-                Toast.makeText(activity, "Failed",Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, getString(R.string.failed),Toast.LENGTH_SHORT).show()
             }
         }
 

@@ -4,23 +4,18 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.location.Address
-import android.location.Geocoder
 import android.location.Location
 import android.location.LocationListener
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.*
-import androidx.core.app.ActivityCompat
+import android.widget.RelativeLayout
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.example.remloc1.Data.PlacesData
-import com.example.remloc1.databinding.ActivityMapBinding
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.GoogleApiClient
-import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -35,12 +30,9 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_map.*
-import kotlinx.android.synthetic.main.activity_maps.*
-import java.io.IOException
 
-public class MapActivity: AppCompatActivity(), OnMapReadyCallback, LocationListener, GoogleMap.OnMapClickListener,
+open class MapActivity: AppCompatActivity(), OnMapReadyCallback, LocationListener, GoogleMap.OnMapClickListener,
     GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
     private lateinit var auth: FirebaseAuth
@@ -52,7 +44,6 @@ public class MapActivity: AppCompatActivity(), OnMapReadyCallback, LocationListe
     private var mGoogleApiClient: GoogleApiClient? = null
     private lateinit var addPlaceBtn: FloatingActionButton
     private lateinit var mLocationRequest: LocationRequest
-    private lateinit var placesList: TextView
     private lateinit var mapView: View
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -118,7 +109,7 @@ public class MapActivity: AppCompatActivity(), OnMapReadyCallback, LocationListe
         }
     }
 
-    protected fun buildGoogleApiClient(){
+    private fun buildGoogleApiClient(){
         mGoogleApiClient = GoogleApiClient.Builder(this)
             .addConnectionCallbacks(this)
             .addOnConnectionFailedListener(this)
@@ -198,7 +189,7 @@ public class MapActivity: AppCompatActivity(), OnMapReadyCallback, LocationListe
 
             }.addOnFailureListener{
 
-                Toast.makeText(this, "Failed",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.failed),Toast.LENGTH_SHORT).show()
 
             }
         }

@@ -23,7 +23,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     lateinit var mGoogleSignInClient: GoogleSignInClient
-    val Req_Code: Int = 123
+    private val Req_Code: Int = 123
     private lateinit var firebaseAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,8 +41,8 @@ class MainActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
 
 
-        sign_in.setOnClickListener { view: View? ->
-            Toast.makeText(this, "Logging In", Toast.LENGTH_SHORT).show()
+        sign_in.setOnClickListener { _: View? ->
+            Toast.makeText(this, getString(R.string.log_in), Toast.LENGTH_SHORT).show()
             signInGoogle()
         }
     }
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
         try {
             val account: GoogleSignInAccount? = completedTask.getResult(ApiException::class.java)
             if (account != null) {
-                UpdateUI(account)
+                updateUI(account)
             }
         } catch (e: ApiException) {
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // this is where we update the UI after Google signin takes place
-    private fun UpdateUI(account: GoogleSignInAccount) {
+    private fun updateUI(account: GoogleSignInAccount) {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         firebaseAuth.signInWithCredential(credential).addOnCompleteListener { task ->
             if (task.isSuccessful) {

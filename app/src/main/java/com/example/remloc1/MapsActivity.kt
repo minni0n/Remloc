@@ -41,7 +41,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_maps.*
 import java.io.IOException
-import java.security.AccessController.getContext
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, GoogleMap.OnMapClickListener,
@@ -97,7 +96,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
         saveBtn.isEnabled = searchActive
 
-        locationSearch.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+        locationSearch.setOnEditorActionListener(OnEditorActionListener { _, actionId, event ->
             if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
                 searchLocation()
                 saveBtn.isEnabled = searchActive
@@ -313,7 +312,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
         if (location == ""){
             searchActive = false
-//            Toast.makeText(this, "provide location", Toast.LENGTH_SHORT).show()
         }else{
             val geoCoder = Geocoder(this)
             try {
@@ -331,7 +329,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
             marker = mMap!!.addMarker(markerOnMap!!)
             mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15F))
-//            mMap!!.animateCamera(CameraUpdateFactory.newLatLng(latLng))
         }
     }
 
@@ -439,11 +436,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
             database.child("Places//$key").setValue(action).addOnCompleteListener{
                 if(it.isSuccessful){
 
-                    Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.success), Toast.LENGTH_SHORT).show()
 
                 }else{
 
-                    Toast.makeText(this, "Failed to update data", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.failed_to_upd_data), Toast.LENGTH_SHORT).show()
 
                 }
             }

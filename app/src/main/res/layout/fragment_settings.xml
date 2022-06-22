@@ -37,7 +37,7 @@
         android:layout_height="wrap_content"
         android:textColor="@color/gray"
         android:layout_marginBottom="10dp"
-        android:text="Permissions"
+        android:text="@string/permissions"
         android:textSize="20sp" />
 
 
@@ -58,7 +58,7 @@
                 android:layout_marginVertical="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Location"
+                android:text="@string/location"
                 android:textSize="20sp"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
@@ -77,7 +77,7 @@
                 android:layout_marginVertical="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Contacts"
+                android:text="@string/contacts"
                 android:textSize="20sp"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
@@ -96,7 +96,7 @@
                 android:layout_marginVertical="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sms"
+                android:text="@string/sms"
                 android:textSize="20sp"
                 tools:ignore="UseSwitchCompatOrMaterialXml" />
 
@@ -110,7 +110,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/gray"
-        android:text="If you want to deny a permission, you need to go to:"
+        android:text="@string/if_you_want_to_deny_a_permission_you_need_to_go_to"
 
         android:textSize="15sp" />
     <TextView
@@ -118,7 +118,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/gray"
-        android:text="Settings > Apps > RemLoc > Permissions"
+        android:text="@string/settings_apps_remloc_permissions"
 
         android:textSize="15sp" />
 
@@ -133,7 +133,7 @@
             android:backgroundTint="@color/red"
             android:layout_gravity="bottom|center"
             android:layout_marginBottom="20dp"
-            android:text="Delete all data from app"/>
+            android:text="@string/delete_all_data_from_app"/>
 
     </FrameLayout>
 

@@ -13,7 +13,7 @@
         android:layout_marginStart="15dp"
         android:textSize="20sp"
         android:layout_width="match_parent"
-        android:text="List of places"
+        android:text="@string/list_of_places"
         android:textStyle="bold"
         android:layout_height="wrap_content"/>
 

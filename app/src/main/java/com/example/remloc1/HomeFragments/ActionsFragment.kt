@@ -1,20 +1,16 @@
 package com.example.remloc1.HomeFragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.remloc1.AddDataFragment.AddActionFragment
 import com.example.remloc1.Data.ActionsData
-import com.example.remloc1.Data.PlacesData
 import com.example.remloc1.DataAdapter.ActionAdapter
-import com.example.remloc1.DataAdapter.PlaceAdapter
 import com.example.remloc1.EditDataFragments.EditActionFragment
 import com.example.remloc1.HomeActivity
 import com.example.remloc1.R
@@ -93,7 +89,6 @@ class ActionsFragment : Fragment() {
                             if (id != null) {
                                 keys.add(id)
                             }
-                            //                        Toast.makeText(activity, id, Toast.LENGTH_SHORT).show()
 
                             val contactName = action.child("contactName").value.toString()
                             val phoneNumber = action.child("phoneNumber").value.toString()
@@ -157,7 +152,7 @@ class ActionsFragment : Fragment() {
 
             }.addOnFailureListener{
 
-                Toast.makeText(activity, "Failed",Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, getString(R.string.failed),Toast.LENGTH_SHORT).show()
 
             }
         }

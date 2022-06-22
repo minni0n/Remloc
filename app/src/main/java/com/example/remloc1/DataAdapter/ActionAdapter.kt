@@ -2,14 +2,12 @@ package com.example.remloc1.DataAdapter
 
 import android.annotation.SuppressLint
 import android.app.Activity
-import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.example.remloc1.Data.ActionsData
-import com.example.remloc1.Data.PlacesData
 import com.example.remloc1.R
 
 

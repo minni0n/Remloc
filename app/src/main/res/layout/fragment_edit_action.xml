@@ -13,7 +13,7 @@ android:orientation="vertical">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/gray"
-        android:text="Action type"
+        android:text="@string/action_type"
         android:textSize="16sp" />
 
     <TextView
@@ -22,7 +22,7 @@ android:orientation="vertical">
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Sms"
+        android:text="@string/sms"
         android:textSize="20sp" />
 
     <View
@@ -89,7 +89,7 @@ android:orientation="vertical">
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/gray"
-            android:text="Contact name and phone number"
+            android:text="@string/contact_name_and_phone_number"
             android:textSize="16sp" />
 
         <LinearLayout
