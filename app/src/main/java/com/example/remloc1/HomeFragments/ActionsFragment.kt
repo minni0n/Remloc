@@ -65,8 +65,6 @@ class ActionsFragment : Fragment() {
         currentLatLng = LatLng(latitude, longitude)
 
 
-//        Toast.makeText(activity, currentLatLng.toString(), Toast.LENGTH_SHORT).show()
-
 
         listOfActions.adapter = activity?.let { ActionAdapter(it, data) }
 
