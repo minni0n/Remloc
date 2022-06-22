@@ -72,7 +72,7 @@
     <string name="use_the_default_value">Use the default value</string>
     <string name="cancel">Cancel</string>
     <string name="ok">Ok</string>
-    <string name="success" >Success</string>
+    <string name="success">Success</string>
     <string name="failed_to_upd_data">Failed to update data</string>
     <string name="set_parameters">Set all of the parameters</string>
     <string name="failed">Failed</string>
@@ -81,9 +81,9 @@
     <string name="log_out">Logging Out</string>
     <string name="contact_name_and_phone_number">Contact name and phone number</string>
     <string name="log_in">Logging In</string>
-    <string name="deleting" >Deleting</string>
+    <string name="deleting">Deleting</string>
     <string name="you_sure_del_data">You sure you want to delete all of the data?</string>
-    <string name="yes" >Yes</string>
-    <string name="no" >No</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 
 </resources>

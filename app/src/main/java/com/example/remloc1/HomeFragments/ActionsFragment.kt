@@ -1,12 +1,23 @@
 package com.example.remloc1.HomeFragments
 
+import android.Manifest
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import com.example.remloc1.AddDataFragment.AddActionFragment
 import com.example.remloc1.Data.ActionsData
@@ -15,6 +26,7 @@ import com.example.remloc1.EditDataFragments.EditActionFragment
 import com.example.remloc1.HomeActivity
 import com.example.remloc1.R
 import com.example.remloc1.databinding.FragmentActionsBinding
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -28,13 +40,13 @@ class ActionsFragment : Fragment() {
     private lateinit var actions: MutableList<String>
     private lateinit var keys: MutableList<String>
     private lateinit var actionTypeArray: MutableList<String>
+    private lateinit var currentLatLng: LatLng
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
-
 
 
         binding = FragmentActionsBinding.inflate(layoutInflater)
@@ -49,13 +61,22 @@ class ActionsFragment : Fragment() {
         keys = mutableListOf("")
         keys.clear()
 
+        val gpuUtils = GPSUtils()
+        gpuUtils.findDeviceLocation(requireActivity())
+        val latitude = gpuUtils.getLatitude()!!.toDouble()
+        val longitude = gpuUtils.getLongitude()!!.toDouble()
+        currentLatLng = LatLng(latitude, longitude)
+
         data = readData()
+
+
 
         listOfActions.adapter = activity?.let { ActionAdapter(it, data) }
 
 
         binding.listOfActions.setOnItemClickListener { _: AdapterView<*>, _: View, i: Int, _: Long ->
 
+            distance(currentLatLng, LatLng(data[i].latitude!!, data[i].longitude!!))
             (activity as HomeActivity?)!!.replaceFragment(EditActionFragment(keys[i], actionTypeArray[i]), getString(R.string.edit_action))
         }
 
@@ -160,5 +181,29 @@ class ActionsFragment : Fragment() {
         return dataNow
 
     }
+
+    private fun distance(currentLatLng: LatLng, placeLatLng: LatLng){
+        val theta = currentLatLng.longitude - placeLatLng.longitude
+        var dist = Math.sin(deg2rad(currentLatLng.latitude)) * Math.sin(deg2rad(placeLatLng.latitude)) + Math.cos(deg2rad(currentLatLng.latitude)) * Math.cos(deg2rad(placeLatLng.latitude)) * Math.cos(deg2rad(theta))
+        dist = Math.acos(dist)
+        dist = rad2deg(dist)
+        dist *= 60 * 1.1515
+        dist *= 1.609344
+        dist *= 1000 // distance in meters
+        Toast.makeText(activity, "$dist m", Toast.LENGTH_SHORT).show()
+
+//        if (dist <= 100) {
+//            Toast.makeText(activity, "$dist m", Toast.LENGTH_SHORT).show()
+//        }
+    }
+
+    private fun deg2rad(deg: Double): Double {
+        return deg * Math.PI / 180.0
+    }
+
+    private fun rad2deg(rad: Double): Double {
+        return rad * 180.0 / Math.PI
+    }
+
 
 }

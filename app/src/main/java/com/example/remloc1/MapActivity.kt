@@ -70,8 +70,7 @@ open class MapActivity: AppCompatActivity(), OnMapReadyCallback, LocationListene
         }
 
         makeMarkersOfPlaces()
-        currentLocationLatLng?.let { it-> CameraUpdateFactory.newLatLng(it) }
-            ?.let { mMap!!.animateCamera(it) }
+
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.myMap) as SupportMapFragment
         mapFragment.getMapAsync(this)
