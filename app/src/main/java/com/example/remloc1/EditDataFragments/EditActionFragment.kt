@@ -34,6 +34,7 @@ class EditActionFragment(private val key: String , private val actionType: Strin
     private lateinit var places: MutableList<String>
     private lateinit var contacts: MutableList<String>
     private lateinit var unnecessaryLayout: LinearLayout
+    private lateinit var contactNamePhone: LinearLayout
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -50,6 +51,7 @@ class EditActionFragment(private val key: String , private val actionType: Strin
         contactsSpinner = binding.contactsSpinner
 
         unnecessaryLayout = binding.unnecessaryLayout
+        contactNamePhone = binding.contactNamePhone
 
         actionTypeTV = binding.actionTypeTV
         placeName = binding.placeName
@@ -168,15 +170,17 @@ class EditActionFragment(private val key: String , private val actionType: Strin
                 }
             }
             "Notification" -> {
-                unnecessaryLayout.visibility = View.GONE
+                contactNamePhone.visibility = View.GONE
                 editAction.visibility = View.GONE
                 deleteBtn.visibility = View.VISIBLE
                 database.child("Actions//Notification//$key").get().addOnSuccessListener {
                     if(it.exists()){
 
                         val placeNameRes = it.child("placeName").value.toString()
+                        val smsTextRes = it.child("smsText").value.toString()
                         actionTypeTV.text = getString(R.string.notification)
                         placeName.text = placeNameRes
+                        smsText.text = smsTextRes
 
                     }
                 }

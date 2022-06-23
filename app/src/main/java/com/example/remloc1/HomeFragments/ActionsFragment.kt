@@ -1,5 +1,7 @@
 package com.example.remloc1.HomeFragments
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +9,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.remloc1.Actions.MuteDevice
 import com.example.remloc1.Actions.SendNotification
@@ -34,6 +38,7 @@ class ActionsFragment : Fragment() {
     private lateinit var keys: MutableList<String>
     private lateinit var actionTypeArray: MutableList<String>
     private lateinit var currentLatLng: LatLng
+    private val permissionRequest = 101
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,7 +71,9 @@ class ActionsFragment : Fragment() {
 
 
 
+
         listOfActions.adapter = activity?.let { ActionAdapter(it, data) }
+
 
 
         binding.btnCheckActions.setOnClickListener {
@@ -94,7 +101,8 @@ class ActionsFragment : Fragment() {
                     activity?.getString(R.string.notification) ->{
 
                         if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
-                            val sendNotification = SendNotification()
+                            val sendNotification = SendNotification(dataLine.placeName!!, dataLine.smsText!!,requireActivity())
+                            sendNotification.sendNotification()
                         }
 
                     }
@@ -119,6 +127,7 @@ class ActionsFragment : Fragment() {
 
         return binding.root
     }
+
 
 
     private fun readData(): ArrayList<ActionsData>{

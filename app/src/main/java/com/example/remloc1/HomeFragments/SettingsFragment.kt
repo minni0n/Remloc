@@ -52,6 +52,16 @@ class SettingsFragment : Fragment() {
         val adapter = activity?.let { ArrayAdapter(it, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, languageList) }
         binding.languagesSpinner.adapter = adapter
 
+        var counter = 0
+        binding.funThing.setOnClickListener {
+            counter += 1
+            if (counter==10){
+                dialog()
+                counter = 0
+            }
+        }
+
+
         binding.languagesSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
 
@@ -137,6 +147,13 @@ class SettingsFragment : Fragment() {
         return binding.root
     }
 
+
+    private fun dialog(){
+        val builder = AlertDialog.Builder(requireActivity())
+        builder.setTitle("Секретне повідомлення")
+        builder.setMessage("Русьониш завжди в моєму серці\nТи прекрасна")
+        builder.show()
+    }
 
     private fun showChooseNameDialog(){
 

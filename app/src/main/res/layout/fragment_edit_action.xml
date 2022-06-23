@@ -83,43 +83,53 @@ android:orientation="vertical">
             android:layout_height="1dp"
             android:background="?android:attr/listDivider" />
 
-        <TextView
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/gray"
-            android:text="@string/contact_name_and_phone_number"
-            android:textSize="16sp" />
-
         <LinearLayout
-            android:orientation="vertical"
+            android:id="@+id/contactNamePhone"
             android:layout_width="match_parent"
+            android:orientation="vertical"
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/contactName"
-                android:layout_marginStart="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Serhii"
-                android:textSize="20sp" />
-
-            <TextView
-                android:id="@+id/phoneNumber"
-                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="+48 537 606 413"
-                android:textSize="20sp" />
+                android:textColor="@color/gray"
+                android:text="@string/contact_name_and_phone_number"
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/contactName"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Serhii"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/phoneNumber"
+                    android:layout_marginStart="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="+48 537 606 413"
+                    android:textSize="20sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
         </LinearLayout>
 
-        <View
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider" />
+
 
     </LinearLayout>
 

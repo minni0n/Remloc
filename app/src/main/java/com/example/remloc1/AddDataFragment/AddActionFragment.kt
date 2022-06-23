@@ -118,7 +118,7 @@ class AddActionFragment : Fragment() {
                         typeOfAction = p2
                         binding.smsText.setText("")
                         binding.contactsSpinner.setSelection(0)
-                        binding.smsText.visibility = View.GONE
+                        binding.smsText.visibility = View.VISIBLE
                         binding.contactsSpinner.visibility = View.GONE
                     }
                 }
@@ -253,7 +253,9 @@ class AddActionFragment : Fragment() {
             3-> {
 
                 placeName = binding.placesSpinner
+                smsText = binding.smsText
 
+                val strSmsText = smsText.text.toString()
                 val placeIndex = placeName.selectedItemId.toInt()-1
                 val strPlaceName: String = binding.placesSpinner.selectedItem.toString()
 
@@ -266,6 +268,7 @@ class AddActionFragment : Fragment() {
                         val key: String? = database.push().key
                         val action = ActionNotificationData(
                             strPlaceName,
+                            strSmsText,
                             "Notification",
                             latitudes[placeIndex],
                             longitudes[placeIndex]
