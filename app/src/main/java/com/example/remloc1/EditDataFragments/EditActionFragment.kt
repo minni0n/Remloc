@@ -100,7 +100,7 @@ class EditActionFragment(private val key: String , private val actionType: Strin
 
             editAction.visibility = View.GONE
             smsTextEdit.visibility = View.VISIBLE
-            placesSpinner.visibility = View.VISIBLE
+            placesSpinner.visibility = View.GONE
             contactsSpinner.visibility = View.VISIBLE
             saveChangesBtn.visibility = View.VISIBLE
             deleteBtn.visibility = View.VISIBLE
