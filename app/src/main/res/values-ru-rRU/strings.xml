@@ -84,4 +84,5 @@
     <string name="yes" >Да</string>
     <string name="no" >Нет</string>
     <string name="cant_find" >Невозможно найти место, попробуйте другое!</string>
+    <string name="check">Проверь</string>
 </resources>
