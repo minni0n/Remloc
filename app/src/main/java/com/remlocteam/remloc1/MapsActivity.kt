@@ -375,18 +375,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
             val action = PlacesData(addressLine, placeName, longitude, latitude)
             database.child("Places//$key").setValue(action).addOnCompleteListener{
                 if(it.isSuccessful){
-
                     Toast.makeText(this, getString(R.string.success), Toast.LENGTH_SHORT).show()
-
                 }else{
-
                     Toast.makeText(this, getString(R.string.failed_to_upd_data), Toast.LENGTH_SHORT).show()
-
                 }
             }
-
         }
-
     }
 
 

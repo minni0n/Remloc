@@ -13,8 +13,8 @@ android {
         applicationId "com.remlocteam.remloc1"
         minSdk 26
         targetSdk 32
-        versionCode 14
-        versionName "2.9"
+        versionCode 15
+        versionName "3.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
