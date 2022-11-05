@@ -40,6 +40,8 @@ class ActionsFragment : Fragment() {
     private lateinit var currentLatLng: LatLng
     private val permissionRequest = 101
 
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -48,6 +50,7 @@ class ActionsFragment : Fragment() {
 
 
         binding = FragmentActionsBinding.inflate(layoutInflater)
+
 
         val listOfActions: ListView = binding.listOfActions
         var data: ArrayList<ActionsData> = ArrayList()

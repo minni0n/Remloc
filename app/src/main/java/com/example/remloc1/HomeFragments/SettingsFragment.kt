@@ -55,7 +55,7 @@ class SettingsFragment : Fragment() {
         var counter = 0
         binding.funThing.setOnClickListener {
             counter += 1
-            if (counter==10){
+            if (counter==20){
                 dialog()
                 counter = 0
             }
@@ -151,7 +151,7 @@ class SettingsFragment : Fragment() {
     private fun dialog(){
         val builder = AlertDialog.Builder(requireActivity())
         builder.setTitle("Секретне повідомлення")
-        builder.setMessage("Русьониш завжди в моєму серці\nТи прекрасна")
+        builder.setMessage("Руся ти прекрасна")
         builder.show()
     }
 

@@ -2,6 +2,7 @@ package com.example.remloc1.EditDataFragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -237,7 +238,6 @@ class EditActionFragment(private val key: String , private val actionType: Strin
 
         return binding.root
     }
-
 
 
     private fun readPlaceData(){
