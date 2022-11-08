@@ -234,8 +234,10 @@ class ActionsFragment : Fragment() {
         dist *= 1.609344
         dist *= 1000 // distance in meters
 //        Toast.makeText(activity, "$dist m", Toast.LENGTH_SHORT).show()
+        val triggerRange = (activity as HomeActivity?)!!.getSliderValue()
 
-        if (dist <= 200) {
+
+        if (dist <= triggerRange) {
             return true
 //            Toast.makeText(activity, "$dist m", Toast.LENGTH_SHORT).show()
         }

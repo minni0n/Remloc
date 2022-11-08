@@ -2,19 +2,23 @@ package com.example.remloc1.HomeFragments
 
 import android.Manifest
 import android.app.AlertDialog
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Toast
+import android.widget.*
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.example.remloc1.AddDataFragment.AddActionFragment
 import com.example.remloc1.HomeActivity
 import com.example.remloc1.R
+import com.example.remloc1.databinding.FragmentAddActionBinding
 import com.example.remloc1.databinding.FragmentSettingsBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -27,17 +31,51 @@ class SettingsFragment : Fragment() {
     private lateinit var database : DatabaseReference
     private lateinit var auth: FirebaseAuth
     private lateinit var uid: String
+    private lateinit var slider: SeekBar
+    private lateinit var sliderValue: TextView
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
+
+        // Inflate the layout for this fragment
         binding = FragmentSettingsBinding.inflate(layoutInflater)
+        //slider values
+        slider = binding.rangeSlider
+        sliderValue = binding.sliderRangeValue
+
+        slider.progress = (activity as HomeActivity?)!!.getSliderValue()
+        sliderValue.text = slider.progress.toString()
+        //shared pref for slider
+
+        //init a slider max val
+        slider.max = 500
+        slider.min = 10
+
+        //Slider on click listener
+        slider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{
+            override fun onProgressChanged(seekBar: SeekBar, progress: Int, fromUser: Boolean) {
+                //sliderValue.text = progress.toString()
+                sliderValue.text = slider.progress.toString()
+                (activity as HomeActivity?)!!.setSliderValue(slider.progress)
+            }
+
+            override fun onStartTrackingTouch(seekBar: SeekBar) {
+                // you can probably leave this empty
+            }
+
+            override fun onStopTrackingTouch(seekBar: SeekBar) {
+                // you can probably leave this empty
+            }
+        })
+
 
         auth = FirebaseAuth.getInstance()
         uid = auth.currentUser?.uid!!

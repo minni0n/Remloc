@@ -105,6 +105,57 @@
     </LinearLayout>
 
 
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray"
+        android:layout_marginBottom="10dp"
+        android:text="Change default trigger distance"
+        android:textSize="20sp" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <SeekBar
+            android:id="@+id/rangeSlider"
+            android:layout_width="400dp"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:max="500"
+            />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center">
+
+            <TextView
+                android:id="@+id/sliderRangeValue"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:textSize="20sp"
+                android:text="25"/>
+
+            <TextView
+                android:id="@+id/meters"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:textSize="20sp"
+                android:text=" m"/>
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/funThing"
         android:layout_width="match_parent"
@@ -112,7 +163,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:layout_marginTop="5dp"
+            android:layout_marginTop="10dp"
             android:layout_marginHorizontal="15dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

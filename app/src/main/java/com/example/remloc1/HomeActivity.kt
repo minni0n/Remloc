@@ -20,6 +20,7 @@ import com.example.remloc1.HomeFragments.ActionsFragment
 import com.example.remloc1.HomeFragments.GameMiejskaFragment
 import com.example.remloc1.HomeFragments.HelpReviewFragment
 import com.example.remloc1.HomeFragments.SettingsFragment
+import com.example.remloc1.databinding.FragmentSettingsBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
@@ -27,6 +28,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import de.hdodenhof.circleimageview.CircleImageView
+import kotlinx.android.synthetic.main.fragment_settings.*
 import java.util.*
 import kotlin.system.exitProcess
 
@@ -45,6 +47,7 @@ class HomeActivity : AppCompatActivity() {
     private var currentLanguage = "en"
     private var currentLang: String? = null
     private val contactsList: MutableList<String> = ArrayList()
+
 
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -131,8 +134,6 @@ class HomeActivity : AppCompatActivity() {
                 .with(this)
                 .load(photoUrl) // the uri you got from Firebase // URI.parse(url)
                 .into(navPhoto) //Your imageView variable
-
-
         }
 
 
@@ -169,6 +170,23 @@ class HomeActivity : AppCompatActivity() {
 
         return super.onOptionsItemSelected(item)
     }
+
+
+    // Set and Get slider range values
+    fun getSliderValue(): Int {
+        val sp: SharedPreferences = getSharedPreferences("Distance", MODE_PRIVATE)
+        val value = sp.getInt("TriggerDistanceValue", 10)
+        return value
+    }
+
+    fun setSliderValue(value: Int){
+        val edit: SharedPreferences.Editor
+        val sp: SharedPreferences = getSharedPreferences("Distance", MODE_PRIVATE)
+        edit = sp.edit()
+        edit.putInt("TriggerDistanceValue", value)
+        edit.apply()
+    }
+
 
     fun setLocale(localeName: String) {
 
