@@ -35,6 +35,21 @@ import kotlin.system.exitProcess
 
 class HomeActivity : AppCompatActivity() {
 
+//    interface IOnBackPressed {
+//        fun onBackPressed(): Boolean
+//    }
+//
+//
+//    override fun onBackPressed() {
+//        val fragment =
+//            this.supportFragmentManager.findFragmentById(R.id.cityGameWeb)
+//        (fragment as? IOnBackPressed)?.onBackPressed()?.not()?.let {
+//            super.onBackPressed()
+//        }
+//    }
+
+
+
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
@@ -215,15 +230,6 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    @Override
-    override fun onBackPressed() {
-        val intent = Intent(Intent.ACTION_MAIN)
-        intent.addCategory(Intent.CATEGORY_HOME)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        startActivity(intent)
-        finish()
-        exitProcess(0)
-    }
 
     private fun checkSmsPermission() {
         if (ActivityCompat.checkSelfPermission(

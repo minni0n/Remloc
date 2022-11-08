@@ -1,16 +1,18 @@
 package com.example.remloc1.HomeFragments
 
+import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.webkit.WebView
+import android.webkit.WebViewClient
+import androidx.annotation.RequiresApi
+import androidx.fragment.app.Fragment
+import com.example.remloc1.HomeActivity
 import com.example.remloc1.R
-import com.example.remloc1.databinding.FragmentActionsBinding
-import com.example.remloc1.databinding.FragmentEditActionBinding
 import com.example.remloc1.databinding.FragmentGameMiejskaBinding
-import com.example.remloc1.databinding.FragmentSettingsBinding
 import kotlinx.android.synthetic.main.fragment_game_miejska.*
 
 
@@ -21,10 +23,38 @@ class GameMiejskaFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         binding = FragmentGameMiejskaBinding.inflate(layoutInflater)
 
         return binding.root
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        webViewSetup()
+    }
+
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun webViewSetup(){
+        val myWebView: WebView = requireView().findViewById(R.id.cityGameWeb)
+        myWebView.webViewClient = WebViewClient()
+        myWebView.apply {
+            loadUrl("https://google.com")
+            settings.javaScriptEnabled = true
+            settings.safeBrowsingEnabled = true
+        }
+    }
+
+//    override fun onBackPressed(): Boolean {
+//        return if (binding.cityGameWeb.canGoBack()) {
+//            binding.cityGameWeb.goBack()
+//            true
+//        } else {
+//            false
+//        }
+//    }
+
 }

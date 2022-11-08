@@ -5,25 +5,12 @@
     android:layout_height="match_parent"
     android:background="@color/red"
     android:orientation="vertical"
-
     tools:context=".HomeFragments.GameMiejskaFragment">
 
-    <TextView
-        android:id="@+id/game"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="250dp"
-        android:text="@string/game_miejska"
-        android:textSize="60sp"
-        android:textStyle="bold" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/coming_soon"
-        android:textSize="60sp"
-        android:textStyle="bold" />
+    <WebView
+        android:id="@+id/cityGameWeb"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 
 </LinearLayout>
