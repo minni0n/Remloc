@@ -1,50 +1,41 @@
 {
   "project_info": {
-    "project_number": "1068238081596",
-    "firebase_url": "https://remloc1-86738-default-rtdb.europe-west1.firebasedatabase.app",
-    "project_id": "remloc1-86738",
-    "storage_bucket": "remloc1-86738.appspot.com"
+    "project_number": "518564489431",
+    "project_id": "remloc1-fbe72",
+    "storage_bucket": "remloc1-fbe72.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1068238081596:android:e7c58f44f99ff4402c7d39",
+        "mobilesdk_app_id": "1:518564489431:android:75490baee48835c90de892",
         "android_client_info": {
-          "package_name": "com.example.remloc1"
+          "package_name": "com.remlocteam.remloc1"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1068238081596-1u11gs2lhsapvt4j8m4n3hbic1ibullb.apps.googleusercontent.com",
+          "client_id": "518564489431-44h1knc176rlivla3u854pc4b9fjnns6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.remloc1",
-            "certificate_hash": "b1c256bd460bb4df618c84e57bf5e98d85a14ada"
+            "package_name": "com.remlocteam.remloc1",
+            "certificate_hash": "d18414af5447e4e8ab51fd411d8a8afb32d83cb1"
           }
         },
         {
-          "client_id": "1068238081596-gspuil757oksm1lu46fejrpfkf7e9005.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.remloc1",
-            "certificate_hash": "c5d460655a5d92d9628d727376f7e877a18772e8"
-          }
-        },
-        {
-          "client_id": "1068238081596-n07tj5bf7lu02b3fb3tvuvofc1a9njuo.apps.googleusercontent.com",
+          "client_id": "518564489431-tcna2ahq4pir464qgjhuhgmcrcf7h25a.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCpEh3g7720XZoUGzUL3c2c2DhQUyrQNqU"
+          "current_key": "AIzaSyB3HBZOImuj6F3io1xlZ5AcFQi5rmFJoaE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1068238081596-n07tj5bf7lu02b3fb3tvuvofc1a9njuo.apps.googleusercontent.com",
+              "client_id": "518564489431-tcna2ahq4pir464qgjhuhgmcrcf7h25a.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

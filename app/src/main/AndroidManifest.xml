@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.remloc1">
+    package="com.remlocteam.remloc1">
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -20,29 +20,29 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RemLoc1">
         <activity
-            android:name=".MapActivity"
+            android:name="com.remlocteam.remloc1.MapActivity"
             android:exported="true"
-            android:parentActivityName=".HomeActivity" />
+            android:parentActivityName="com.remlocteam.remloc1.HomeActivity" />
         <activity
-            android:name=".MapsActivity"
+            android:name="com.remlocteam.remloc1.MapsActivity"
             android:exported="true"
-            android:parentActivityName=".MapActivity" >
+            android:parentActivityName="com.remlocteam.remloc1.MapActivity" >
 
 
         </activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAmq-wLmDDjk8hmh-kp2oZqVUxSeQTQ0jI" />
+                android:value="AIzaSyAyup1geuRWIHYO9hmKOP4tyO5qlcJuuMc" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name=".HomeActivity"
+            android:name="com.remlocteam.remloc1.HomeActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.remlocteam.remloc1.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

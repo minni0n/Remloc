@@ -1,6 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">RemLoc</string>
-    <string name="MAPS_API_KEY" translatable="false">AIzaSyAmq-wLmDDjk8hmh-kp2oZqVUxSeQTQ0jI</string>
 
     <string name="sign_in_with_google">Sign in with Google</string>
     <string name="places">Places</string>
@@ -87,5 +86,7 @@
     <string name="no">No</string>
     <string name="cant_find" >Can\'t find the location, please try another!</string>
     <string name="check">check</string>
+    <string name="google_maps_api_key" translatable="false">AIzaSyAVorUrI4JI1QDy-esFG03pG-cc9--wT84</string>
+    <string name="firebase_database_url" translatable="false">https://remloc1-fbe72-default-rtdb.europe-west1.firebasedatabase.app</string>
 
 </resources>

@@ -26,7 +26,7 @@
             android:background="@color/pastel_blue"/>
 
         <fragment
-            android:name="com.example.remloc1.HomeFragments.PlacesFragment"
+            android:name="com.remlocteam.remloc1.HomeFragments.PlacesFragment"
             android:id="@+id/placesFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
