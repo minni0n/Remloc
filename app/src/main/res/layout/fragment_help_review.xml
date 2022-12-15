@@ -50,16 +50,14 @@
             android:id="@+id/etMessageBox"
             android:layout_marginHorizontal="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:hint="@string/enter_your_text_message"
             android:background="?colorPrimaryVariant"
             android:textColorHint="@color/gray"
             android:textColor="?android:textColor"
             android:autoLink="all"
-            android:lines="10"
-            android:minLines="1"
-            android:maxLines="10"
             android:scrollbars="none"
+            android:minHeight="150dp"
             android:inputType="textMultiLine|textCapSentences"/>
     </LinearLayout>
 
