@@ -2,30 +2,25 @@
     <!-- Base application theme. -->
     <style name="Theme.RemLoc1" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/pastel_blue</item>
-        <item name="colorPrimaryVariant">@color/pastel_blue</item>
+        <item name="colorPrimary">@color/app_main</item>
+        <item name="colorPrimaryVariant">#FFFFFF</item>
         <item name="colorOnPrimary">@color/white</item>
+        <item name="colorAccent">@color/black</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/pastel_gray_dark</item>
-        <item name="colorSecondaryVariant">@color/pastel_violet</item>
+        <item name="colorSecondary">@color/background_places_day</item>
+        <item name="colorSecondaryVariant">#A4A6AA</item>
         <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
 
-        <item name="android:statusBarColor" >?attr/colorPrimaryVariant</item>
+
+        <item name="colorOnPrimarySurface">@color/white</item>
+
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" >?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/black</item>
 
     </style>
 
-    <style name="spinner_style">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">10dp</item>
-        <item name="android:paddingLeft">8dp</item>
-        <item name="android:paddingRight">20dp</item>
-        <item name="android:paddingTop">5dp</item>
-        <item name="android:paddingBottom">5dp</item>
-        <item name="android:popupBackground">#DFFFFFFF</item>
-    </style>
+
 </resources>
 

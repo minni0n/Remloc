@@ -1,28 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
+    <!-- Relative Layout -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/teal_700"
-    android:orientation="vertical"
-
-    tools:context=".HomeFragments.GameMiejskaFragment">
+    android:background="?colorSecondary"
+    tools:context=".HomeFragments.HelpReviewFragment"
+    android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="250dp"
-        android:text="@string/help_feedback"
-        android:textSize="50sp"
-        android:textStyle="bold" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/coming_soon"
-        android:textSize="60sp"
-        android:textStyle="bold" />
+        android:textColor="@color/gray"
+        android:text="Choose your theme"
+        android:layout_marginBottom="10dp"
+        android:textSize="20sp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Spinner
+            android:id="@+id/themeSpinner"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="?colorPrimaryVariant"
+            android:spinnerMode="dropdown"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/themeTextView"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/gray"
+        android:text="What do you want to tell us?"
+        android:layout_marginBottom="10dp"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_marginVertical="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?colorPrimaryVariant">
+
+        <EditText
+            android:id="@+id/etMessageBox"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_your_text_message"
+            android:background="?colorPrimaryVariant"
+            android:textColorHint="@color/gray"
+            android:textColor="?android:textColor"
+            android:autoLink="all"
+            android:lines="10"
+            android:minLines="1"
+            android:maxLines="10"
+            android:scrollbars="none"
+            android:inputType="textMultiLine|textCapSentences"/>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/sendEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:text="Send an a email"
+        tools:ignore="RtlHardcoded" />
 
 </LinearLayout>

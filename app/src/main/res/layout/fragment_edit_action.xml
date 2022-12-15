@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="@color/slight_gray"
-tools:context=".EditDataFragments.EditActionFragment"
-android:orientation="vertical">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?colorSecondary"
+    tools:context=".EditDataFragments.EditActionFragment"
+    android:orientation="vertical">
 
     <TextView
         android:layout_marginTop="10dp"
@@ -135,28 +135,35 @@ android:orientation="vertical">
 
 
 
-
-
-    <EditText
-        android:id="@+id/smsTextEdit"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="5dp"
+    <LinearLayout
+        android:layout_marginVertical="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/edit_sms_text"
-        android:textColor="@android:color/black" />
+        android:background="?colorPrimaryVariant">
+
+        <EditText
+            android:id="@+id/smsTextEdit"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:hint="@string/edit_sms_text"
+            android:background="?colorPrimaryVariant"
+            android:textColorHint="@color/gray"
+            android:textColor="?android:textColor" />
+
+    </LinearLayout>
 
     <Spinner
         android:layout_marginTop="20dp"
         android:id="@+id/contactsSpinner"
-        android:background="@color/white"
+        android:background="?colorPrimaryVariant"
         android:layout_width="match_parent"
         android:layout_height="40dp" />
 
     <Spinner
         android:layout_marginTop="20dp"
         android:id="@+id/placesSpinner"
-        android:background="@color/white"
+        android:background="?colorPrimaryVariant"
         android:layout_width="match_parent"
         android:layout_height="40dp" />
 

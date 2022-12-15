@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
+    android:backgroundTint="@android:color/transparent"
     android:background="@drawable/bg_round_popup_back">
 
         <LinearLayout
@@ -45,6 +46,9 @@
                 android:hint="@string/provide_label"
                 android:backgroundTint="@android:color/transparent"
                 android:id="@+id/provideLabel"
+                android:textColorHint="@color/gray"
+                android:inputType="textPersonName"
+                android:textColor="@color/black"
                 android:textSize="16sp" />
 
         </LinearLayout>

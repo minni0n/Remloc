@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/slight_gray"
+    android:background="?colorSecondary"
     tools:context=".EditDataFragments.EditPlaceFragment"
     android:orientation="vertical">
 
@@ -29,7 +29,6 @@
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="?android:attr/listDivider" />
-
 
 
     <TextView
@@ -130,7 +129,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/edit_place_name"
-        android:textColor="@android:color/black" />
+        android:textColor="?android:textColor" />
 
     <Button
         android:id="@+id/btnEditData"
@@ -157,5 +156,9 @@
         android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:text="@string/remove_place" />
+    <TextView
+        android:background="?colorSecondary"
+        android:layout_width="match_parent"
+        android:layout_height="800dp"/>
 
 </LinearLayout>

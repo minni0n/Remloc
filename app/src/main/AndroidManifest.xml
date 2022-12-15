@@ -27,8 +27,6 @@
             android:name="com.remlocteam.remloc1.MapsActivity"
             android:exported="true"
             android:parentActivityName="com.remlocteam.remloc1.MapActivity" >
-
-
         </activity>
 
         <meta-data

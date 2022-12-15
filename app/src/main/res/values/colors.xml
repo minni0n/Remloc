@@ -13,6 +13,7 @@
     <color name="underlineColor">#BDB8B8</color>
 
 
+
     <color name="pastel_gray">#d8deea</color>
     <color name="pastel_gray_dark">#a9a9a9</color>
     <color name="pastel_yellow">#fcefcb</color>
@@ -22,4 +23,12 @@
     <color name="pastel_green">#BFFCC6 </color>
     <color name="pastel_violet">#A79AFF </color>
     <color name="slight_gray">#EFF0F3</color>
+
+
+
+    <color name="app_main">#333366</color>
+
+
+    <color name="background_places_day">#EFF0F3</color>
+    <color name="background_places_night">#1B1B1C</color>
 </resources>

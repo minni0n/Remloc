@@ -26,6 +26,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.remlocteam.remloc1.AddDataFragment.AddActionFragment
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_settings.*
 import java.util.*
@@ -116,9 +117,13 @@ class HomeActivity : AppCompatActivity() {
 
         }
 
+
+        replaceFragment(ActionsFragment(), getString(R.string.actions))
+
+
         // call requestIdToken as follows
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("154388859996-2vsh7tgibbvoip70h3sff9ttg2hjfibo.apps.googleusercontent.com")
+            .requestIdToken("518564489431-tcna2ahq4pir464qgjhuhgmcrcf7h25a.apps.googleusercontent.com")
             .requestEmail()
             .build()
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso)

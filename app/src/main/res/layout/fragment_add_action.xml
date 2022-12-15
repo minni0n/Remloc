@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/slight_gray"
+    android:background="?colorSecondary"
     android:orientation="vertical"
 
     tools:context=".AddDataFragment.AddActionFragment">
@@ -16,7 +16,7 @@
         <Spinner
             android:id="@+id/places_spinner"
             android:layout_width="match_parent"
-            android:background="@color/white"
+            android:background="?colorPrimaryVariant"
             android:layout_height="40dp"
             android:spinnerMode="dropdown"/>
     </LinearLayout>
@@ -25,7 +25,7 @@
         android:id="@+id/typeOfActionSpinner"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
-        android:background="@color/white"
+        android:background="?colorPrimaryVariant"
         android:layout_height="40dp"
         android:spinnerMode="dropdown"/>
 
@@ -35,7 +35,7 @@
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="@color/white"
+        android:background="?colorPrimaryVariant"
         android:spinnerMode="dropdown"/>
 
 
@@ -43,7 +43,7 @@
         android:layout_marginVertical="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:background="?colorPrimaryVariant">
 
         <EditText
             android:id="@+id/smsText"
@@ -51,7 +51,9 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:hint="@string/enter_your_text_message"
-            android:textColor="@android:color/black" />
+            android:background="?colorPrimaryVariant"
+            android:textColorHint="@color/gray"
+            android:textColor="?android:textColor" />
 
     </LinearLayout>
 
