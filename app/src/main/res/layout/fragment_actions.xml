@@ -19,16 +19,6 @@
         android:padding="4dp">
     </ListView>
 
-    <Button
-        android:id="@+id/btnCheckActions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginBottom="15dp"
-        android:layout_gravity="left|bottom"
-        android:text="@string/check"
-        tools:ignore="RtlHardcoded" />
-
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/add_action"

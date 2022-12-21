@@ -2,6 +2,7 @@ package com.remlocteam.remloc1.HomeFragments
 
 import android.Manifest
 import android.app.AlertDialog
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -20,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.remlocteam.remloc1.MainActivity
+import com.remlocteam.remloc1.foregroundLocationCheck.LocationService
 
 
 class SettingsFragment : Fragment() {
@@ -150,10 +152,21 @@ class SettingsFragment : Fragment() {
             showChooseNameDialog()
         }
 
-        /////////////////////////
-//        binding.stopForeground.setOnClickListener {
-//            MainActivity().stoptUserLocationTrack()
-//        }
+        // Stop foreground location services
+        binding.stopForeground.setOnClickListener {
+            Intent(context, LocationService::class.java).apply {
+                action = LocationService.ACTION_STOP
+                context?.startService(this)
+            }
+        }
+
+        // Start foreground location services
+        binding.startForeground.setOnClickListener {
+            Intent(context, LocationService::class.java).apply {
+                action = LocationService.ACTION_START
+                context?.startService(this)
+            }
+        }
 
         binding.locationSwitch.setOnCheckedChangeListener { _, b ->
 
