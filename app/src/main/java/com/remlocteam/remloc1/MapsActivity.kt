@@ -158,7 +158,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
         moveCompass(mapView,30,160,-1,-1, horizontal = true, vertical = false)
         mMap!!.uiSettings.isZoomControlsEnabled = true
 
-
+        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location: Location? ->
+                // Got last known location. In some rare situations this can be null.
+                if (location != null) {
+                    // zoom in on the user's location
+                    val latLng = LatLng(location.latitude, location.longitude)
+                    val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 15f)
+                    mMap?.animateCamera(cameraUpdate)
+                }
+            }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if (ContextCompat.checkSelfPermission(

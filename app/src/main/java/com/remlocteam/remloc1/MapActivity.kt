@@ -92,6 +92,18 @@ open class MapActivity: AppCompatActivity(), OnMapReadyCallback, LocationListene
 
         mMap = googleMap
 
+        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        fusedLocationClient.lastLocation
+            .addOnSuccessListener { location: Location? ->
+                // Got last known location. In some rare situations this can be null.
+                if (location != null) {
+                    // zoom in on the user's location
+                    val latLng = LatLng(location.latitude, location.longitude)
+                    val cameraUpdate = CameraUpdateFactory.newLatLngZoom(latLng, 5f)
+                    mMap?.animateCamera(cameraUpdate)
+                }
+            }
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
             if (ContextCompat.checkSelfPermission(
