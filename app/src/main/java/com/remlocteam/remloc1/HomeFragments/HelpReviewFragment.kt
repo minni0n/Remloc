@@ -68,7 +68,11 @@ class HelpReviewFragment : Fragment() {
         }
 
         binding.sendEmail.setOnClickListener {
-            if (binding.themeSpinner.selectedItem!="Select"){
+
+            val themeSelected = binding.themeSpinner.selectedItem!="Select"
+            val etMessegeBoxNotEmpty = binding.etMessageBox.text.isNotEmpty()
+
+            if (themeSelected && etMessegeBoxNotEmpty) {
 
                 val intent = Intent(Intent.ACTION_SEND)
                 val message = binding.etMessageBox.text
@@ -81,7 +85,13 @@ class HelpReviewFragment : Fragment() {
                 startActivity(Intent.createChooser(intent, "Select email"))
             }
             else{
-                Toast.makeText(activity, "Please choose the theme!", Toast.LENGTH_SHORT).show()
+                if (!themeSelected){
+                    Toast.makeText(activity, "Please choose the theme!", Toast.LENGTH_SHORT).show()
+                }
+                if(!etMessegeBoxNotEmpty){
+                    Toast.makeText(activity, "Please describe a problem or a feedback!", Toast.LENGTH_SHORT).show()
+                }
+
             }
         }
 

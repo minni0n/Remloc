@@ -12,6 +12,7 @@ import android.location.Location
 import android.location.LocationListener
 import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
@@ -69,7 +70,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
     private lateinit var saveBtn: Button
     private lateinit var mapView: View
     private var marker: Marker? = null
-    private var searchActive: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,31 +94,48 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
         currentLocationLatLng?.let { it-> CameraUpdateFactory.newLatLng(it) }
             ?.let { mMap!!.animateCamera(it) }
 
-        saveBtn.isEnabled = searchActive
+
 
         locationSearch.setOnEditorActionListener(OnEditorActionListener { _, actionId, event ->
             if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
                 searchLocation()
-                saveBtn.isEnabled = searchActive
                 hideKeybord()
             }
             false
         })
 
         searchBtn.setOnClickListener {
-
             searchLocation()
-            saveBtn.isEnabled = searchActive
             hideKeybord()
         }
 
         saveBtn.setOnClickListener {
-
-            showChooseNameDialog(locationSearch.text.toString())
+            if (marker!=null){
+                showChooseNameDialog()
+            }
+            else{
+                Toast.makeText(this, "Please search for location!", Toast.LENGTH_SHORT).show()
+            }
         }
+
+
+
+
 
         val mapFragment = supportFragmentManager.findFragmentById(R.id.myMaps) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+
+        mapFragment.getMapAsync { googleMap ->
+            googleMap.setOnMapClickListener { latLng ->
+                // Remove the previous marker, if any
+                marker?.remove()
+                // Add a new marker to the map at the clicked location
+                marker = googleMap.addMarker(MarkerOptions().position(latLng))
+            }
+        }
+
+
     }
 
     private fun hideKeybord() {
@@ -311,7 +328,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
         var addressList: List<Address>? = null
 
         if (location == ""){
-            searchActive = false
+
         }else{
             val geoCoder = Geocoder(this)
             try {
@@ -327,7 +344,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
                 markerOnMap = MarkerOptions().position(latLng).title(location)
 
-                searchActive = true
+
 
                 marker = mMap!!.addMarker(markerOnMap!!)
                 mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15F))
@@ -345,93 +362,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
     }
 
 
-    private fun savePlaceToFB(labelName:String){
-
-        val locationSearch: EditText = findViewById(R.id.et_search)
-        val location: String = locationSearch.text.toString().trim()
-        var addressList: List<Address>? = null
-
-        if (location == ""){
-//            Toast.makeText(this, "provide location", Toast.LENGTH_SHORT).show()
-        }else{
-            val geoCoder = Geocoder(this)
-            try {
-                addressList = geoCoder.getFromLocationName(location, 1)
-            }catch (e: IOException){
-                e.printStackTrace()
-            }
-
-            val address = addressList!![0]
 
 
-            saveDataToFirebase(address, labelName)
-        }
-
-    }
-
-
-
-    @SuppressLint("SetTextI18n")
-    private fun showChooseNameDialog(locationSearch: String) {
-
-//        //Get label from sharedPref
-//        val sp: SharedPreferences = getSharedPreferences("Label", MODE_PRIVATE)
-//        val defaultLabel = sp.getInt("myLabel", -1)
-//        //
-
-        val builder = AlertDialog.Builder(this)
-        val alert = builder.create()
-        val inflater = layoutInflater
-        val dialogLayout = inflater.inflate(R.layout.provide_label_layout, null)
-
-        val label = dialogLayout.findViewById<EditText>(R.id.provideLabel)
-        val checkBox = dialogLayout.findViewById<CheckBox>(R.id.checkBox)
-
-        checkBox.setOnCheckedChangeListener { _, isChecked  ->
-
-            if(isChecked){
-                label.isEnabled = false
-                label.setText(locationSearch)
-            }else{
-                label.isEnabled = true
-                label.setText("")
-                label.hint = getString(R.string.provide_label)
-            }
-        }
-
-        with(alert){
-
-            val btnOk = dialogLayout.findViewById<Button>(R.id.buttonOk)
-            val btnCancel = dialogLayout.findViewById<Button>(R.id.buttonCancel)
-
-            btnOk.setOnClickListener {
-
-                savePlaceToFB(label.text.toString())
-                cancel()
-                val intent = Intent(this@MapsActivity, MapActivity::class.java)
-                startActivity(intent)
-            }
-
-            btnCancel.setOnClickListener {
-
-                Log.d("Main","Negative button clicked")
-                cancel()
-            }
-
-            setView(dialogLayout)
-            show()
-        }
-    }
-
-
-    //Saving data to Firebase
-    private fun saveDataToFirebase(address: Address, location: String){
+    private fun savePlaceToFB(address:Address, locationName: String){
 
         auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid
 
         val addressLine: String = address.getAddressLine(0)
-        val placeName: String = location
+        val placeName: String = locationName
         val longitude: Double = address.longitude
         val latitude: Double = address.latitude
 
@@ -454,8 +393,72 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
             }
 
         }
-//        }
 
+    }
+
+
+
+    @SuppressLint("SetTextI18n", "InflateParams")
+    private fun showChooseNameDialog() {
+
+        val builder = AlertDialog.Builder(this)
+        val alert = builder.create()
+        val inflater = layoutInflater
+        val dialogLayout = inflater.inflate(R.layout.provide_label_layout, null)
+
+        val label = dialogLayout.findViewById<EditText>(R.id.provideLabel)
+        val checkBox = dialogLayout.findViewById<CheckBox>(R.id.checkBox)
+
+        var addressList: List<Address>? = null
+
+        val geoCoder = Geocoder(this)
+        try {
+            addressList = geoCoder.getFromLocation(marker!!.position.latitude, marker!!.position.longitude, 1)
+        }catch (e: IOException){
+            e.printStackTrace()
+        }
+        val address = addressList!![0]
+
+        checkBox.setOnCheckedChangeListener { _, isChecked  ->
+
+            if(isChecked){
+                label.isEnabled = false
+                label.setText(address.getAddressLine(0))
+            }else{
+                label.isEnabled = true
+                label.setText("")
+                label.hint = getString(R.string.provide_label)
+
+            }
+        }
+
+        with(alert){
+
+            val btnOk = dialogLayout.findViewById<Button>(R.id.buttonOk)
+            val btnCancel = dialogLayout.findViewById<Button>(R.id.buttonCancel)
+
+            btnOk.setOnClickListener {
+                val locationName = if(!checkBox.isChecked){
+                    label.text.toString()
+                }else{
+                    address.getAddressLine(0)
+                }
+
+                savePlaceToFB(address, locationName)
+                cancel()
+                val intent = Intent(this@MapsActivity, MapActivity::class.java)
+                startActivity(intent)
+            }
+
+            btnCancel.setOnClickListener {
+
+                Log.d("Main","Negative button clicked")
+                cancel()
+            }
+
+            setView(dialogLayout)
+            show()
+        }
     }
 
 }

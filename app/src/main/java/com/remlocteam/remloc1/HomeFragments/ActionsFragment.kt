@@ -1,5 +1,7 @@
 package com.remlocteam.remloc1.HomeFragments
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +25,7 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.remlocteam.remloc1.foregroundLocationCheck.LocationService
 
 
 class ActionsFragment : Fragment() {
@@ -64,9 +67,9 @@ class ActionsFragment : Fragment() {
 
         val gpuUtils = GPSUtils()
         gpuUtils.findDeviceLocation(requireActivity())
-        val latitude = gpuUtils.getLatitude()!!.toDouble()
-        val longitude = gpuUtils.getLongitude()!!.toDouble()
-        currentLatLng = LatLng(latitude, longitude)
+//        val latitude = gpuUtils.getLatitude()!!.toDouble()
+//        val longitude = gpuUtils.getLongitude()!!.toDouble()
+//        currentLatLng = LatLng(latitude, longitude)
 
 
 
@@ -75,46 +78,50 @@ class ActionsFragment : Fragment() {
 
 
 
-        binding.btnCheckActions.setOnClickListener {
-
-            data.forEach { dataLine ->
-
-                when(dataLine.actionType){
-
-                    activity?.getString(R.string.sms) ->{
-
-                        if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
-                            val smsSender = SendSms(dataLine.phoneNumber!!, dataLine.smsText!!, requireActivity())
-                            smsSender.sendMessage()
-
-                        }
-                    }
-                    activity?.getString(R.string.mute_the_sound) ->{
-
-                        if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
-                            val muteDevice = MuteDevice(requireActivity())
-                            muteDevice.checkMutePermission()
-                            Toast.makeText(activity, "Phone has been muted!", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                    activity?.getString(R.string.notification) ->{
-
-                        if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
-                            val sendNotification = SendNotification(dataLine.placeName!!, dataLine.smsText!!,requireActivity())
-                            sendNotification.sendNotification()
-                        }
-
-                    }
-
-                }
-
-            }
-
-        }
+//        binding.btnCheckActions.setOnClickListener {
+//
+//            ////////////////////////////
+//            //HomeActivity().startUserLocationTrack()
+//
+//
+//            data.forEach { dataLine ->
+//
+//                when(dataLine.actionType){
+//
+//                    activity?.getString(R.string.sms) ->{
+//
+//                        if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
+//                            val smsSender = SendSms(dataLine.phoneNumber!!, dataLine.smsText!!, requireActivity())
+//                            smsSender.sendMessage()
+//
+//                        }
+//                    }
+//                    activity?.getString(R.string.mute_the_sound) ->{
+//
+//                        if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
+//                            val muteDevice = MuteDevice(requireActivity())
+//                            muteDevice.checkMutePermission()
+//                            Toast.makeText(activity, "Phone has been muted!", Toast.LENGTH_SHORT).show()
+//                        }
+//                    }
+//                    activity?.getString(R.string.notification) ->{
+//
+//                        if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
+//                            val sendNotification = SendNotification(dataLine.placeName!!, dataLine.smsText!!,requireActivity())
+//                            sendNotification.sendNotification()
+//                        }
+//
+//                    }
+//
+//                }
+//
+//            }
+//
+//        }
 
         binding.listOfActions.setOnItemClickListener { _: AdapterView<*>, _: View, i: Int, _: Long ->
 
-            distance(currentLatLng, LatLng(data[i].latitude!!, data[i].longitude!!))
+            //distance(currentLatLng, LatLng(data[i].latitude!!, data[i].longitude!!))
             (activity as HomeActivity?)!!.replaceFragment(EditActionFragment(keys[i], actionTypeArray[i]), getString(R.string.edit_action))
         }
 

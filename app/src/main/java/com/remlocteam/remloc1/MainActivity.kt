@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.remlocteam.remloc1.Data.SavedPreference
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -17,6 +18,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.remlocteam.remloc1.foregroundLocationCheck.LocationService
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
@@ -60,6 +62,11 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, getString(R.string.log_in), Toast.LENGTH_SHORT).show()
             signInGoogle()
         }
+
+//        Intent(applicationContext, LocationService::class.java).apply {
+//            action = LocationService.ACTION_START
+//            startService(this)
+//        }
     }
 
 
@@ -71,6 +78,7 @@ class MainActivity : AppCompatActivity() {
 
     // onActivityResult() function : this is where
     // we provide the task and data for the Google Account
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == Req_Code) {
@@ -89,6 +97,8 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
         }
     }
+
+
 
     // this is where we update the UI after Google signin takes place
     private fun updateUI(account: GoogleSignInAccount) {
@@ -142,8 +152,9 @@ class MainActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         if (GoogleSignIn.getLastSignedInAccount(this) != null) {
-            startActivity(Intent(this, HomeActivity::class.java))
+            startActivity(Intent(this, PermissionActivity::class.java))
             finish()
         }
     }
+
 }

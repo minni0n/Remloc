@@ -2,6 +2,7 @@ package com.remlocteam.remloc1
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -27,6 +28,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.remlocteam.remloc1.AddDataFragment.AddActionFragment
+import com.remlocteam.remloc1.foregroundLocationCheck.LocationService
 import de.hdodenhof.circleimageview.CircleImageView
 import kotlinx.android.synthetic.main.fragment_settings.*
 import java.util.*
@@ -68,7 +70,8 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        checkPermissions()
+
+
 
         val sp: SharedPreferences = getSharedPreferences("Language", MODE_PRIVATE)
         val lang = sp.getString("My_Lang", "en")
@@ -109,7 +112,6 @@ class HomeActivity : AppCompatActivity() {
                 R.id.nav_settings -> replaceFragment(SettingsFragment(), it.title.toString())
                 R.id.nav_help_review -> replaceFragment(HelpReviewFragment(), it.title.toString())
                 R.id.nav_logout -> logoutFromGoogle()
-
             }
 
             true
@@ -233,61 +235,6 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun checkSmsPermission() {
-        if (ActivityCompat.checkSelfPermission(
-                this@HomeActivity,
-                Manifest.permission.SEND_SMS
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this@HomeActivity,
-                arrayOf(Manifest.permission.SEND_SMS),
-                LOCATION_PERMISSION_REQUEST_CODE
-            )
-            return
-        }else {
-            return
-        }
-    }
-
-    private fun checkContactsPermission() {
-        if (ActivityCompat.checkSelfPermission(
-                this@HomeActivity,
-                Manifest.permission.READ_CONTACTS
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this@HomeActivity,
-                arrayOf(Manifest.permission.READ_CONTACTS),
-                LOCATION_PERMISSION_REQUEST_CODE
-            )
-            checkSmsPermission()
-            return
-        }else {
-            checkSmsPermission()
-            return
-        }
-    }
-
-    private fun checkPermissions() {
-        if (ActivityCompat.checkSelfPermission(
-                this@HomeActivity,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            ActivityCompat.requestPermissions(
-                this@HomeActivity,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                LOCATION_PERMISSION_REQUEST_CODE
-            )
-            checkContactsPermission()
-            return
-        }else {
-            checkContactsPermission()
-            return
-        }
-    }
 
     @SuppressLint("Range")
     fun readContacts(): MutableList<String> {

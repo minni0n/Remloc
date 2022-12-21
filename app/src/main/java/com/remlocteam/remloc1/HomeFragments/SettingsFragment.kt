@@ -19,6 +19,7 @@ import com.remlocteam.remloc1.databinding.FragmentSettingsBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.remlocteam.remloc1.MainActivity
 
 
 class SettingsFragment : Fragment() {
@@ -149,6 +150,11 @@ class SettingsFragment : Fragment() {
             showChooseNameDialog()
         }
 
+        /////////////////////////
+//        binding.stopForeground.setOnClickListener {
+//            MainActivity().stoptUserLocationTrack()
+//        }
+
         binding.locationSwitch.setOnCheckedChangeListener { _, b ->
 
             if (b){
@@ -175,6 +181,8 @@ class SettingsFragment : Fragment() {
             }
 
         }
+
+
 
 
 
