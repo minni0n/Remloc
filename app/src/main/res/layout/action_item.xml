@@ -47,7 +47,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginStart="25dp"
                     android:layout_weight="1"
                     app:srcCompat="@drawable/ic_baseline_place_black" />
 

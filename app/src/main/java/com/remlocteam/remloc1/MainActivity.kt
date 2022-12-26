@@ -18,6 +18,8 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.remlocteam.remloc1.HomeFragments.ActionsFragment
+import com.remlocteam.remloc1.HomeFragments.SettingsFragment
 import com.remlocteam.remloc1.foregroundLocationCheck.LocationService
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
@@ -63,10 +65,6 @@ class MainActivity : AppCompatActivity() {
             signInGoogle()
         }
 
-//        Intent(applicationContext, LocationService::class.java).apply {
-//            action = LocationService.ACTION_START
-//            startService(this)
-//        }
     }
 
 
@@ -115,7 +113,7 @@ class MainActivity : AppCompatActivity() {
                 edit.putString("imgUrl", url)
                 edit.apply()
 
-                val intent = Intent(this, HomeActivity::class.java)
+                val intent = Intent(this, PermissionActivity::class.java)
                 startActivity(intent)
                 finish()
             }
@@ -124,7 +122,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun setLocale(localeName: String) {
 
-        val currentLanguage = intent.getStringExtra(currentLang).toString()
+
+        val fragment = intent.getStringExtra("fragment")
+
+
+//        val intent = Intent(this, PermissionActivity::class.java)
+//        intent.putExtra("currentLang", currentLang)
+//
+//        startActivity(intent)
 
         if (localeName != currentLanguage) {
             locale = Locale(localeName)
@@ -137,12 +142,14 @@ class MainActivity : AppCompatActivity() {
                 this,
                 MainActivity::class.java
             )
+
             refresh.putExtra(currentLang, localeName)
             startActivity(refresh)
 
             val edit: SharedPreferences.Editor
             val sp: SharedPreferences = getSharedPreferences("Language", MODE_PRIVATE)
             edit = sp.edit()
+
             edit.putString("My_Lang", localeName)
             edit.apply()
 

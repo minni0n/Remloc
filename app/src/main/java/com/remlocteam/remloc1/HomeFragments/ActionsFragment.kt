@@ -2,6 +2,7 @@ package com.remlocteam.remloc1.HomeFragments
 
 import android.content.Context
 import android.content.Intent
+import android.media.AudioManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.remlocteam.remloc1.Actions.MuteDevice
 import com.remlocteam.remloc1.Actions.SendNotification
@@ -67,9 +70,9 @@ class ActionsFragment : Fragment() {
 
         val gpuUtils = GPSUtils()
         gpuUtils.findDeviceLocation(requireActivity())
-//        val latitude = gpuUtils.getLatitude()!!.toDouble()
-//        val longitude = gpuUtils.getLongitude()!!.toDouble()
-//        currentLatLng = LatLng(latitude, longitude)
+        val latitude = gpuUtils.getLatitude()!!.toDouble()
+        val longitude = gpuUtils.getLongitude()!!.toDouble()
+        currentLatLng = LatLng(latitude, longitude)
 
 
 
@@ -77,7 +80,7 @@ class ActionsFragment : Fragment() {
         listOfActions.adapter = activity?.let { ActionAdapter(it, data) }
 
 
-
+// Useless checking in menu
 //        binding.btnCheckActions.setOnClickListener {
 //
 //            ////////////////////////////

@@ -73,6 +73,7 @@ class HomeActivity : AppCompatActivity() {
 
 
 
+
         val sp: SharedPreferences = getSharedPreferences("Language", MODE_PRIVATE)
         val lang = sp.getString("My_Lang", "en")
 
@@ -82,7 +83,7 @@ class HomeActivity : AppCompatActivity() {
 
         setLocale(currentLang!!)
 
-        currentLanguage = intent.getStringExtra(currentLang).toString()
+        currentLanguage = intent.getStringExtra("currentLang").toString()
 
         drawerLayout = findViewById(R.id.drawerLayout)
         val navView : NavigationView = findViewById(R.id.nav_view)
@@ -119,8 +120,17 @@ class HomeActivity : AppCompatActivity() {
 
         }
 
-
         replaceFragment(ActionsFragment(), getString(R.string.actions))
+
+//FIXXXXXXXXXXX
+//        val fragment = intent.getStringExtra("fragment")
+//        if (fragment == "settings") {
+//            replaceFragment(SettingsFragment(), getString(R.string.settings))
+//        }else{
+//            replaceFragment(ActionsFragment(), getString(R.string.actions))
+//        }
+
+
 
 
         // call requestIdToken as follows

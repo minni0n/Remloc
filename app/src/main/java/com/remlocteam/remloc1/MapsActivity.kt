@@ -1,5 +1,8 @@
 package com.remlocteam.remloc1
 
+import com.google.android.libraries.places.api.model.TypeFilter
+import com.google.android.libraries.places.api.net.PlacesClient
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
@@ -12,7 +15,6 @@ import android.location.Location
 import android.location.LocationListener
 import android.os.Build
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.KeyEvent
 import android.view.View
@@ -37,6 +39,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.libraries.places.api.Places
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
@@ -134,8 +137,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
                 marker = googleMap.addMarker(MarkerOptions().position(latLng))
             }
         }
-
-
     }
 
     private fun hideKeybord() {

@@ -26,10 +26,10 @@ class PermissionActivity : AppCompatActivity() {
 
         if (checkAllPermissions().locationGranted && checkAllPermissions().contactsGranted && checkAllPermissions().smsGranted){
             // Start location service
-            Intent(applicationContext, LocationService::class.java).apply {
-                action = LocationService.ACTION_START
-                startService(this)
-            }
+//            Intent(applicationContext, LocationService::class.java).apply {
+//                action = LocationService.ACTION_START
+//                startService(this)
+//            }
             // Start Activity
             startActivity(Intent(this, HomeActivity::class.java))
         }
@@ -67,10 +67,10 @@ class PermissionActivity : AppCompatActivity() {
             if (locationSwitch.isChecked && contactsSwitch.isChecked && smsSwitch.isChecked){
 
                 // Start location service
-                Intent(applicationContext, LocationService::class.java).apply {
-                action = LocationService.ACTION_START
-                startService(this)
-                }
+//                Intent(applicationContext, LocationService::class.java).apply {
+//                action = LocationService.ACTION_START
+//                startService(this)
+//                }
                 // Start Activity
                 startActivity(Intent(this, HomeActivity::class.java))
             }
