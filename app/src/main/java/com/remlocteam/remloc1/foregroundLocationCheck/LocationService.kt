@@ -69,6 +69,7 @@ class LocationService: Service() {
     private fun start() {
 
         var actionsFromDB: ArrayList<ActionsData>? = null
+        var actionsDone = ActionsData()
 
         actionTypeArray = mutableListOf("")
         actionTypeArray.clear()
@@ -110,7 +111,7 @@ class LocationService: Service() {
 
 
 
-                var updatedNotification = notification.setContentText(
+                val updatedNotification = notification.setContentText(
                     "Location: ($lat, $long)"
                 )
                 notificationManager.notify(1, updatedNotification.build())
@@ -119,61 +120,59 @@ class LocationService: Service() {
 
                 val currentLatLng = LatLng(location.latitude, location.longitude)
 
-                if(actionsFromDB.isNotEmpty()){
-//                    actionsFromDB.forEach { dataLine ->
-                    for (i in actionsFromDB.indices) {
-                        val dataLine = actionsFromDB[i]
-                        when(dataLine.actionType){
 
-                            this.getString(R.string.sms) ->{
+//              actionsFromDB.forEach { dataLine ->
+                for (i in actionsFromDB.indices) {
+                    val dataLine = actionsFromDB[i]
+                    when(dataLine.actionType){
 
-                                if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
-                                    // Get a reference to the SmsManager
-                                    val smsManager = SmsManager.getDefault()
+                        this.getString(R.string.sms) ->{
 
-                                    // Send the SMS
-                                    smsManager.sendTextMessage(dataLine.phoneNumber, null, dataLine.smsText, null, null)
+                            if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
+                                // Get a reference to the SmsManager
+                                val smsManager = SmsManager.getDefault()
 
-//                                    actionsFromDB.removeAt(i)
+                                // Send the SMS
+                                smsManager.sendTextMessage(dataLine.phoneNumber, null, dataLine.smsText, null, null)
 
-                                }
+
+                                actionsFromDB[i] = actionsDone
+//                                actionsFromDB.remove(dataLine)
+
                             }
-                            this.getString(R.string.mute_the_sound) ->{
+                        }
+                        this.getString(R.string.mute_the_sound) ->{
 
-                                if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
-                                    val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-                                    audioManager.ringerMode = AudioManager.RINGER_MODE_VIBRATE
+                            if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
+                                val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+                                audioManager.ringerMode = AudioManager.RINGER_MODE_VIBRATE
 
-//                                    actionsFromDB.removeAt(i)
-                                }
-                            }
-
-                            this.getString(R.string.notification) ->{
-
-                                if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
-                                    val newNotification = NotificationCompat.Builder(this, "location")
-                                        .setContentTitle(dataLine.placeName)
-                                        .setContentText(dataLine.smsText)
-                                        .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
-                                        .setSmallIcon(R.drawable.ic_baseline_doorbell_24)
-                                        .setLargeIcon(
-                                            BitmapFactory.decodeResource(this.resources,
-                                                R.mipmap.ic_launcher))
-                                        .setOngoing(false)
-
-                                    notificationManager.notify(2, newNotification.build())
-                                }
+                                actionsFromDB[i] = actionsDone
+//                                actionsFromDB.remove(dataLine)
                             }
                         }
 
-                    }
-                }else{
-                    updatedNotification = notification.setStyle(
-                        NotificationCompat.BigTextStyle()
-                            .bigText("There is no actions, you can turn off the location tracking in settings")
-                    ).setContentText("You can turn off the location tracking")
+                        this.getString(R.string.notification) ->{
 
-                    notificationManager.notify(1, updatedNotification.build())
+                            if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
+                                val newNotification = NotificationCompat.Builder(this, "location")
+                                    .setContentTitle(dataLine.placeName)
+                                    .setContentText(dataLine.smsText)
+                                    .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+                                    .setSmallIcon(R.drawable.ic_baseline_doorbell_24)
+                                    .setLargeIcon(
+                                        BitmapFactory.decodeResource(this.resources,
+                                            R.mipmap.ic_launcher))
+                                    .setOngoing(false)
+
+                                notificationManager.notify(2, newNotification.build())
+
+                                actionsFromDB[i] = actionsDone
+//                                actionsFromDB.remove(dataLine)
+                            }
+                        }
+                    }
+
                 }
             }
             .launchIn(serviceScope)
