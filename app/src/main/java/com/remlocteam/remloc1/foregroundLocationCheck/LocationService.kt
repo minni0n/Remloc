@@ -34,7 +34,7 @@ class LocationService: Service() {
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private lateinit var locationClient: LocationClient
 
-    private var intervalTime:Long = 20000L
+    private var intervalTime:Long = 5000L
 
     private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
@@ -94,6 +94,8 @@ class LocationService: Service() {
                 BitmapFactory.decodeResource(this.resources,
             R.mipmap.ic_launcher))
             .setOngoing(true)
+
+
 
 //        var intervalTime = 1000L
 
