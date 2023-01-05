@@ -22,7 +22,7 @@ class PermissionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_permission)
 
-        title = "Permissions"
+        title = getString(R.string.permissions)
 
         if (checkAllPermissions().locationGranted && checkAllPermissions().contactsGranted && checkAllPermissions().smsGranted){
             // Start location service

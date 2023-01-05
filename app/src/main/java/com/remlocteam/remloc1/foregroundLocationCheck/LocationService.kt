@@ -2,7 +2,6 @@ package com.remlocteam.remloc1.foregroundLocationCheck
 
 import android.annotation.SuppressLint
 import android.app.NotificationManager
-import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
@@ -14,17 +13,13 @@ import android.provider.Settings
 import android.telephony.SmsManager
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
+import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.remlocteam.remloc1.Actions.MuteDevice
-import com.remlocteam.remloc1.Actions.SendNotification
-import com.remlocteam.remloc1.Actions.SendSms
 import com.remlocteam.remloc1.Data.ActionsData
-import com.remlocteam.remloc1.Data.PlacesData
-import com.remlocteam.remloc1.HomeActivity
 import com.remlocteam.remloc1.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -38,6 +33,8 @@ class LocationService: Service() {
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.IO)
     private lateinit var locationClient: LocationClient
+
+    private var intervalTime:Long = 20000L
 
     private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
@@ -69,7 +66,7 @@ class LocationService: Service() {
     private fun start() {
 
         var actionsFromDB: ArrayList<ActionsData>? = null
-        var actionsDone = ActionsData()
+        val actionsDone = ActionsData()
 
         actionTypeArray = mutableListOf("")
         actionTypeArray.clear()
@@ -98,27 +95,44 @@ class LocationService: Service() {
             R.mipmap.ic_launcher))
             .setOngoing(true)
 
+//        var intervalTime = 1000L
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         locationClient
-            .getLocationUpdates(5000L)
+            .getLocationUpdates(intervalTime)
             .catch { e -> e.printStackTrace() }
             .onEach { location ->
                 val lat = location.latitude.toString()
                 val long = location.longitude.toString()
 
+                val currentLatLng = LatLng(location.latitude, location.longitude)
 
+//                actionsFromDB.forEach { dataLine ->
+//
+//                    val datalong = dataLine.longitude
+//                    val dataLatt = dataLine.latitude
+//
+//                    if (datalong != null && dataLatt != null){
+//                        val timeToAction = ((distancePrecise(currentLatLng, LatLng(dataLatt, datalong))/30.0)/2).toLong()
+//
+//                        if(intervalTime < timeToAction){
+//                            intervalTime = timeToAction * 1000
+//
+//                        }
+//                        println("intervalTime $intervalTime")
+//                    }
+//                }
 
 
                 val updatedNotification = notification.setContentText(
-                    "Location: ($lat, $long)"
+                    "Lat: $lat Long: $long"
                 )
                 notificationManager.notify(1, updatedNotification.build())
 
                 // Check for distance
 
-                val currentLatLng = LatLng(location.latitude, location.longitude)
+
 
 
 //              actionsFromDB.forEach { dataLine ->
@@ -131,13 +145,10 @@ class LocationService: Service() {
                             if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
                                 // Get a reference to the SmsManager
                                 val smsManager = SmsManager.getDefault()
-
                                 // Send the SMS
                                 smsManager.sendTextMessage(dataLine.phoneNumber, null, dataLine.smsText, null, null)
 
-
                                 actionsFromDB[i] = actionsDone
-//                                actionsFromDB.remove(dataLine)
 
                             }
                         }
@@ -148,7 +159,6 @@ class LocationService: Service() {
                                 audioManager.ringerMode = AudioManager.RINGER_MODE_VIBRATE
 
                                 actionsFromDB[i] = actionsDone
-//                                actionsFromDB.remove(dataLine)
                             }
                         }
 
@@ -168,7 +178,6 @@ class LocationService: Service() {
                                 notificationManager.notify(2, newNotification.build())
 
                                 actionsFromDB[i] = actionsDone
-//                                actionsFromDB.remove(dataLine)
                             }
                         }
                     }
@@ -304,6 +313,17 @@ class LocationService: Service() {
         return false
     }
 
+    private fun distancePrecise(currentLatLng: LatLng, placeLatLng: LatLng): Double {
+        val theta = currentLatLng.longitude - placeLatLng.longitude
+        var dist = Math.sin(deg2rad(currentLatLng.latitude)) * Math.sin(deg2rad(placeLatLng.latitude)) + Math.cos(deg2rad(currentLatLng.latitude)) * Math.cos(deg2rad(placeLatLng.latitude)) * Math.cos(deg2rad(theta))
+        dist = Math.acos(dist)
+        dist = rad2deg(dist)
+        dist *= 60 * 1.1515
+        dist *= 1.609344
+        dist *= 1000 // distance in meters
+        return dist
+    }
+
     private fun deg2rad(deg: Double): Double {
         return deg * Math.PI / 180.0
     }
@@ -312,10 +332,9 @@ class LocationService: Service() {
         return rad * 180.0 / Math.PI
     }
 
-    fun getSliderValue(): Int {
+    private fun getSliderValue(): Int {
         val sp: SharedPreferences = getSharedPreferences("Distance", MODE_PRIVATE)
-        val value = sp.getInt("TriggerDistanceValue", 10)
-        return value
+        return sp.getInt("TriggerDistanceValue", 10)
     }
 
 }

@@ -85,4 +85,14 @@
     <string name="no" >Ні</string>
     <string name="cant_find" >Неможливо знайти місце, будь ласка, спробуйте інше!</string>
     <string name="check">перевір</string>
+    <string name="welcome_to_remloc">Ласкаво просимо до RemLoc</string>
+    <string name="change_default_trigger_distance">Змініть відстань спрацьовування за замовчуванням</string>
+    <string name="stop_tracking_location">Припинити відстеження місцезнаходження</string>
+    <string name="start_tracking_location">Почніть відстежувати місцезнаходження</string>
+    <string name="m">м</string>
+    <string name="to_use_the_application_please_provide_us_a_permissions">Щоб використовувати програму, будь ласка, надайте нам дозвіл!</string>
+    <string name="next">Далі</string>
+    <string name="choose_your_theme">Виберіть свою тему</string>
+    <string name="what_problem_feedback_do_you_have">Яка у вас проблема/відгук?</string>
+    <string name="send_an_a_email">Надіслати e-mail</string>
 </resources>

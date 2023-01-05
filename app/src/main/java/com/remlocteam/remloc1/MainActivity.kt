@@ -31,23 +31,21 @@ class MainActivity : AppCompatActivity() {
     private val Req_Code: Int = 123
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var locale: Locale
-    private var currentLanguage = "en"
+//    private var currentLanguage = "en"
     private var currentLang: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val sp: SharedPreferences = getSharedPreferences("Language", MODE_PRIVATE)
-        val lang = sp.getString("My_Lang", "en")
-
+        val prefs = getSharedPreferences("Language", MODE_PRIVATE)
+        val lang = prefs.getString("My_Lang", null)
         if (lang != null) {
-            currentLang = lang
+            setLocale(lang)
+        } else {
+            setLocale("ru")
         }
 
-        setLocale(currentLang!!)
-
-        currentLanguage = intent.getStringExtra(currentLang).toString()
 
         FirebaseApp.initializeApp(this)
 
@@ -120,16 +118,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setLocale(localeName: String) {
 
+    fun setLocale(localeName: String) {
 
-        val fragment = intent.getStringExtra("fragment")
-
-
-//        val intent = Intent(this, PermissionActivity::class.java)
-//        intent.putExtra("currentLang", currentLang)
-//
-//        startActivity(intent)
+        val currentLanguage = intent.getStringExtra(currentLang).toString()
 
         if (localeName != currentLanguage) {
             locale = Locale(localeName)
@@ -142,14 +134,12 @@ class MainActivity : AppCompatActivity() {
                 this,
                 MainActivity::class.java
             )
-
             refresh.putExtra(currentLang, localeName)
             startActivity(refresh)
 
             val edit: SharedPreferences.Editor
             val sp: SharedPreferences = getSharedPreferences("Language", MODE_PRIVATE)
             edit = sp.edit()
-
             edit.putString("My_Lang", localeName)
             edit.apply()
 

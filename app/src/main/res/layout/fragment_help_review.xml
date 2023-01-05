@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/gray"
-        android:text="Choose your theme"
+        android:text="@string/choose_your_theme"
         android:layout_marginBottom="10dp"
         android:textSize="20sp" />
 
@@ -36,7 +36,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textColor="@color/gray"
-        android:text="What do you want to tell us?"
+        android:text="@string/what_problem_feedback_do_you_have"
         android:layout_marginBottom="10dp"
         android:textSize="20sp" />
 
@@ -63,10 +63,11 @@
 
     <Button
         android:id="@+id/sendEmail"
+        android:layout_marginRight="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"
-        android:text="Send an a email"
+        android:text="@string/send_an_a_email"
         tools:ignore="RtlHardcoded" />
 
 </LinearLayout>

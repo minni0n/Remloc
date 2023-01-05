@@ -89,6 +89,15 @@
     <string name="google_maps_api_key" translatable="false">AIzaSyAVorUrI4JI1QDy-esFG03pG-cc9--wT84</string>
     <string name="firebase_database_url" translatable="false">https://remloc1-fbe72-default-rtdb.europe-west1.firebasedatabase.app</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="welcome_to_remloc">Welcome to RemLoc</string>
+    <string name="change_default_trigger_distance">Change default trigger distance</string>
+    <string name="stop_tracking_location">Stop tracking Location</string>
+    <string name="start_tracking_location">Start tracking Location</string>
+    <string name="m">m</string>
+    <string name="to_use_the_application_please_provide_us_a_permissions">To use the application, please provide us a permissions!</string>
+    <string name="next">Next</string>
+    <string name="choose_your_theme">Choose your theme</string>
+    <string name="what_problem_feedback_do_you_have">What problem/feedback do you have?</string>
+    <string name="send_an_a_email">Send an a email</string>
 
 </resources>

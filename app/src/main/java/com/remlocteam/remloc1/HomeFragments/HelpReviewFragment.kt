@@ -1,5 +1,6 @@
 package com.remlocteam.remloc1.HomeFragments
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -32,30 +33,29 @@ class HelpReviewFragment : Fragment() {
 
         val languageList = ArrayList<String>()
         languageList.add(getString(R.string.select))
-        languageList.add("Help")
+        languageList.add(getString(R.string.help_feedback))
         languageList.add("Feedback")
 
         val adapter = activity?.let { ArrayAdapter(it, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, languageList) }
         binding.themeSpinner.adapter = adapter
 
         binding.themeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+            @SuppressLint("SetTextI18n")
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
 
                 when(p2){
                     0-> {
                         theme = ""
                         email = "remlocteam@gmail.com"
-                        binding.themeTextView.text = "What do you want to tell us?"
                     }
                     1-> {
                         theme = "Help"
                         email = "remlocteam+support@gmail.com"
-                        binding.themeTextView.text = "What problem do you have?"
+
                     }
                     2-> {
                         theme = "Feedback"
                         email = "remlocteam+feedback@gmail.com"
-                        binding.themeTextView.text = "What do you want to tell us?"
                     }
 
                 }

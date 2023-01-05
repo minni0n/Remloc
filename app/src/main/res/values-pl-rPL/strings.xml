@@ -86,4 +86,14 @@
     <string name="no" >Nie</string>
     <string name="cant_find" >Nie możliwie znaleźć miejsca, spróbuj innego!</string>
     <string name="check">sprawdż</string>
+    <string name="welcome_to_remloc">Witamy w RemLoc</string>
+    <string name="change_default_trigger_distance">Zmień domyślną odległość wyzwalania</string>
+    <string name="stop_tracking_location">Zatrzymaj śledzenie lokalizacji</string>
+    <string name="start_tracking_location">Rozpocznij śledzenie lokalizacji</string>
+    <string name="m">m</string>
+    <string name="to_use_the_application_please_provide_us_a_permissions">Aby korzystać z aplikacji, podaj nam uprawnienia!</string>
+    <string name="next">Dalej</string>
+    <string name="choose_your_theme">Wybierz swój motyw</string>
+    <string name="what_problem_feedback_do_you_have">Jaki masz problem/opinie?</string>
+    <string name="send_an_a_email">Wyślij e-mail</string>
 </resources>
