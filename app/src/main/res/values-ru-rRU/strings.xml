@@ -95,4 +95,6 @@
     <string name="choose_your_theme">Выберите свою тему</string>
     <string name="what_problem_feedback_do_you_have">Какая у вас проблема/отзыв?</string>
     <string name="send_an_a_email">Отправить e-mail</string>
+    <string name="help">Помощь</string>
+    <string name="feedback">Обратная связь</string>
 </resources>

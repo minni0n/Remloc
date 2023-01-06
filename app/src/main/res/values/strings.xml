@@ -99,5 +99,7 @@
     <string name="choose_your_theme">Choose your theme</string>
     <string name="what_problem_feedback_do_you_have">What problem/feedback do you have?</string>
     <string name="send_an_a_email">Send an a email</string>
+    <string name="help">Help</string>
+    <string name="feedback">Feedback</string>
 
 </resources>

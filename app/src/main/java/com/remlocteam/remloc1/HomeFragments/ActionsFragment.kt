@@ -39,8 +39,6 @@ class ActionsFragment : Fragment() {
     private lateinit var actions: MutableList<String>
     private lateinit var keys: MutableList<String>
     private lateinit var actionTypeArray: MutableList<String>
-    private lateinit var currentLatLng: LatLng
-    private val permissionRequest = 101
 
 
 
@@ -65,66 +63,14 @@ class ActionsFragment : Fragment() {
         keys.clear()
 
 
-
         data = readData()
-
-        val gpuUtils = GPSUtils()
-        gpuUtils.findDeviceLocation(requireActivity())
-        val latitude = gpuUtils.getLatitude()!!.toDouble()
-        val longitude = gpuUtils.getLongitude()!!.toDouble()
-        currentLatLng = LatLng(latitude, longitude)
-
-
 
 
         listOfActions.adapter = activity?.let { ActionAdapter(it, data) }
 
 
-// Useless checking in menu
-//        binding.btnCheckActions.setOnClickListener {
-//
-//            ////////////////////////////
-//            //HomeActivity().startUserLocationTrack()
-//
-//
-//            data.forEach { dataLine ->
-//
-//                when(dataLine.actionType){
-//
-//                    activity?.getString(R.string.sms) ->{
-//
-//                        if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
-//                            val smsSender = SendSms(dataLine.phoneNumber!!, dataLine.smsText!!, requireActivity())
-//                            smsSender.sendMessage()
-//
-//                        }
-//                    }
-//                    activity?.getString(R.string.mute_the_sound) ->{
-//
-//                        if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
-//                            val muteDevice = MuteDevice(requireActivity())
-//                            muteDevice.checkMutePermission()
-//                            Toast.makeText(activity, "Phone has been muted!", Toast.LENGTH_SHORT).show()
-//                        }
-//                    }
-//                    activity?.getString(R.string.notification) ->{
-//
-//                        if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
-//                            val sendNotification = SendNotification(dataLine.placeName!!, dataLine.smsText!!,requireActivity())
-//                            sendNotification.sendNotification()
-//                        }
-//
-//                    }
-//
-//                }
-//
-//            }
-//
-//        }
-
         binding.listOfActions.setOnItemClickListener { _: AdapterView<*>, _: View, i: Int, _: Long ->
 
-            //distance(currentLatLng, LatLng(data[i].latitude!!, data[i].longitude!!))
             (activity as HomeActivity?)!!.replaceFragment(EditActionFragment(keys[i], actionTypeArray[i]), getString(R.string.edit_action))
         }
 
@@ -229,33 +175,6 @@ class ActionsFragment : Fragment() {
 
         return dataNow
 
-    }
-
-    private fun distance(currentLatLng: LatLng, placeLatLng: LatLng): Boolean{
-        val theta = currentLatLng.longitude - placeLatLng.longitude
-        var dist = Math.sin(deg2rad(currentLatLng.latitude)) * Math.sin(deg2rad(placeLatLng.latitude)) + Math.cos(deg2rad(currentLatLng.latitude)) * Math.cos(deg2rad(placeLatLng.latitude)) * Math.cos(deg2rad(theta))
-        dist = Math.acos(dist)
-        dist = rad2deg(dist)
-        dist *= 60 * 1.1515
-        dist *= 1.609344
-        dist *= 1000 // distance in meters
-//        Toast.makeText(activity, "$dist m", Toast.LENGTH_SHORT).show()
-        val triggerRange = (activity as HomeActivity?)!!.getSliderValue()
-
-
-        if (dist <= triggerRange) {
-            return true
-//            Toast.makeText(activity, "$dist m", Toast.LENGTH_SHORT).show()
-        }
-        return false
-    }
-
-    private fun deg2rad(deg: Double): Double {
-        return deg * Math.PI / 180.0
-    }
-
-    private fun rad2deg(rad: Double): Double {
-        return rad * 180.0 / Math.PI
     }
 
 

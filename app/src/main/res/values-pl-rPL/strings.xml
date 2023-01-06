@@ -96,4 +96,6 @@
     <string name="choose_your_theme">Wybierz swój motyw</string>
     <string name="what_problem_feedback_do_you_have">Jaki masz problem/opinie?</string>
     <string name="send_an_a_email">Wyślij e-mail</string>
+    <string name="help">Pomoc</string>
+    <string name="feedback">Informacja zwrotna</string>
 </resources>

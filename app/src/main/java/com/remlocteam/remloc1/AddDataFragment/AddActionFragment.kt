@@ -2,6 +2,7 @@ package com.remlocteam.remloc1.AddDataFragment
 
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,7 @@ import com.remlocteam.remloc1.databinding.FragmentAddActionBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.remlocteam.remloc1.foregroundLocationCheck.LocationService
 
 
 class AddActionFragment : Fragment() {
@@ -145,7 +147,13 @@ class AddActionFragment : Fragment() {
 
         buttonSave.setOnClickListener{
 
-           saveData()
+//            Intent(context, LocationService::class.java).apply {
+//                action = LocationService.ACTION_RESTART
+//                context?.startService(this)
+//            }
+
+            saveData()
+
         }
 
         return binding.root

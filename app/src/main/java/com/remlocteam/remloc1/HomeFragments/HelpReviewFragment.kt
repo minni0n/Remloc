@@ -33,8 +33,8 @@ class HelpReviewFragment : Fragment() {
 
         val languageList = ArrayList<String>()
         languageList.add(getString(R.string.select))
-        languageList.add(getString(R.string.help_feedback))
-        languageList.add("Feedback")
+        languageList.add(getString(R.string.help))
+        languageList.add(getString(R.string.feedback))
 
         val adapter = activity?.let { ArrayAdapter(it, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, languageList) }
         binding.themeSpinner.adapter = adapter

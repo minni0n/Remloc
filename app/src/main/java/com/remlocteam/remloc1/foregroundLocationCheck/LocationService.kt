@@ -58,6 +58,10 @@ class LocationService: Service() {
         when(intent?.action) {
             ACTION_START -> start()
             ACTION_STOP -> stop()
+            ACTION_RESTART ->{
+                stop()
+                start()
+            }
         }
         return super.onStartCommand(intent, flags, startId)
     }
@@ -97,7 +101,6 @@ class LocationService: Service() {
 
 
 
-//        var intervalTime = 1000L
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
@@ -110,21 +113,21 @@ class LocationService: Service() {
 
                 val currentLatLng = LatLng(location.latitude, location.longitude)
 
-//                actionsFromDB.forEach { dataLine ->
-//
-//                    val datalong = dataLine.longitude
-//                    val dataLatt = dataLine.latitude
-//
-//                    if (datalong != null && dataLatt != null){
-//                        val timeToAction = ((distancePrecise(currentLatLng, LatLng(dataLatt, datalong))/30.0)/2).toLong()
-//
-//                        if(intervalTime < timeToAction){
-//                            intervalTime = timeToAction * 1000
-//
-//                        }
-//                        println("intervalTime $intervalTime")
-//                    }
-//                }
+                actionsFromDB.forEach { dataLine ->
+
+                    val datalong = dataLine.longitude
+                    val dataLatt = dataLine.latitude
+
+                    if (datalong != null && dataLatt != null){
+                        val timeToAction = ((distancePrecise(currentLatLng, LatLng(dataLatt, datalong))/30.0)/2).toLong()
+                        println("timeToAction $timeToAction")
+                        if(intervalTime > timeToAction){
+                            intervalTime = timeToAction * 1000
+
+                        }
+                        println("intervalTime $intervalTime")
+                    }
+                }
 
 
                 val updatedNotification = notification.setContentText(
@@ -204,6 +207,7 @@ class LocationService: Service() {
     companion object {
         const val ACTION_START = "ACTION_START"
         const val ACTION_STOP = "ACTION_STOP"
+        const val ACTION_RESTART = "ACTION_RESTART"
     }
 
 
