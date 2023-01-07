@@ -38,7 +38,7 @@
     <string name="home">Дім</string>
     <string name="serbska_17_61_696_pozna_poland">Сербська 17, 61–696 Познань, Польща</string>
 
-    <string name="change_language">Змінити мову</string>
+    <string name="change_language">Вибрати мову</string>
     <string name="edit_action">Редагувати дію</string>
     <string name="edit_place">Редагувати місце</string>
     <string name="add_action">Додати дію</string>
@@ -52,7 +52,7 @@
     <string name="select_type_of_action">Виберіть тип дії</string>
     <string name="sms">Cмс</string>
     <string name="mute_the_sound">Вимкнути звук</string>
-    <string name="notification">Повідомлення</string>
+    <string name="notification">Сповіщення</string>
     <string name="select">Обрати</string>
     <string name="find_place">Знайди місце</string>
     <string name="language">Мова</string>
@@ -97,4 +97,5 @@
     <string name="send_an_a_email">Надіслати e-mail</string>
     <string name="help">Довідка</string>
     <string name="feedback">Зворотній зв\'язок</string>
+    <string name="theme">Вибрати тему</string>
 </resources>

@@ -32,7 +32,7 @@ class HelpReviewFragment : Fragment() {
         var email = "remlocteam@gmail.com"
 
         val languageList = ArrayList<String>()
-        languageList.add(getString(R.string.select))
+        languageList.add(getString(R.string.theme))
         languageList.add(getString(R.string.help))
         languageList.add(getString(R.string.feedback))
 

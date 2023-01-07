@@ -61,7 +61,7 @@
     <string name="latitude">Szerokość:</string>
     <string name="longitude">Długość:</string>
     <string name="list_of_places">Lista miejsc</string>
-    <string name="permissions">Pozwolenia</string>
+    <string name="permissions">Uprawienia</string>
     <string name="location">Lokalizacja</string>
     <string name="contacts">Kontakty</string>
     <string name="if_you_want_to_deny_a_permission_you_need_to_go_to">Jeśli chcesz odmówić pozwolenia, musisz przejść do:</string>
@@ -98,4 +98,5 @@
     <string name="send_an_a_email">Wyślij e-mail</string>
     <string name="help">Pomoc</string>
     <string name="feedback">Informacja zwrotna</string>
+    <string name="theme">Wybrać temat</string>
 </resources>

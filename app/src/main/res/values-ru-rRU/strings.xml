@@ -31,7 +31,7 @@
     <string name="address">Адрес</string>
     <string name="remove_place">Удалить место</string>
     <string name="edit_place_name">Изменить название места</string>
-    <string name="coming_soon">Вскоре</string>
+    <string name="coming_soon">Скоро</string>
     <string name="help_feedback">Помощь, обратная связь</string>
     <string name="username">Имя пользователя</string>
     <string name="email">Эл. почта</string>
@@ -97,4 +97,5 @@
     <string name="send_an_a_email">Отправить e-mail</string>
     <string name="help">Помощь</string>
     <string name="feedback">Обратная связь</string>
+    <string name="theme">Выберете тему</string>
 </resources>

@@ -80,7 +80,7 @@ class SettingsFragment : Fragment() {
         uid = auth.currentUser?.uid!!
 
         val languageList = ArrayList<String>()
-        languageList.add(getString(R.string.select))
+        languageList.add(getString(R.string.change_language))
         languageList.add("English")
         languageList.add("Polski")
         languageList.add("Українська")
