@@ -39,10 +39,11 @@ class CityGamePlaceFragment : Fragment() {
         // Inflate the layout for this fragment
                 binding = FragmentCityGamePlaceBinding.inflate(layoutInflater)
 
-//                gamePlaceNumber = (activity as HomeActivity?)!!.getPlaceNumber()
+                gamePlaceNumber = (activity as HomeActivity?)!!.getPlaceNumber()
 
                 auth = FirebaseAuth.getInstance()
                 database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference("Games/Poznan")
+
                 database.get().addOnSuccessListener { it ->
                      childCount = it.childrenCount.toInt()
                 }
@@ -54,10 +55,10 @@ class CityGamePlaceFragment : Fragment() {
 
                     if (gamePlaceNumber<childCount){
                         gamePlaceNumber += 1
-//                        (activity as HomeActivity?)!!.setPlaceNumber(gamePlaceNumber)
+                        (activity as HomeActivity?)!!.setPlaceNumber(gamePlaceNumber)
                         setData()
                     } else{
-//                        (activity as HomeActivity?)!!.setPlaceNumber(0)
+                        (activity as HomeActivity?)!!.setPlaceNumber(1)
                         (activity as HomeActivity?)!!.replaceFragment(GameMiejskaFragment(),getString(R.string.game_miejska))
                     }
                 }
@@ -79,8 +80,5 @@ class CityGamePlaceFragment : Fragment() {
 
             Toast.makeText(activity, getString(R.string.failed), Toast.LENGTH_SHORT).show()
         }
-
-
     }
-
 }

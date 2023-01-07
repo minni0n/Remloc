@@ -1,11 +1,8 @@
 package com.remlocteam.remloc1
 
-import android.Manifest
 import android.annotation.SuppressLint
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.ContactsContract
 import android.view.MenuItem
@@ -13,7 +10,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
@@ -27,10 +23,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.remlocteam.remloc1.AddDataFragment.AddActionFragment
-import com.remlocteam.remloc1.foregroundLocationCheck.LocationService
 import de.hdodenhof.circleimageview.CircleImageView
-import kotlinx.android.synthetic.main.fragment_settings.*
 import java.util.*
 
 
@@ -245,14 +238,9 @@ class HomeActivity : AppCompatActivity() {
         edit.apply()
     }
 
-    fun getPlaceNumber(): Int{
+    fun getPlaceNumber(): Int {
         val prefs = getSharedPreferences("PlaceNumber", MODE_PRIVATE)
-        val lang = prefs.getString("number", null)
-        return if (lang != null) {
-            lang.toInt()
-        } else{
-            1
-        }
+        return prefs.getInt("number", 1)
     }
 
     @SuppressLint("Range")

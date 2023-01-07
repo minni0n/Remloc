@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_game_miejska.*
 class GameMiejskaFragment : Fragment() {
 
     private lateinit var binding : FragmentGameMiejskaBinding
+    private var gamePlaceNumber: Int = 1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -29,6 +30,17 @@ class GameMiejskaFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentGameMiejskaBinding.inflate(layoutInflater)
 
+        gamePlaceNumber = (activity as HomeActivity?)!!.getPlaceNumber()
+
+//        if (gamePlaceNumber!=1){
+//            binding.startGameBtn.text = "Continue"
+//        }else{
+//            binding.startGameBtn.text = "Start"
+//        }
+
+        if (gamePlaceNumber!=1){
+            (activity as HomeActivity?)!!.replaceFragment(CityGamePlaceFragment(),getString(R.string.game_miejska))
+        }
 
         binding.startGameBtn.setOnClickListener {
             (activity as HomeActivity?)!!.replaceFragment(CityGamePlaceFragment(),getString(R.string.game_miejska))
