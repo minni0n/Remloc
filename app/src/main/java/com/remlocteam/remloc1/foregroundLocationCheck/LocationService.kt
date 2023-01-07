@@ -113,21 +113,21 @@ class LocationService: Service() {
 
                 val currentLatLng = LatLng(location.latitude, location.longitude)
 
-                actionsFromDB.forEach { dataLine ->
-
-                    val datalong = dataLine.longitude
-                    val dataLatt = dataLine.latitude
-
-                    if (datalong != null && dataLatt != null){
-                        val timeToAction = ((distancePrecise(currentLatLng, LatLng(dataLatt, datalong))/30.0)/2).toLong()
-                        println("timeToAction $timeToAction")
-                        if(intervalTime > timeToAction){
-                            intervalTime = timeToAction * 1000
-
-                        }
-                        println("intervalTime $intervalTime")
-                    }
-                }
+//                actionsFromDB.forEach { dataLine ->
+//
+//                    val datalong = dataLine.longitude
+//                    val dataLatt = dataLine.latitude
+//
+//                    if (datalong != null && dataLatt != null){
+//                        val timeToAction = ((distancePrecise(currentLatLng, LatLng(dataLatt, datalong))/30.0)/2).toLong()
+//                        println("timeToAction $timeToAction")
+//                        if(intervalTime > timeToAction){
+//                            intervalTime = timeToAction * 1000
+//
+//                        }
+//                        println("intervalTime $intervalTime")
+//                    }
+//                }
 
 
                 val updatedNotification = notification.setContentText(

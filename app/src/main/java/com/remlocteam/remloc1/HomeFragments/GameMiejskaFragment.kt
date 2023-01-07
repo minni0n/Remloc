@@ -10,6 +10,9 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
+import com.remlocteam.remloc1.CityGameFragments.CityGamePlaceFragment
+import com.remlocteam.remloc1.EditDataFragments.EditActionFragment
+import com.remlocteam.remloc1.HomeActivity
 import com.remlocteam.remloc1.R
 import com.remlocteam.remloc1.databinding.FragmentGameMiejskaBinding
 import kotlinx.android.synthetic.main.fragment_game_miejska.*
@@ -26,34 +29,12 @@ class GameMiejskaFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentGameMiejskaBinding.inflate(layoutInflater)
 
+
+        binding.startGameBtn.setOnClickListener {
+            (activity as HomeActivity?)!!.replaceFragment(CityGamePlaceFragment(),getString(R.string.game_miejska))
+        }
+
         return binding.root
     }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        webViewSetup()
-    }
-
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    @SuppressLint("SetJavaScriptEnabled")
-    private fun webViewSetup(){
-        val myWebView: WebView = requireView().findViewById(R.id.cityGameWeb)
-        myWebView.webViewClient = WebViewClient()
-        myWebView.apply {
-            loadUrl("https://google.com")
-            settings.javaScriptEnabled = true
-            settings.safeBrowsingEnabled = true
-        }
-    }
-
-//    override fun onBackPressed(): Boolean {
-//        return if (binding.cityGameWeb.canGoBack()) {
-//            binding.cityGameWeb.goBack()
-//            true
-//        } else {
-//            false
-//        }
-//    }
 
 }

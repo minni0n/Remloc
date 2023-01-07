@@ -40,10 +40,11 @@ class MainActivity : AppCompatActivity() {
 
         val prefs = getSharedPreferences("Language", MODE_PRIVATE)
         val lang = prefs.getString("My_Lang", null)
+
         if (lang != null) {
             setLocale(lang)
         } else {
-            setLocale("en")
+            setLocale("pl")
         }
 
 

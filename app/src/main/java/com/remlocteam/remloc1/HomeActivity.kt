@@ -122,14 +122,6 @@ class HomeActivity : AppCompatActivity() {
 
         replaceFragment(ActionsFragment(), getString(R.string.actions))
 
-//FIXXXXXXXXXXX
-//        val fragment = intent.getStringExtra("fragment")
-//        if (fragment == "settings") {
-//            replaceFragment(SettingsFragment(), getString(R.string.settings))
-//        }else{
-//            replaceFragment(ActionsFragment(), getString(R.string.actions))
-//        }
-
 
 
 
@@ -245,6 +237,23 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    fun setPlaceNumber(number: Int){
+        val edit: SharedPreferences.Editor
+        val sp: SharedPreferences = getSharedPreferences("PlaceNumber", MODE_PRIVATE)
+        edit = sp.edit()
+        edit.putInt("number", number)
+        edit.apply()
+    }
+
+    fun getPlaceNumber(): Int{
+        val prefs = getSharedPreferences("PlaceNumber", MODE_PRIVATE)
+        val lang = prefs.getString("number", null)
+        return if (lang != null) {
+            lang.toInt()
+        } else{
+            1
+        }
+    }
 
     @SuppressLint("Range")
     fun readContacts(): MutableList<String> {
