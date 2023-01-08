@@ -243,6 +243,20 @@ class HomeActivity : AppCompatActivity() {
         return prefs.getInt("number", 1)
     }
 
+
+    fun setCity(city: String){
+        val edit: SharedPreferences.Editor
+        val sp: SharedPreferences = getSharedPreferences("selectedCity", MODE_PRIVATE)
+        edit = sp.edit()
+        edit.putString("city", city)
+        edit.apply()
+    }
+
+    fun getCity(): String? {
+        val prefs = getSharedPreferences("selectedCity", MODE_PRIVATE)
+        return prefs.getString("city", null)
+    }
+
     @SuppressLint("Range")
     fun readContacts(): MutableList<String> {
         val contacts = contentResolver.query(

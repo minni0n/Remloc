@@ -38,11 +38,16 @@ class CityGamePlaceFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
                 binding = FragmentCityGamePlaceBinding.inflate(layoutInflater)
-
                 gamePlaceNumber = (activity as HomeActivity?)!!.getPlaceNumber()
 
+
+
+                val selectedCity = (activity as HomeActivity?)!!.getCity()
+
+                binding.city.text = selectedCity
+
                 auth = FirebaseAuth.getInstance()
-                database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference("Games/Poznan")
+                database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference("Games/$selectedCity")
 
                 database.get().addOnSuccessListener { it ->
                      childCount = it.childrenCount.toInt()
