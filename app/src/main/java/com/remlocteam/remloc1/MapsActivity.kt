@@ -449,16 +449,20 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
             val btnCancel = dialogLayout.findViewById<Button>(R.id.buttonCancel)
 
             btnOk.setOnClickListener {
+
                 val locationName = if(!checkBox.isChecked){
                     label.text.toString()
                 }else{
                     address.getAddressLine(0)
                 }
-
-                savePlaceToFB(address, locationName)
-                cancel()
-                val intent = Intent(this@MapsActivity, MapActivity::class.java)
-                startActivity(intent)
+                if(locationName!=""){
+                    savePlaceToFB(address, locationName)
+                    cancel()
+                    val intent = Intent(this@MapsActivity, MapActivity::class.java)
+                    startActivity(intent)
+                }else{
+                    Toast.makeText(this@MapsActivity, "Set the place name!", Toast.LENGTH_SHORT).show()
+                }
             }
 
             btnCancel.setOnClickListener {
