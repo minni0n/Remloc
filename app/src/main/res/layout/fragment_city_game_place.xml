@@ -79,12 +79,13 @@
 
 
         <Button
-            android:id="@+id/nextPlace"
+            android:id="@+id/exitGame"
             android:layout_marginTop="30dp"
             android:layout_width="wrap_content"
             android:layout_gravity="center_horizontal"
+            android:backgroundTint="@color/red"
             android:layout_height="wrap_content"
-            android:text="@string/next" />
+            android:text="Exit the game" />
 
     </LinearLayout>
 

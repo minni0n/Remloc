@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
@@ -37,8 +38,10 @@ class CityGamePlaceFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
     private var longitude: Double = 0.0
     private var latitude: Double = 0.0
+    private var placeName: String = ""
     private var gamePlaceNumber: Int = 1
     private var childCount: Int = 1
+    private var distanceDefault: Double = 50.0
 
             @SuppressLint("SetTextI18n")
             override fun onCreateView(
@@ -62,29 +65,28 @@ class CityGamePlaceFragment : Fragment() {
                 setData()
 
                 // Location tracking
-
                 getLocationUpdates()
 
                 // Buttons listener
-
-                binding.nextPlace.setOnClickListener {
-
-                    if (gamePlaceNumber<childCount){
-                        refreshPlace()
-                    } else{
-                        nextPlace()
-                    }
+                binding.exitGame.setOnClickListener {
+                    onStop()
+                    backToMenu()
                 }
 
                 return binding.root
     }
 
     private fun checkPlaceSmth(){
-        if (gamePlaceNumber<childCount){
+        if (gamePlaceNumber<childCount) {
             refreshPlace()
-        } else{
-            nextPlace()
+        }else{
+            backToMenu()
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        fusedLocationClient.removeLocationUpdates(locationCallback)
     }
 
     private fun refreshPlace(){
@@ -93,7 +95,7 @@ class CityGamePlaceFragment : Fragment() {
         setData()
     }
 
-    private fun nextPlace(){
+    private fun backToMenu(){
         (activity as HomeActivity?)!!.setPlaceNumber(1)
         (activity as HomeActivity?)!!.replaceFragment(GameMiejskaFragment(),getString(R.string.game_miejska))
     }
@@ -112,10 +114,16 @@ class CityGamePlaceFragment : Fragment() {
             placeLocation.longitude = longitude
 
             val distance = distanceBetweenAB(myLocation, placeLocation)
-            if (distance <= 50.0){
+            if (distance <= distanceDefault){
                 longitude = 0.0
                 latitude = 0.0
-                checkPlaceSmth()
+
+                if (gamePlaceNumber==childCount){
+                    showExitDialog(requireActivity())
+                }else{
+                    showGotToThePlaceDialog(requireActivity())
+                }
+
             }
             Log.d("distance", distance.toString())
         }
@@ -141,6 +149,33 @@ class CityGamePlaceFragment : Fragment() {
         return distance.toDouble()
     }
 
+    private fun showGotToThePlaceDialog(context: Context) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("You got to the $placeName!")
+        builder.setMessage("Nice job, go to the next one!")
+        builder.setPositiveButton("Lets go!") { dialog, which ->
+            checkPlaceSmth()
+        }
+        builder.setCancelable(false)
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+
+    private fun showExitDialog(context: Context) {
+        val builder = AlertDialog.Builder(context)
+        builder.setTitle("You got to the $placeName!")
+        builder.setMessage("Great job, you made it throw our game. \nCongratulations!")
+        builder.setPositiveButton("Lets go!") { _, _ ->
+            backToMenu()
+        }
+        builder.setCancelable(false)
+
+        val alertDialog = builder.create()
+        alertDialog.show()
+    }
+
+
     private fun setData() {
 
         database.child(gamePlaceNumber.toString()).get().addOnSuccessListener { place ->
@@ -149,6 +184,7 @@ class CityGamePlaceFragment : Fragment() {
             binding.placeLegend.text = place.child("legend").value.toString()
             longitude = place.child("longitude").value as Double
             latitude = place.child("latitude").value as Double
+            placeName = place.child("placeName").value.toString()
 
         }.addOnFailureListener{
 

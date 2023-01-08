@@ -35,6 +35,7 @@ class HelpReviewFragment : Fragment() {
         languageList.add(getString(R.string.theme))
         languageList.add(getString(R.string.help))
         languageList.add(getString(R.string.feedback))
+        languageList.add(getString(R.string.game_suggest))
 
         val adapter = activity?.let { ArrayAdapter(it, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, languageList) }
         binding.themeSpinner.adapter = adapter
@@ -56,6 +57,10 @@ class HelpReviewFragment : Fragment() {
                     2-> {
                         theme = "Feedback"
                         email = "remlocteam+feedback@gmail.com"
+                    }
+                    3-> {
+                        theme = "Suggest a game"
+                        email = "remlocteam+game@gmail.com"
                     }
 
                 }
