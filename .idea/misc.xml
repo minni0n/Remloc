@@ -18,6 +18,8 @@
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/bg_round.xml" value="0.2305" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/bg_round_gray.xml" value="0.256" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/bg_round_pastel_gray.xml" value="0.256" />
+        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/border.xml" value="0.2505" />
+        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/border_miejsce.xml" value="0.2505" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/btn_ok.xml" value="0.24" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/gradient_spinner.xml" value="0.335" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2385" />
@@ -65,6 +67,7 @@
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/fragment_sms_action.xml" value="0.24791666666666667" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/item_task.xml" value="0.2390625" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/nav_header.xml" value="0.2" />
+        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/place_alert_dialog.xml" value="0.24479166666666666" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/place_item.xml" value="0.33" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/provide_label_layout.xml" value="0.5" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/sms_action_layout.xml" value="0.246875" />

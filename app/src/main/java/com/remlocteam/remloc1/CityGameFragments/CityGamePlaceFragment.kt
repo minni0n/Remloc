@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
@@ -156,32 +157,58 @@ class CityGamePlaceFragment : Fragment() {
         return distance.toDouble()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showGotToThePlaceDialog(context: Context) {
         val builder = AlertDialog.Builder(context)
-        builder.setTitle("You got to the $placeName!")
-        builder.setMessage("Nice job, go to the next one!")
-        builder.setPositiveButton("Lets go!") { dialog, which ->
-            checkPlaceSmth()
-        }
+        val view = layoutInflater.inflate(R.layout.place_alert_dialog, null)
+        builder.setView(view)
+        val placeNameView = view.findViewById<TextView>(R.id.placeName)
+        val buttonClaim = view.findViewById<TextView>(R.id.buttonClaim)
+        placeNameView.text =  "${placeNameView.text} $placeName!"
+
         builder.setCancelable(false)
 
         val alertDialog = builder.create()
         alertDialog.show()
+
+        buttonClaim.setOnClickListener {
+            checkPlaceSmth()
+            alertDialog.dismiss()
+        }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showExitDialog(context: Context) {
+
         val builder = AlertDialog.Builder(context)
-        builder.setTitle("You got to the $placeName!")
+        val view = layoutInflater.inflate(R.layout.place_alert_dialog, null)
+        builder.setView(view)
+        val placeNameView = view.findViewById<TextView>(R.id.placeName)
+        val buttonClaim = view.findViewById<TextView>(R.id.buttonClaim)
+        val descriptionView = view.findViewById<TextView>(R.id.description)
+
+
         score = calculateScore(timer, 100.0, 1800.0 )
         val scoreRounded:Double = String.format("%.2f", score).toDouble()
-        builder.setMessage("Great job, you made it throw our game. \nCongratulations your score is $scoreRounded!")
-        builder.setPositiveButton("Lets go!") { _, _ ->
-            backToMenu()
-        }
+        val congrats = getString(R.string.congrats_score)
+
+
+        placeNameView.text =  "${placeNameView.text} $placeName!"
+        descriptionView.text = "$congrats $scoreRounded!"
+        buttonClaim.text = getString(R.string.exit_button)
+
         builder.setCancelable(false)
 
         val alertDialog = builder.create()
         alertDialog.show()
+
+        buttonClaim.setOnClickListener {
+            checkPlaceSmth()
+            alertDialog.dismiss()
+        }
+
+
+
     }
 
 

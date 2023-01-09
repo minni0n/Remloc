@@ -101,4 +101,9 @@
     <string name="select_city">Выберите игру</string>
     <string name="game_suggest">Предложить игру</string>
     <string name="user_manual">Интсрукция пользователя</string>
+    <string name="claim">Заявить права!</string>
+    <string name="nice_job_to_move_on_you_need_to_claim_this_place">Хорошая работа! Чтобы двигаться дальше, вам нужно заявить права на это место!</string>
+    <string name="you_fo_to_the">Вы пришли к</string>
+    <string name="congrats_score">Отличная работа, ты выиграл нашу игру. Поздравляем, ваш результат</string>
+    <string name="exit_button">Конец игры!</string>
 </resources>

@@ -101,4 +101,9 @@
     <string name="select_city">Виберіть гру</string>
     <string name="game_suggest">Запропонуйте гру</string>
     <string name="user_manual">Інтрукція користувача</string>
+    <string name="claim">Претендувати!</string>
+    <string name="nice_job_to_move_on_you_need_to_claim_this_place">Хороша робота! Щоб рухатися далі, вам потрібно претендувати на це місце!</string>
+    <string name="you_fo_to_the">Ви прийшли до</string>
+    <string name="congrats_score">Чудова робота, ви перемогли нашу гру. Ваша оцінка</string>
+    <string name="exit_button">Кінець гри!</string>
 </resources>

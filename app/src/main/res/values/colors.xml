@@ -32,4 +32,7 @@
 
     <color name="background_places_day">#EFF0F3</color>
     <color name="background_places_night">#1B1B1C</color>
+
+
+    <color name="yellowBook">#F0E8A6</color>
 </resources>

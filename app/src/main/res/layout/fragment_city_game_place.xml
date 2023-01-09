@@ -6,7 +6,6 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
@@ -14,18 +13,12 @@
 
 
         <LinearLayout
+            android:layout_marginVertical="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:layout_gravity="center">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/game_miejska"
-                android:textSize="30sp"
-                android:textStyle="bold"
-                android:layout_gravity="center"/>
 
             <TextView
                 android:id="@+id/city"
@@ -39,43 +32,64 @@
         </LinearLayout>
 
 
-
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <TextView
-            android:id="@+id/place"
-            android:layout_marginBottom="20dp"
-            android:layout_marginStart="20dp"
+        <LinearLayout
+            android:background="@drawable/border_miejsce"
+            android:layout_marginHorizontal="20dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Miejsce #"
-            android:textSize="40sp"
-            android:textStyle="bold" />
+            android:orientation="horizontal"
+            android:layout_gravity="center">
 
-        <TextView
-            android:id="@+id/placeNumber"
-            android:layout_marginBottom="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1"
-            android:textSize="40sp"
-            android:textStyle="bold" />
+            <LinearLayout
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginVertical="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center">
 
-    </LinearLayout>
+                <TextView
+                    android:id="@+id/place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Miejsce #"
+                    android:textSize="40sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"/>
+
+                <TextView
+                    android:id="@+id/placeNumber"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:textSize="40sp"
+                    android:textStyle="bold"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
 
 
-        <TextView
-            android:id="@+id/placeLegend"
-            android:layout_marginHorizontal="10dp"
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginHorizontal="5dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="17sp"
-            android:text="Nasza historia zaczyna się już w 1551 roku, kiedy poznański ratusz zdecydował się na rozbudowę, kanclerz zlecił mistrzowi Bartłomiejowi wykonanie zegara na wieżę. Wokół ratuszy zgromadziło się wiele osób, zwłaszcza że uroczystość miała uhonorować obecność wojewody. Z tej okazji urządzono ucztę z dziczyzny. Niestety mięso wpadło do ognia i kucharz Mikołaj wysłał swojego pomocnika do rzeźni po nowe mięso. Ale świeżego nie było, więc zaczął szukać gdzie indziej. Kiedy dotarł do murów miejskich, zauważył dwa malutkie, białe koziołki i szybko zawiózł je pod ratusz. Kiedy jednak dotarli do kuchni, koźlęta uciekły i pobiegły prosto do ratuszy, a następnie wspięły się na wieżę do zegara na szczycie. Kiedy wojewoda przybył do ratuszy, ujrzał niezwykły widok: obok zegara stały dwie małe, białe kozy. Cała ta historia tak rozbawiła namiestnika, że wybaczył kucharzowi i kazał zegarmistrzowi dodać do zegara dwie mechaniczne kozy."/>
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/placeLegend"
+                android:layout_marginVertical="10dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textSize="17sp"
+                android:text="Nasza historia zaczyna się już w 1551 roku, kiedy poznański ratusz zdecydował się na rozbudowę, kanclerz zlecił mistrzowi Bartłomiejowi wykonanie zegara na wieżę. Wokół ratuszy zgromadziło się wiele osób, zwłaszcza że uroczystość miała uhonorować obecność wojewody. Z tej okazji urządzono ucztę z dziczyzny. Niestety mięso wpadło do ognia i kucharz Mikołaj wysłał swojego pomocnika do rzeźni po nowe mięso. Ale świeżego nie było, więc zaczął szukać gdzie indziej. Kiedy dotarł do murów miejskich, zauważył dwa malutkie, białe koziołki i szybko zawiózł je pod ratusz. Kiedy jednak dotarli do kuchni, koźlęta uciekły i pobiegły prosto do ratuszy, a następnie wspięły się na wieżę do zegara na szczycie. Kiedy wojewoda przybył do ratuszy, ujrzał niezwykły widok: obok zegara stały dwie małe, białe kozy. Cała ta historia tak rozbawiła namiestnika, że wybaczył kucharzowi i kazał zegarmistrzowi dodać do zegara dwie mechaniczne kozy."/>
+
+        </LinearLayout>
 
 
         <Button

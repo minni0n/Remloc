@@ -105,6 +105,11 @@
     <string name="select_city">Select game</string>
     <string name="game_suggest">Suggest a game</string>
     <string name="user_manual">User manual</string>
+    <string name="claim">Claim!</string>
+    <string name="nice_job_to_move_on_you_need_to_claim_this_place">Nice job! To move on you need to claim this place!</string>
+    <string name="you_fo_to_the">You came to</string>
+    <string name="congrats_score">Great job, you beat our game. Congratulations your score is</string>
+    <string name="exit_button">End game!</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>
