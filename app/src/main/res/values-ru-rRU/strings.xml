@@ -100,4 +100,5 @@
     <string name="theme">Выберете тему</string>
     <string name="select_city">Выберите игру</string>
     <string name="game_suggest">Предложить игру</string>
+    <string name="user_manual">Интсрукция пользователя</string>
 </resources>

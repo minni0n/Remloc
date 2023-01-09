@@ -104,6 +104,7 @@
     <string name="theme">Choose theme</string>
     <string name="select_city">Select game</string>
     <string name="game_suggest">Suggest a game</string>
+    <string name="user_manual">User manual</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

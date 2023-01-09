@@ -8,68 +8,92 @@
     tools:context=".HomeFragments.HelpReviewFragment"
     android:orientation="vertical">
 
-    <TextView
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="15dp"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/gray"
-        android:text="@string/choose_your_theme"
-        android:layout_marginBottom="10dp"
-        android:textSize="20sp" />
+        android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_marginHorizontal="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Spinner
-            android:id="@+id/themeSpinner"
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="?colorPrimaryVariant"
-            android:spinnerMode="dropdown"/>
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:text="@string/choose_your_theme"
+            android:layout_marginBottom="10dp"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_marginHorizontal="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Spinner
+                android:id="@+id/themeSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="?colorPrimaryVariant"
+                android:spinnerMode="dropdown"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/themeTextView"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/gray"
+            android:text="@string/what_problem_feedback_do_you_have"
+            android:layout_marginBottom="10dp"
+            android:textSize="20sp" />
+
+        <LinearLayout
+            android:layout_marginHorizontal="20dp"
+            android:layout_marginVertical="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?colorPrimaryVariant">
+
+            <EditText
+                android:id="@+id/etMessageBox"
+                android:layout_marginHorizontal="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/enter_your_text_message"
+                android:background="?colorPrimaryVariant"
+                android:textColorHint="@color/gray"
+                android:textColor="?android:textColor"
+                android:autoLink="all"
+                android:scrollbars="none"
+                android:minHeight="150dp"
+                android:inputType="textMultiLine|textCapSentences"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/sendEmail"
+            android:layout_marginRight="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom"
+            android:text="@string/send_an_a_email"
+            tools:ignore="RtlHardcoded" />
+
+
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/themeTextView"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="15dp"
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/gray"
-        android:text="@string/what_problem_feedback_do_you_have"
-        android:layout_marginBottom="10dp"
-        android:textSize="20sp" />
+        android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?colorPrimaryVariant">
-
-        <EditText
-            android:id="@+id/etMessageBox"
-            android:layout_marginHorizontal="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:hint="@string/enter_your_text_message"
-            android:background="?colorPrimaryVariant"
-            android:textColorHint="@color/gray"
-            android:textColor="?android:textColor"
-            android:autoLink="all"
-            android:scrollbars="none"
-            android:minHeight="150dp"
-            android:inputType="textMultiLine|textCapSentences"/>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/sendEmail"
-        android:layout_marginRight="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
-        android:text="@string/send_an_a_email"
-        tools:ignore="RtlHardcoded" />
+        <TextView
+            android:id="@+id/userManual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="50dp"
+            android:text="@string/user_manual"
+            android:textSize="20sp" />
+    </RelativeLayout>
 
 </LinearLayout>

@@ -124,7 +124,7 @@ class CityGamePlaceFragment : Fragment() {
                 stopTimer()
                 val time = ((endTime - startTime)/1000)
                 timer+=time
-                Log.d("timer", time.toString())
+                Log.d("timer", timer.toString())
                 if (gamePlaceNumber==childCount){
                     showExitDialog(requireActivity())
                 }else{
@@ -172,8 +172,9 @@ class CityGamePlaceFragment : Fragment() {
     private fun showExitDialog(context: Context) {
         val builder = AlertDialog.Builder(context)
         builder.setTitle("You got to the $placeName!")
-        score = calculateScore(timer, 100.0, 10.0 )
-        builder.setMessage("Great job, you made it throw our game. \nCongratulations your score is $score!")
+        score = calculateScore(timer, 100.0, 1800.0 )
+        val scoreRounded:Double = String.format("%.2f", score).toDouble()
+        builder.setMessage("Great job, you made it throw our game. \nCongratulations your score is $scoreRounded!")
         builder.setPositiveButton("Lets go!") { _, _ ->
             backToMenu()
         }
@@ -211,6 +212,6 @@ class CityGamePlaceFragment : Fragment() {
     }
 
     private fun calculateScore(time: Long, maxScore: Double, timeConstant: Double): Double {
-        return (maxScore - (time / timeConstant)).toDouble()
+        return (maxScore - (time / timeConstant))
     }
 }

@@ -230,6 +230,11 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
+    fun getCurrentLanguage(): String? {
+        val sp: SharedPreferences = getSharedPreferences("Language", MODE_PRIVATE)
+        return sp.getString("My_Lang", "en")
+    }
+
     fun setPlaceNumber(number: Int){
         val edit: SharedPreferences.Editor
         val sp: SharedPreferences = getSharedPreferences("PlaceNumber", MODE_PRIVATE)
