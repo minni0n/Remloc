@@ -99,6 +99,6 @@
     <string name="help">Pomoc</string>
     <string name="feedback">Informacja zwrotna</string>
     <string name="theme">Wybrać temat</string>
-    <string name="select_city">Wybierz miasto</string>
+    <string name="select_city">Wybierz grę</string>
     <string name="game_suggest">Zaproponuj grę</string>
 </resources>

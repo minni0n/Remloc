@@ -98,6 +98,6 @@
     <string name="help">Помощь</string>
     <string name="feedback">Обратная связь</string>
     <string name="theme">Выберете тему</string>
-    <string name="select_city">Выберите город</string>
+    <string name="select_city">Выберите игру</string>
     <string name="game_suggest">Предложить игру</string>
 </resources>

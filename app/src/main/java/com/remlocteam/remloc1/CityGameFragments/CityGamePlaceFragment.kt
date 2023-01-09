@@ -42,6 +42,10 @@ class CityGamePlaceFragment : Fragment() {
     private var gamePlaceNumber: Int = 1
     private var childCount: Int = 1
     private var distanceDefault: Double = 50.0
+    private var score: Double = 0.0
+    private var timer: Long = 0
+    private var startTime: Long = 0
+    private var endTime: Long = 0
 
             @SuppressLint("SetTextI18n")
             override fun onCreateView(
@@ -117,7 +121,10 @@ class CityGamePlaceFragment : Fragment() {
             if (distance <= distanceDefault){
                 longitude = 0.0
                 latitude = 0.0
-
+                stopTimer()
+                val time = ((endTime - startTime)/1000)
+                timer+=time
+                Log.d("timer", time.toString())
                 if (gamePlaceNumber==childCount){
                     showExitDialog(requireActivity())
                 }else{
@@ -165,7 +172,8 @@ class CityGamePlaceFragment : Fragment() {
     private fun showExitDialog(context: Context) {
         val builder = AlertDialog.Builder(context)
         builder.setTitle("You got to the $placeName!")
-        builder.setMessage("Great job, you made it throw our game. \nCongratulations!")
+        score = calculateScore(timer, 100.0, 10.0 )
+        builder.setMessage("Great job, you made it throw our game. \nCongratulations your score is $score!")
         builder.setPositiveButton("Lets go!") { _, _ ->
             backToMenu()
         }
@@ -190,5 +198,19 @@ class CityGamePlaceFragment : Fragment() {
 
             Toast.makeText(activity, getString(R.string.failed), Toast.LENGTH_SHORT).show()
         }
+
+        startTimer()
+    }
+
+    private fun startTimer(){
+        startTime = System.currentTimeMillis()
+    }
+
+    private fun stopTimer(){
+        endTime = System.currentTimeMillis()
+    }
+
+    private fun calculateScore(time: Long, maxScore: Double, timeConstant: Double): Double {
+        return (maxScore - (time / timeConstant)).toDouble()
     }
 }

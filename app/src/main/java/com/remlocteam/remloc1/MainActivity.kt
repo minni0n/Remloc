@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
         if (lang != null) {
             setLocale(lang)
         } else {
-            setLocale("pl")
+            setLocale("en")
         }
 
 

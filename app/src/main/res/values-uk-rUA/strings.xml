@@ -98,6 +98,6 @@
     <string name="help">Довідка</string>
     <string name="feedback">Зворотній зв\'язок</string>
     <string name="theme">Вибрати тему</string>
-    <string name="select_city">Виберіть місто</string>
+    <string name="select_city">Виберіть гру</string>
     <string name="game_suggest">Запропонуйте гру</string>
 </resources>
