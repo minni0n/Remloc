@@ -29,6 +29,7 @@ class GameMiejskaFragment : Fragment() {
     private lateinit var binding : FragmentGameMiejskaBinding
     private var gamePlaceNumber: Int = 1
     private lateinit var database: DatabaseReference
+    private lateinit var databaseScore: DatabaseReference
     private lateinit var auth: FirebaseAuth
 
     override fun onCreateView(
@@ -48,7 +49,21 @@ class GameMiejskaFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference("Games")
 
+
+//        val uid = auth.currentUser?.uid
+//        databaseScore = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference("GameMiejskaScores/$uid").get().addOnSuccessListener { cities ->
+//            if (cities.exists()){
+//                cities.children.forEach{ place ->
+//                    Log.d("cities",place.toString())
+//                }
+//            }
+//        }
+
+
+
+
         database.get().addOnSuccessListener { cities ->
+
             cities.children.forEach{ placeInfo ->
 
                 val id = placeInfo.key

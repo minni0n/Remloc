@@ -43,10 +43,11 @@ class CityGamePlaceFragment : Fragment() {
     private var gamePlaceNumber: Int = 1
     private var childCount: Int = 1
     private var distanceDefault: Double = 50.0
-    private var score: Double = 0.0
+    private var score: Int = 0
     private var timer: Long = 0
     private var startTime: Long = 0
     private var endTime: Long = 0
+    private lateinit var selectedCity: String
 
             @SuppressLint("SetTextI18n")
             override fun onCreateView(
@@ -58,7 +59,7 @@ class CityGamePlaceFragment : Fragment() {
                 gamePlaceNumber = (activity as HomeActivity?)!!.getPlaceNumber()
 
                 // Firebase and dataset
-                val selectedCity = (activity as HomeActivity?)!!.getCity()
+                selectedCity = (activity as HomeActivity?)!!.getCity().toString()
                 binding.city.text = selectedCity
 
                 auth = FirebaseAuth.getInstance()
@@ -188,13 +189,13 @@ class CityGamePlaceFragment : Fragment() {
         val descriptionView = view.findViewById<TextView>(R.id.description)
 
 
-        score = calculateScore(timer, 100.0, 1800.0 )
-        val scoreRounded:Double = String.format("%.2f", score).toDouble()
+        score = calculateScore(timer, 100, 1800.0 )
+
         val congrats = getString(R.string.congrats_score)
 
 
         placeNameView.text =  "${placeNameView.text} $placeName!"
-        descriptionView.text = "$congrats $scoreRounded!"
+        descriptionView.text = "$congrats $score!"
         buttonClaim.text = getString(R.string.exit_button)
 
         builder.setCancelable(false)
@@ -204,6 +205,7 @@ class CityGamePlaceFragment : Fragment() {
 
         buttonClaim.setOnClickListener {
             checkPlaceSmth()
+            saveScoreToFB()
             alertDialog.dismiss()
         }
 
@@ -211,6 +213,27 @@ class CityGamePlaceFragment : Fragment() {
 
     }
 
+
+    private fun saveScoreToFB(){
+        auth = FirebaseAuth.getInstance()
+        val uid = auth.currentUser?.uid
+        if (uid!= null) {
+
+            database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference("GameMiejskaScores/$uid")
+            val databaseChild = database.child("$selectedCity/score")
+            Log.d("databaseChild", databaseChild.toString())
+            databaseChild.get().addOnSuccessListener {
+                val  prevScore = it.value as Long?
+                if (prevScore != null) {
+                    if (prevScore.toInt() < score){
+                        databaseChild.setValue(score)
+                    }
+                }else{
+                    databaseChild.setValue(score)
+                }
+            }
+        }
+    }
 
     private fun setData() {
 
@@ -238,7 +261,7 @@ class CityGamePlaceFragment : Fragment() {
         endTime = System.currentTimeMillis()
     }
 
-    private fun calculateScore(time: Long, maxScore: Double, timeConstant: Double): Double {
-        return (maxScore - (time / timeConstant))
+    private fun calculateScore(time: Long, maxScore: Int, timeConstant: Double): Int {
+        return (maxScore - (time / timeConstant)).toInt()
     }
 }

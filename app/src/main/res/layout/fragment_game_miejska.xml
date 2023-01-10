@@ -44,4 +44,37 @@
         android:layout_height="wrap_content"
         android:text="Start game" />
 
+
+    <LinearLayout
+        android:background="@drawable/border"
+        android:layout_marginVertical="40dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_marginVertical="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="40sp"
+            android:textStyle="bold"
+            android:text="Your scores:"/>
+
+        <TextView
+            android:background="@drawable/border_miejsce"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/yourScores"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Poznan - 99\n Warszawa -10" />
+
+    </LinearLayout>
+
+
 </LinearLayout>
