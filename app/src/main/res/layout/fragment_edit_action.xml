@@ -7,6 +7,48 @@
     tools:context=".EditDataFragments.EditActionFragment"
     android:orientation="vertical">
 
+   <LinearLayout
+       android:id="@+id/turnOnOffLayout"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="vertical">
+
+       <TextView
+           android:layout_marginTop="10dp"
+           android:layout_marginStart="15dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:textColor="@color/gray"
+           android:text="@string/turn_on_off"
+           android:textSize="16sp" />
+
+       <LinearLayout
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginHorizontal="10dp"
+           android:layout_marginBottom="10dp"
+           android:orientation="horizontal"
+           android:gravity="center_horizontal">
+
+           <Switch
+               android:id="@+id/switchTurnOn"
+               android:layout_width="0dp"
+               android:layout_height="wrap_content"
+               android:layout_weight="1"
+               android:text="@string/turn_on"
+               android:textSize="20sp"
+               tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+       </LinearLayout>
+
+
+       <View
+           android:layout_width="match_parent"
+           android:layout_height="1dp"
+           android:background="?android:attr/listDivider" />
+
+   </LinearLayout>
+
     <TextView
         android:layout_marginTop="10dp"
         android:layout_marginStart="15dp"
@@ -75,7 +117,7 @@
             android:layout_marginBottom="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Im home"
+            android:text="@string/next"
             android:textSize="20sp" />
 
         <View
@@ -108,7 +150,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Serhii"
+                    android:text="@string/next"
                     android:textSize="20sp" />
 
                 <TextView
@@ -116,7 +158,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="+48 537 606 413"
+                    android:text="@string/next"
                     android:textSize="20sp" />
 
             </LinearLayout>
@@ -149,7 +191,9 @@
             android:hint="@string/edit_sms_text"
             android:background="?colorPrimaryVariant"
             android:textColorHint="@color/gray"
-            android:textColor="?android:textColor" />
+            android:textColor="?android:textColor"
+            android:autofillHints=""
+            android:inputType="text" />
 
     </LinearLayout>
 

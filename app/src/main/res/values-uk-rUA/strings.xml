@@ -108,4 +108,6 @@
     <string name="exit_button">Кінець гри!</string>
     <string name="divider">" - "</string>
     <string name="your_scores">Ваші бали:</string>
+    <string name="turn_on">Ввімкнути</string>
+    <string name="turn_on_off">Увімкнути/вимкнути</string>
 </resources>

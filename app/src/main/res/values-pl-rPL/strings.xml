@@ -109,4 +109,6 @@
     <string name="exit_button">Koniec gry!</string>
     <string name="divider">" - "</string>
     <string name="your_scores">Twoje wyniki:</string>
+    <string name="turn_on">Włączyć</string>
+    <string name="turn_on_off">Włącz/wyłącz</string>
 </resources>

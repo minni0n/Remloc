@@ -2,6 +2,7 @@ package com.remlocteam.remloc1.EditDataFragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -35,6 +36,10 @@ class EditActionFragment(private val key: String , private val actionType: Strin
     private lateinit var contacts: MutableList<String>
     private lateinit var unnecessaryLayout: LinearLayout
     private lateinit var contactNamePhone: LinearLayout
+    private lateinit var turnOnOff: LinearLayout
+
+    @SuppressLint("UseSwitchCompatOrMaterialCode")
+    private lateinit var turnOnOffSwitch: Switch
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -61,6 +66,8 @@ class EditActionFragment(private val key: String , private val actionType: Strin
         saveChangesBtn = binding.btnSavePlaceChanges
         contactName = binding.contactName
         editAction = binding.btnEditData
+        turnOnOff = binding.turnOnOffLayout
+        turnOnOffSwitch = binding.switchTurnOn
 
         // unable of edit data
         smsTextEdit.visibility = View.GONE
@@ -68,7 +75,7 @@ class EditActionFragment(private val key: String , private val actionType: Strin
         contactsSpinner.visibility = View.GONE
         saveChangesBtn.visibility = View.GONE
         deleteBtn.visibility = View.GONE
-
+        turnOnOff.visibility = View.GONE
 
         //Spinners auth
         places = mutableListOf(getString(R.string.choose_place))
@@ -97,13 +104,33 @@ class EditActionFragment(private val key: String , private val actionType: Strin
 
 
         editAction.setOnClickListener {
+            when (actionType) {
+                "Sms" -> {
+                    editAction.visibility = View.GONE
+                    smsTextEdit.visibility = View.VISIBLE
+                    placesSpinner.visibility = View.GONE
+                    contactsSpinner.visibility = View.VISIBLE
+                    saveChangesBtn.visibility = View.VISIBLE
+                    deleteBtn.visibility = View.VISIBLE
+                    turnOnOff.visibility = View.VISIBLE
 
-            editAction.visibility = View.GONE
-            smsTextEdit.visibility = View.VISIBLE
-            placesSpinner.visibility = View.GONE
-            contactsSpinner.visibility = View.VISIBLE
-            saveChangesBtn.visibility = View.VISIBLE
-            deleteBtn.visibility = View.VISIBLE
+                }
+                "Notification" -> {
+                    editAction.visibility = View.GONE
+                    smsTextEdit.visibility = View.VISIBLE
+                    placesSpinner.visibility = View.GONE
+                    saveChangesBtn.visibility = View.VISIBLE
+                    deleteBtn.visibility = View.VISIBLE
+                    turnOnOff.visibility = View.VISIBLE
+                }
+                "Mute" -> {
+                    editAction.visibility = View.GONE
+                    saveChangesBtn.visibility = View.VISIBLE
+                    deleteBtn.visibility = View.VISIBLE
+                    turnOnOff.visibility = View.VISIBLE
+                }
+            }
+
 
         }
 
@@ -127,12 +154,22 @@ class EditActionFragment(private val key: String , private val actionType: Strin
                         val phoneNumberRes = it.child("phoneNumber").value.toString()
                         val contactNameRes = it.child("contactName").value.toString()
                         val smsTextRes = it.child("smsText").value.toString()
+                        val turnOn = it.child("turnOn").value
+
+                        if (turnOn == null){
+                            turnOnOffSwitch.isChecked = true
+                        }
+                        else{
+                            turnOnOffSwitch.isChecked = turnOn as Boolean
+                        }
 
                         actionTypeTV.text = getString(R.string.sms)
                         placeName.text = placeNameRes
                         phoneNumber.text = phoneNumberRes
                         smsText.text = smsTextRes
                         contactName.text = contactNameRes
+
+
 
                     }
                 }
@@ -148,12 +185,20 @@ class EditActionFragment(private val key: String , private val actionType: Strin
             }
             "Mute" -> {
                 unnecessaryLayout.visibility = View.GONE
-                editAction.visibility = View.GONE
-                deleteBtn.visibility = View.VISIBLE
+                deleteBtn.visibility = View.GONE
                 database.child("Actions//Mute//$key").get().addOnSuccessListener {
                     if(it.exists()){
 
                         val placeNameRes = it.child("placeName").value.toString()
+                        val turnOn = it.child("turnOn").value
+
+                        if (turnOn == null){
+                            turnOnOffSwitch.isChecked = true
+                        }
+                        else{
+                            turnOnOffSwitch.isChecked = turnOn as Boolean
+                        }
+
                         actionTypeTV.text = getString(R.string.mute_the_sound)
                         placeName.text = placeNameRes
 
@@ -171,13 +216,23 @@ class EditActionFragment(private val key: String , private val actionType: Strin
             }
             "Notification" -> {
                 contactNamePhone.visibility = View.GONE
-                editAction.visibility = View.GONE
-                deleteBtn.visibility = View.VISIBLE
+                editAction.visibility = View.VISIBLE
+                deleteBtn.visibility = View.GONE
                 database.child("Actions//Notification//$key").get().addOnSuccessListener {
                     if(it.exists()){
 
                         val placeNameRes = it.child("placeName").value.toString()
                         val smsTextRes = it.child("smsText").value.toString()
+                        val turnOn = it.child("turnOn").value
+
+                        if (turnOn == null){
+                            turnOnOffSwitch.isChecked = true
+                        }
+                        else{
+                            turnOnOffSwitch.isChecked = turnOn as Boolean
+                        }
+
+
                         actionTypeTV.text = getString(R.string.notification)
                         placeName.text = placeNameRes
                         smsText.text = smsTextRes
@@ -204,11 +259,18 @@ class EditActionFragment(private val key: String , private val actionType: Strin
             val strSmsText = smsText.text.toString()
             val strPlaceName: String = binding.placesSpinner.selectedItem.toString()
 
-            if (strSmsText!="" || strPlaceName != getString(R.string.choose_place) || strPhoneNumberOld!= getString(R.string.choose_contact)){
+            database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(uid)
+
+
+            database.child("Actions//$actionType//$key//turnOn").setValue(turnOnOffSwitch.isChecked)
+
+
+            if (strSmsText!="" || strPlaceName != getString(R.string.choose_place) || strPhoneNumberOld != getString(R.string.choose_contact)){
 
                 if (placesSpinner.selectedItem.toString()!=getString(R.string.choose_place)){
-                    database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(uid)
+
                     database.child("Actions//Sms//$key//placeName").setValue(placesSpinner.selectedItem.toString())
+                    database.child("Actions//Sms//$key//turnOn").setValue(turnOnOffSwitch.isChecked)
                 }
 
                 if (contactsSpinner.selectedItem.toString()!=getString(R.string.choose_contact)){
@@ -220,14 +282,23 @@ class EditActionFragment(private val key: String , private val actionType: Strin
                     val contactName = strPhoneNumberOld.subSequence(0, index-2).toString()
                     ///
 
-                    database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(uid)
+
                     database.child("Actions//Sms//$key//phoneNumber").setValue(strPhoneNumber)
                     database.child("Actions//Sms//$key//contactName").setValue(contactName)
+                    Log.d("turnOnOffSwitch",turnOnOffSwitch.isChecked.toString())
+                    database.child("Actions//Sms//$key//turnOn").setValue(turnOnOffSwitch.isChecked)
                 }
 
                 if (smsTextEdit.text.toString()!=""){
-                    database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(uid)
-                    database.child("Actions//Sms//$key//smsText").setValue(smsTextEdit.text.toString())
+                    if(actionType=="Sms"){
+
+                        database.child("Actions//Sms//$key//smsText").setValue(smsTextEdit.text.toString())
+                    }else if (actionType=="Notification"){
+
+                        database.child("Actions//Notification//$key//smsText").setValue(smsTextEdit.text.toString())
+                        database.child("Actions//Notification//$key//turnOn").setValue(turnOnOffSwitch.isChecked)
+                    }
+
                 }
 
                 (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))

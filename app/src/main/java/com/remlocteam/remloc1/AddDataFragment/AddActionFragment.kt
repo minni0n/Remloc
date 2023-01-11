@@ -190,7 +190,7 @@ class AddActionFragment : Fragment() {
 
                         database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(uid)
                         val key: String? = database.push().key
-                        val action = ActionsData(contactName, strPhoneNumber, strSmsText, strPlaceName, "Sms", latitudes[placeIndex], longitudes[placeIndex])
+                        val action = ActionsData(contactName, strPhoneNumber, strSmsText, strPlaceName, "Sms", latitudes[placeIndex], longitudes[placeIndex], true)
 
                         database.child("Actions//Sms//$key").setValue(action).addOnCompleteListener{
                             if(it.isSuccessful){
@@ -227,7 +227,8 @@ class AddActionFragment : Fragment() {
                             strPlaceName,
                             "Mute",
                             latitudes[placeIndex],
-                            longitudes[placeIndex]
+                            longitudes[placeIndex],
+                            true
                         )
 
                         database.child("Actions//Mute//$key").setValue(action)
@@ -279,7 +280,8 @@ class AddActionFragment : Fragment() {
                             strSmsText,
                             "Notification",
                             latitudes[placeIndex],
-                            longitudes[placeIndex]
+                            longitudes[placeIndex],
+                            true
                         )
 
                         database.child("Actions//Notification//$key").setValue(action)

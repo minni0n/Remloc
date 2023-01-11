@@ -1,34 +1,23 @@
 package com.remlocteam.remloc1.HomeFragments
 
-import android.content.Context
-import android.content.Intent
-import android.media.AudioManager
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ListView
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat.getSystemService
+import android.widget.*
 import androidx.fragment.app.Fragment
-import com.remlocteam.remloc1.Actions.MuteDevice
-import com.remlocteam.remloc1.Actions.SendNotification
-import com.remlocteam.remloc1.Actions.SendSms
 import com.remlocteam.remloc1.AddDataFragment.AddActionFragment
 import com.remlocteam.remloc1.Data.ActionsData
 import com.remlocteam.remloc1.DataAdapter.ActionAdapter
 import com.remlocteam.remloc1.EditDataFragments.EditActionFragment
-import com.remlocteam.remloc1.GPSUtils
 import com.remlocteam.remloc1.HomeActivity
 import com.remlocteam.remloc1.R
 import com.remlocteam.remloc1.databinding.FragmentActionsBinding
-import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.remlocteam.remloc1.foregroundLocationCheck.LocationService
 
 
 class ActionsFragment : Fragment() {
@@ -42,6 +31,7 @@ class ActionsFragment : Fragment() {
 
 
 
+    @SuppressLint("UseSwitchCompatOrMaterialCode", "UseRequireInsteadOfGet")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -80,10 +70,29 @@ class ActionsFragment : Fragment() {
 
         }
 
+//
+//        turnOn.setOnCheckedChangeListener{ _, b ->
+//
+//            if (b){
+////                saveData(keys.toString(), actionTypeArray.toString())
+//                Log.d("")
+//            }
+//
+//        }
+
         return binding.root
     }
 
 
+
+//    private fun saveData(s: String, s1: String) {
+//        auth = FirebaseAuth.getInstance()
+//        val uid = auth.currentUser?.uid
+//        if (uid != null) {
+//            database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(uid)
+//            database.child("Actions").
+//        }
+//    }
 
     private fun readData(): ArrayList<ActionsData>{
         auth = FirebaseAuth.getInstance()

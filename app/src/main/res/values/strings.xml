@@ -113,6 +113,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="divider">" - "</string>
     <string name="your_scores">Your scores:</string>
+    <string name="turn_on">Turn On</string>
+    <string name="turn_on_off">Turn on/off</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>
