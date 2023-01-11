@@ -3,5 +3,5 @@
     <stroke
         android:width="2dp"
         android:color="?colorOnSecondary" />
-    <solid android:color="@color/yellowBook" />
+    <solid android:color="?colorSecondaryVariant" />
 </shape>

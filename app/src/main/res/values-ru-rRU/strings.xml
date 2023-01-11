@@ -106,4 +106,6 @@
     <string name="you_fo_to_the">Вы пришли к</string>
     <string name="congrats_score">Отличная работа, ты выиграл нашу игру. Поздравляем, ваш результат</string>
     <string name="exit_button">Конец игры!</string>
+    <string name="divider">" - "</string>
+    <string name="your_scores">Ваши баллы:</string>
 </resources>

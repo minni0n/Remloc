@@ -111,5 +111,8 @@
     <string name="congrats_score">Great job, you beat our game. Congratulations your score is</string>
     <string name="exit_button">End game!</string>
     <!-- TODO: Remove or change this placeholder text -->
+    <string name="divider">" - "</string>
+    <string name="your_scores">Your scores:</string>
+    <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

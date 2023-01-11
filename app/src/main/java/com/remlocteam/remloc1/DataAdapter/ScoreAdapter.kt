@@ -8,23 +8,24 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
 import com.remlocteam.remloc1.Data.ActionsData
+import com.remlocteam.remloc1.Data.ScoreData
 import com.remlocteam.remloc1.R
 
-
-class ActionAdapter(private val context: Activity, private val arrayList: ArrayList<ActionsData>,) : ArrayAdapter<ActionsData>(context, R.layout.action_item, arrayList){
+class ScoreAdapter(private val context: Activity, private val arrayList: ArrayList<ScoreData>,) : ArrayAdapter<ScoreData>(context, R.layout.place_score, arrayList) {
 
     @SuppressLint("ViewHolder", "InflateParams")
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
 
         val inflater: LayoutInflater = LayoutInflater.from(context)
-        val view: View = inflater.inflate(R.layout.action_item, null)
+        val view: View = inflater.inflate(R.layout.place_score, null)
 
-        val placeName: TextView = view.findViewById(R.id.placeName2)
-        val actionType: TextView = view.findViewById(R.id.actionName)
+        val placeName: TextView = view.findViewById(R.id.scorePlaceName)
+        val placeScore: TextView = view.findViewById(R.id.scorePlaceScore)
 
 
         placeName.text = arrayList[position].placeName
-        actionType.text = arrayList[position].actionType
+        placeScore.text = arrayList[position].placeScore.toString()
+
 
         return view
     }

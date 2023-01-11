@@ -1,105 +1,122 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="?colorSecondary"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:context=".CityGameFragments.CityGamePlaceFragment">
 
 
-
-        <LinearLayout
-            android:layout_marginVertical="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_gravity="center">
-
-
-            <TextView
-                android:id="@+id/city"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Poznan"
-                android:textSize="40sp"
-                android:textStyle="bold|italic"
-                android:layout_gravity="center"/>
-
-        </LinearLayout>
+    <ProgressBar
+        android:layout_marginVertical="20dp"
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 
 
         <LinearLayout
-            android:background="@drawable/border_miejsce"
-            android:layout_marginHorizontal="20dp"
-            android:layout_width="wrap_content"
+            android:id="@+id/content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="center">
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginVertical="5dp"
+                android:layout_marginVertical="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_gravity="center">
 
-                <TextView
-                    android:id="@+id/place"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Miejsce #"
-                    android:textSize="40sp"
-                    android:textStyle="bold"
-                    android:layout_gravity="center"/>
 
                 <TextView
-                    android:id="@+id/placeNumber"
+                    android:id="@+id/city"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1"
+                    android:text="Poznan"
                     android:textSize="40sp"
-                    android:textStyle="bold"
+                    android:textStyle="bold|italic"
                     android:layout_gravity="center"/>
 
             </LinearLayout>
 
 
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_marginHorizontal="5dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/border"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/placeLegend"
-                android:layout_marginVertical="10dp"
-                android:layout_marginHorizontal="10dp"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:background="@drawable/bg_round_gray"
+                android:layout_marginHorizontal="20dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:textSize="17sp"
-                android:text="Nasza historia zaczyna się już w 1551 roku, kiedy poznański ratusz zdecydował się na rozbudowę, kanclerz zlecił mistrzowi Bartłomiejowi wykonanie zegara na wieżę. Wokół ratuszy zgromadziło się wiele osób, zwłaszcza że uroczystość miała uhonorować obecność wojewody. Z tej okazji urządzono ucztę z dziczyzny. Niestety mięso wpadło do ognia i kucharz Mikołaj wysłał swojego pomocnika do rzeźni po nowe mięso. Ale świeżego nie było, więc zaczął szukać gdzie indziej. Kiedy dotarł do murów miejskich, zauważył dwa malutkie, białe koziołki i szybko zawiózł je pod ratusz. Kiedy jednak dotarli do kuchni, koźlęta uciekły i pobiegły prosto do ratuszy, a następnie wspięły się na wieżę do zegara na szczycie. Kiedy wojewoda przybył do ratuszy, ujrzał niezwykły widok: obok zegara stały dwie małe, białe kozy. Cała ta historia tak rozbawiła namiestnika, że wybaczył kucharzowi i kazał zegarmistrzowi dodać do zegara dwie mechaniczne kozy."/>
+                android:orientation="horizontal"
+                android:layout_gravity="center">
+
+                <LinearLayout
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginVertical="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center">
+
+                    <TextView
+                        android:id="@+id/place"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Miejsce #"
+                        android:textSize="40sp"
+                        android:textStyle="bold"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:id="@+id/placeNumber"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:textSize="40sp"
+                        android:textStyle="bold"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/bg_round_pastel_gray"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/placeLegend"
+                    android:layout_marginVertical="10dp"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:textSize="17sp"
+                    android:text="Nasza historia zaczyna się już w 1551 roku, kiedy poznański ratusz zdecydował się na rozbudowę, kanclerz zlecił mistrzowi Bartłomiejowi wykonanie zegara na wieżę. Wokół ratuszy zgromadziło się wiele osób, zwłaszcza że uroczystość miała uhonorować obecność wojewody. Z tej okazji urządzono ucztę z dziczyzny. Niestety mięso wpadło do ognia i kucharz Mikołaj wysłał swojego pomocnika do rzeźni po nowe mięso. Ale świeżego nie było, więc zaczął szukać gdzie indziej. Kiedy dotarł do murów miejskich, zauważył dwa malutkie, białe koziołki i szybko zawiózł je pod ratusz. Kiedy jednak dotarli do kuchni, koźlęta uciekły i pobiegły prosto do ratuszy, a następnie wspięły się na wieżę do zegara na szczycie. Kiedy wojewoda przybył do ratuszy, ujrzał niezwykły widok: obok zegara stały dwie małe, białe kozy. Cała ta historia tak rozbawiła namiestnika, że wybaczył kucharzowi i kazał zegarmistrzowi dodać do zegara dwie mechaniczne kozy."/>
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/exitGame"
+                android:layout_marginTop="30dp"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@color/red"
+                android:layout_height="wrap_content"
+                android:text="Exit the game" />
 
         </LinearLayout>
-
-
-        <Button
-            android:id="@+id/exitGame"
-            android:layout_marginTop="30dp"
-            android:layout_width="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:backgroundTint="@color/red"
-            android:layout_height="wrap_content"
-            android:text="Exit the game" />
 
     </LinearLayout>
 

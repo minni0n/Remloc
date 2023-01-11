@@ -1,6 +1,7 @@
 package com.remlocteam.remloc1.HomeFragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -77,7 +78,6 @@ class PlacesFragment : Fragment() {
             database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(uid)
             database.child("Places").get().addOnSuccessListener {
                 if(it.exists()){
-
                     it.children.forEach{ placeInfo ->
 
                         val id = placeInfo.key

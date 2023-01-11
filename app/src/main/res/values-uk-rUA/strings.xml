@@ -106,4 +106,6 @@
     <string name="you_fo_to_the">Ви прийшли до</string>
     <string name="congrats_score">Чудова робота, ви перемогли нашу гру. Ваша оцінка</string>
     <string name="exit_button">Кінець гри!</string>
+    <string name="divider">" - "</string>
+    <string name="your_scores">Ваші бали:</string>
 </resources>

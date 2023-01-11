@@ -1,12 +1,8 @@
 package com.remlocteam.remloc1.CityGameFragments
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.content.Context
-import android.content.pm.PackageManager
 import android.location.Location
-import android.location.LocationListener
-import android.location.LocationManager
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
@@ -14,14 +10,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.remlocteam.remloc1.Data.ScoreData
 import com.remlocteam.remloc1.HomeActivity
 import com.remlocteam.remloc1.HomeFragments.GameMiejskaFragment
 import com.remlocteam.remloc1.R
@@ -48,6 +46,8 @@ class CityGamePlaceFragment : Fragment() {
     private var startTime: Long = 0
     private var endTime: Long = 0
     private lateinit var selectedCity: String
+    private lateinit var progressBar: ProgressBar
+    private lateinit var content: LinearLayout
 
             @SuppressLint("SetTextI18n")
             override fun onCreateView(
@@ -56,6 +56,13 @@ class CityGamePlaceFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
                 binding = FragmentCityGamePlaceBinding.inflate(layoutInflater)
+
+                progressBar = binding.progressBar
+                content = binding.content
+
+                content.visibility = View.GONE
+                progressBar.visibility = View.VISIBLE
+
                 gamePlaceNumber = (activity as HomeActivity?)!!.getPlaceNumber()
 
                 // Firebase and dataset
@@ -72,6 +79,9 @@ class CityGamePlaceFragment : Fragment() {
 
                 // Location tracking
                 getLocationUpdates()
+
+                progressBar.visibility = View.GONE
+                content.visibility = View.VISIBLE
 
                 // Buttons listener
                 binding.exitGame.setOnClickListener {
@@ -220,16 +230,19 @@ class CityGamePlaceFragment : Fragment() {
         if (uid!= null) {
 
             database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference("GameMiejskaScores/$uid")
-            val databaseChild = database.child("$selectedCity/score")
+            val databaseChild = database.child(selectedCity)
             Log.d("databaseChild", databaseChild.toString())
             databaseChild.get().addOnSuccessListener {
-                val  prevScore = it.value as Long?
+                val  prevScore = it.child("placeScore").value as Long?
+
+                val data = ScoreData(selectedCity, score)
+
                 if (prevScore != null) {
                     if (prevScore.toInt() < score){
-                        databaseChild.setValue(score)
+                        databaseChild.setValue(data)
                     }
                 }else{
-                    databaseChild.setValue(score)
+                    databaseChild.setValue(data)
                 }
             }
         }

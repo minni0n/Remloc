@@ -7,74 +7,88 @@
     android:orientation="vertical"
     tools:context=".HomeFragments.GameMiejskaFragment">
 
-    <TextView
-        android:layout_marginTop="40dp"
+    <ProgressBar
+        android:layout_marginTop="20dp"
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="40sp"
-        android:text="Welcome to"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:text="@string/game_miejska"/>
-
-    <LinearLayout
-        android:layout_marginTop="50dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Spinner
-            android:id="@+id/cityGamesSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="?colorPrimaryVariant"
-            android:spinnerMode="dropdown"/>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/startGameBtn"
-        android:layout_marginTop="50dp"
-        android:layout_width="wrap_content"
-        android:layout_gravity="center|bottom"
-        android:layout_height="wrap_content"
-        android:text="Start game" />
+        android:layout_gravity="center" />
 
 
     <LinearLayout
-        android:background="@drawable/border"
-        android:layout_marginVertical="40dp"
-        android:layout_marginHorizontal="10dp"
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <TextView
-            android:layout_marginVertical="10dp"
+            android:layout_marginTop="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textSize="40sp"
+            android:text="Welcome to"/>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:textSize="40sp"
             android:textStyle="bold"
-            android:text="Your scores:"/>
+            android:text="@string/game_miejska"/>
 
-        <TextView
-            android:background="@drawable/border_miejsce"
-            android:layout_marginTop="10dp"
+        <LinearLayout
+            android:layout_marginTop="50dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <Spinner
+                android:id="@+id/cityGamesSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="?colorPrimaryVariant"
+                android:spinnerMode="dropdown"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/startGameBtn"
+            android:layout_marginTop="50dp"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:layout_height="wrap_content"
+            android:text="Start game" />
+
+
+        <LinearLayout
+            android:id="@+id/scoresLayout"
+            android:background="@drawable/bg_round_gray"
+            android:layout_marginVertical="40dp"
             android:layout_marginHorizontal="10dp"
-            android:layout_marginBottom="20dp"
-            android:id="@+id/yourScores"
-            android:textColor="@color/black"
-            android:textSize="20sp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Poznan - 99\n Warszawa -10" />
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_marginVertical="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:text="@string/your_scores"/>
+
+            <ListView
+                android:id="@+id/listOfScores"
+                android:layout_marginHorizontal="15dp"
+                android:layout_marginVertical="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:listitem="@layout/place_score"
+                android:padding="4dp" />
+
+        </LinearLayout>
 
     </LinearLayout>
-
 
 </LinearLayout>

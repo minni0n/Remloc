@@ -107,4 +107,6 @@
     <string name="you_fo_to_the">Przyszedłeś do</string>
     <string name="congrats_score">Świetna robota, pokonałeś naszą grę. Gratulacje, Twój wynik to</string>
     <string name="exit_button">Koniec gry!</string>
+    <string name="divider">" - "</string>
+    <string name="your_scores">Twoje wyniki:</string>
 </resources>
