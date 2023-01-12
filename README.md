@@ -1,4 +1,5 @@
 # Remloc
+![RemLoc](https://user-images.githubusercontent.com/73343881/212084664-e2168467-9b25-49b9-bf3f-06460a33f6fe.png)
 
 RemLoc - reminder and notification application 
 
