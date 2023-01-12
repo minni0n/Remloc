@@ -1,5 +1,6 @@
 # Remloc
-![RemLoc LogoPNG](https://user-images.githubusercontent.com/73343881/212086013-f40db738-1731-429c-a17b-db9409ebec69.png)
+![RemLoc Logo](https://user-images.githubusercontent.com/73343881/212086128-2f3feb7f-252c-46b3-8cd8-540b85a1eafc.png)
+
 
 RemLoc - reminder and notification application 
 
