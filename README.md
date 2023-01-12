@@ -9,4 +9,4 @@ This app also has a feature for automatically sending SMS messages to relatives 
 
 Our app is ideal for people who like active leisure and want to spend time with friends playing urban games. It is also suitable for discovering attractions during history, geography, biology and many other subject lessons, making learning more understandable and exciting. Thanks to RemLoc, organizing an urban game will be much easier and more enjoyable. Join the fun now and broaden your horizons!"
 
-You can download a (.apk) from itch.io web page, either by browsing RemLoc, or just trow this link (https://minni0n.itch.io/remloc)
+You can download an a (.apk) file from itch.io web page, either by browsing RemLoc, or just trow this link (https://minni0n.itch.io/remloc)
