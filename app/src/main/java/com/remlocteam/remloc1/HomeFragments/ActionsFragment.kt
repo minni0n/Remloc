@@ -30,7 +30,6 @@ class ActionsFragment : Fragment() {
     private lateinit var actionTypeArray: MutableList<String>
 
 
-
     @SuppressLint("UseSwitchCompatOrMaterialCode", "UseRequireInsteadOfGet")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -122,6 +121,14 @@ class ActionsFragment : Fragment() {
                             val actionType = action.child("actionType").value.toString()
                             val latitude = action.child("latitude").value as Double
                             val longitude = action.child("longitude").value as Double
+                            var turnOn = action.child("turnOn").value
+
+                            if (turnOn == null){
+                                turnOn = true
+                            }
+                            else{
+                                turnOn = turnOn as Boolean
+                            }
 
                             actions.add(smsText + "\n" + placeName)
                             binding.listOfActions.invalidateViews()
@@ -137,7 +144,8 @@ class ActionsFragment : Fragment() {
                                         placeName,
                                         activity?.getString(R.string.sms),
                                         latitude,
-                                        longitude
+                                        longitude,
+                                        turnOn
                                     )
 
                                     dataNow.add(action1)
@@ -150,7 +158,8 @@ class ActionsFragment : Fragment() {
                                         placeName,
                                         activity?.getString(R.string.mute_the_sound),
                                         latitude,
-                                        longitude
+                                        longitude,
+                                        turnOn
                                     )
 
                                     dataNow.add(action1)
@@ -163,7 +172,8 @@ class ActionsFragment : Fragment() {
                                         placeName,
                                         activity?.getString(R.string.notification),
                                         latitude,
-                                        longitude
+                                        longitude,
+                                        turnOn
                                     )
 
                                     dataNow.add(action1)

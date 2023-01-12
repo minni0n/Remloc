@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.CheckBox
 import android.widget.Switch
 import android.widget.TextView
 import com.remlocteam.remloc1.Data.ActionsData
@@ -22,9 +23,10 @@ class ActionAdapter(private val context: Activity, private val arrayList: ArrayL
 
         val placeName: TextView = view.findViewById(R.id.placeName2)
         val actionType: TextView = view.findViewById(R.id.actionName)
-//        val turnOn: Switch = view.findViewById(R.id.turnOnOffSwitch)
+        val turnOn: CheckBox = view.findViewById(R.id.checkBoxOn)
 
-//        turnOn.isChecked = arrayList[position].turnOn
+        turnOn.isChecked = arrayList[position].turnOn
+        turnOn.isEnabled = false
         placeName.text = arrayList[position].placeName
         actionType.text = arrayList[position].actionType
 

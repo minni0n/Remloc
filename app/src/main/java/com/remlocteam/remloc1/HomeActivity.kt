@@ -23,6 +23,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.remlocteam.remloc1.foregroundLocationCheck.LocationService
 import de.hdodenhof.circleimageview.CircleImageView
 import java.util.*
 
@@ -105,7 +106,13 @@ class HomeActivity : AppCompatActivity() {
                 R.id.nav_game_miejska -> replaceFragment(GameMiejskaFragment(), it.title.toString())
                 R.id.nav_settings -> replaceFragment(SettingsFragment(), it.title.toString())
                 R.id.nav_help_review -> replaceFragment(HelpReviewFragment(), it.title.toString())
-                R.id.nav_logout -> logoutFromGoogle()
+                R.id.nav_logout -> {
+                    Intent(this, LocationService::class.java).apply {
+                        action = LocationService.ACTION_STOP
+                        this@HomeActivity.startService(this)
+                    }
+                    logoutFromGoogle()
+                }
             }
 
             true

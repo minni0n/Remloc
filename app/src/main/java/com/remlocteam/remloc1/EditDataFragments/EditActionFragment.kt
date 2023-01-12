@@ -256,7 +256,7 @@ class EditActionFragment(private val key: String , private val actionType: Strin
         saveChangesBtn.setOnClickListener{
 
             val strPhoneNumberOld = binding.contactsSpinner.selectedItem.toString()
-            val strSmsText = smsText.text.toString()
+            val strSmsText = smsTextEdit.text.toString()
             val strPlaceName: String = binding.placesSpinner.selectedItem.toString()
 
             database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(uid)
@@ -264,45 +264,60 @@ class EditActionFragment(private val key: String , private val actionType: Strin
 
             database.child("Actions//$actionType//$key//turnOn").setValue(turnOnOffSwitch.isChecked)
 
-
-            if (strSmsText!="" || strPlaceName != getString(R.string.choose_place) || strPhoneNumberOld != getString(R.string.choose_contact)){
-
-                if (placesSpinner.selectedItem.toString()!=getString(R.string.choose_place)){
-
-                    database.child("Actions//Sms//$key//placeName").setValue(placesSpinner.selectedItem.toString())
-                    database.child("Actions//Sms//$key//turnOn").setValue(turnOnOffSwitch.isChecked)
-                }
-
-                if (contactsSpinner.selectedItem.toString()!=getString(R.string.choose_contact)){
-
-                    ///
-                    val index = strPhoneNumberOld.indexOf(": ") + 2
-                    val len = strPhoneNumberOld.length
-                    val strPhoneNumber = strPhoneNumberOld.subSequence(index, len).toString()
-                    val contactName = strPhoneNumberOld.subSequence(0, index-2).toString()
-                    ///
-
-
-                    database.child("Actions//Sms//$key//phoneNumber").setValue(strPhoneNumber)
-                    database.child("Actions//Sms//$key//contactName").setValue(contactName)
-                    Log.d("turnOnOffSwitch",turnOnOffSwitch.isChecked.toString())
-                    database.child("Actions//Sms//$key//turnOn").setValue(turnOnOffSwitch.isChecked)
-                }
-
-                if (smsTextEdit.text.toString()!=""){
-                    if(actionType=="Sms"){
-
-                        database.child("Actions//Sms//$key//smsText").setValue(smsTextEdit.text.toString())
-                    }else if (actionType=="Notification"){
-
-                        database.child("Actions//Notification//$key//smsText").setValue(smsTextEdit.text.toString())
-                        database.child("Actions//Notification//$key//turnOn").setValue(turnOnOffSwitch.isChecked)
-                    }
-
-                }
-
-                (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
+            if (strSmsText!=""){
+                database.child("Actions//$actionType//$key//smsText").setValue(smsTextEdit.text.toString())
             }
+
+            if(strPlaceName != getString(R.string.choose_place)){
+                database.child("Actions//$actionType//$key//placeName").setValue(placesSpinner.selectedItem.toString())
+            }
+
+            if (strPhoneNumberOld != getString(R.string.choose_contact)){
+                val index = strPhoneNumberOld.indexOf(": ") + 2
+                val len = strPhoneNumberOld.length
+                val strPhoneNumber = strPhoneNumberOld.subSequence(index, len).toString()
+                val contactName = strPhoneNumberOld.subSequence(0, index-2).toString()
+                ///
+                database.child("Actions//$actionType//$key//phoneNumber").setValue(strPhoneNumber)
+                database.child("Actions//$actionType//$key//contactName").setValue(contactName)
+            }
+
+            (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
+
+//            if (strSmsText!="" || strPlaceName != getString(R.string.choose_place) || strPhoneNumberOld != getString(R.string.choose_contact)){
+//
+//                if (placesSpinner.selectedItem.toString()!=getString(R.string.choose_place)){
+//
+//                    database.child("Actions//Sms//$key//placeName").setValue(placesSpinner.selectedItem.toString())
+//                }
+//
+//                if (contactsSpinner.selectedItem.toString()!=getString(R.string.choose_contact)){
+//
+//                    ///
+//                    val index = strPhoneNumberOld.indexOf(": ") + 2
+//                    val len = strPhoneNumberOld.length
+//                    val strPhoneNumber = strPhoneNumberOld.subSequence(index, len).toString()
+//                    val contactName = strPhoneNumberOld.subSequence(0, index-2).toString()
+//                    ///
+//
+//
+//                    database.child("Actions//Sms//$key//phoneNumber").setValue(strPhoneNumber)
+//                    database.child("Actions//Sms//$key//contactName").setValue(contactName)
+//                }
+//
+//                if (smsTextEdit.text.toString()!=""){
+//                    if(actionType=="Sms"){
+//
+//                        database.child("Actions//Sms//$key//smsText").setValue(smsTextEdit.text.toString())
+//                    }else if (actionType=="Notification"){
+//
+//                        database.child("Actions//Notification//$key//smsText").setValue(smsTextEdit.text.toString())
+//                    }
+//
+//                }
+//
+//                (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
+//            }
 
         }
 

@@ -2,6 +2,7 @@ package com.remlocteam.remloc1.foregroundLocationCheck
 
 import android.annotation.SuppressLint
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
@@ -11,6 +12,7 @@ import android.media.AudioManager
 import android.os.IBinder
 import android.provider.Settings
 import android.telephony.SmsManager
+import android.util.Log
 import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.google.android.gms.location.LocationRequest
@@ -21,10 +23,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.remlocteam.remloc1.Data.ActionsData
 import com.remlocteam.remloc1.R
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
-import kotlinx.coroutines.cancel
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -38,9 +37,6 @@ class LocationService: Service() {
 
     private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
-    private lateinit var actions: MutableList<String>
-    private lateinit var keys: MutableList<String>
-    private lateinit var actionTypeArray: MutableList<String>
 
     override fun onBind(p0: Intent?): IBinder? {
         return null
@@ -60,6 +56,10 @@ class LocationService: Service() {
             ACTION_STOP -> stop()
             ACTION_RESTART ->{
                 stop()
+                serviceScope.launch {
+                    delay(1000) // wait for 1 seconds
+                    start()
+                }
                 start()
             }
         }
@@ -72,28 +72,12 @@ class LocationService: Service() {
         var actionsFromDB: ArrayList<ActionsData>? = null
         val actionsDone = ActionsData()
 
-        actionTypeArray = mutableListOf("")
-        actionTypeArray.clear()
-        actions = mutableListOf("")
-        actions.clear()
-        keys = mutableListOf("")
-        keys.clear()
-        var notificationId = 1
-
         actionsFromDB = readData()
-
-
-        //fixxxxxxx
-//        val intent = Intent(this, HomeActivity::class.java).apply {
-//            putExtra("fragment", "settings")
-//        }
-//        val pendingIntent = PendingIntent.getActivity(this, 0, intent, 0)
 
         val notification = NotificationCompat.Builder(this, "location")
             .setContentTitle("Tracking location...")
-            .setContentText("Location: null")
+            .setContentText("Location is tracked, you can turn it off in settings!")
             .setSmallIcon(R.drawable.ic_baseline_doorbell_24)
-//            .setContentIntent(pendingIntent)
             .setLargeIcon(
                 BitmapFactory.decodeResource(this.resources,
             R.mipmap.ic_launcher))
@@ -101,51 +85,47 @@ class LocationService: Service() {
 
 
 
-
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        var stopService = false
 
         locationClient
             .getLocationUpdates(intervalTime)
             .catch { e -> e.printStackTrace() }
             .onEach { location ->
-                val lat = location.latitude.toString()
-                val long = location.longitude.toString()
 
                 val currentLatLng = LatLng(location.latitude, location.longitude)
 
-//                actionsFromDB.forEach { dataLine ->
-//
-//                    val datalong = dataLine.longitude
-//                    val dataLatt = dataLine.latitude
-//
-//                    if (datalong != null && dataLatt != null){
-//                        val timeToAction = ((distancePrecise(currentLatLng, LatLng(dataLatt, datalong))/30.0)/2).toLong()
-//                        println("timeToAction $timeToAction")
-//                        if(intervalTime > timeToAction){
-//                            intervalTime = timeToAction * 1000
-//
-//                        }
-//                        println("intervalTime $intervalTime")
-//                    }
-//                }
 
+                actionsFromDB.forEach { action ->
+                    stopService = action.placeName == null
+                }
 
-                val updatedNotification = notification.setContentText(
-                    "Lat: $lat Long: $long"
-                )
-                notificationManager.notify(1, updatedNotification.build())
+                if (stopService){
+                    val updatedNotification = notification.setContentText(
+                        "Stopping service"
+                    )
+                    notificationManager.notify(1, updatedNotification.build())
+                    stop()
 
-                // Check for distance
+                }else{
+                    val updatedNotification = notification.setContentText(
+                        "Location is tracked, you can turn it off in settings!"
+                    )
+                    notificationManager.notify(1, updatedNotification.build())
+                }
+
 
 
 
 
 //              actionsFromDB.forEach { dataLine ->
                 for (i in actionsFromDB.indices) {
+                    Log.d("actionsFromDB1", actionsFromDB.toString())
                     val dataLine = actionsFromDB[i]
+                    Log.d("dataLine1", dataLine.toString())
                     when(dataLine.actionType){
 
-                        this.getString(R.string.sms) ->{
+                        ("Sms") ->{
 
                             if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
                                 // Get a reference to the SmsManager
@@ -157,9 +137,10 @@ class LocationService: Service() {
 
                             }
                         }
-                        this.getString(R.string.mute_the_sound) ->{
+                        ("Mute") ->{
 
                             if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
+
                                 val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
                                 audioManager.ringerMode = AudioManager.RINGER_MODE_VIBRATE
 
@@ -167,7 +148,7 @@ class LocationService: Service() {
                             }
                         }
 
-                        this.getString(R.string.notification) ->{
+                        ("Notification") ->{
 
                             if (distance(currentLatLng, LatLng(dataLine.latitude!!, dataLine.longitude!!))){
                                 val newNotification = NotificationCompat.Builder(this, "location")
@@ -225,13 +206,7 @@ class LocationService: Service() {
                 if(it.exists()){
 
                     it.children.forEach { actionTypes ->
-
                         actionTypes.children.forEach { action ->
-
-                            val id = action.key
-                            if (id != null) {
-                                keys.add(id)
-                            }
 
                             val contactName = action.child("contactName").value.toString()
                             val phoneNumber = action.child("phoneNumber").value.toString()
@@ -240,53 +215,35 @@ class LocationService: Service() {
                             val actionType = action.child("actionType").value.toString()
                             val latitude = action.child("latitude").value as Double
                             val longitude = action.child("longitude").value as Double
+                            var turnOn = action.child("turnOn").value
 
-                            actions.add(smsText + "\n" + placeName)
-
-                            actionTypeArray.add(actionType)
-
-                            when(actionType){
-                                "Sms" -> {
-                                    val action1 = ActionsData(
-                                        contactName,
-                                        phoneNumber,
-                                        smsText,
-                                        placeName,
-                                        this.getString(R.string.sms),
-                                        latitude,
-                                        longitude
-                                    )
-
-                                    dataNow.add(action1)
-                                }
-                                "Mute" -> {
-                                    val action1 = ActionsData(
-                                        contactName,
-                                        phoneNumber,
-                                        smsText,
-                                        placeName,
-                                        this.getString(R.string.mute_the_sound),
-                                        latitude,
-                                        longitude
-                                    )
-
-                                    dataNow.add(action1)
-                                }
-                                "Notification" -> {
-                                    val action1 = ActionsData(
-                                        contactName,
-                                        phoneNumber,
-                                        smsText,
-                                        placeName,
-                                        this.getString(R.string.notification),
-                                        latitude,
-                                        longitude
-                                    )
-
-                                    dataNow.add(action1)
-                                }
-
+                            if (turnOn==null){
+                                turnOn = true
                             }
+                            else{
+                                turnOn = turnOn as Boolean
+                            }
+
+
+                            if (turnOn){
+                                val actionToDo = ActionsData(
+                                    contactName,
+                                    phoneNumber,
+                                    smsText,
+                                    placeName,
+                                    actionType,
+                                    latitude,
+                                    longitude,
+                                    turnOn
+                                )
+                                dataNow.add(actionToDo)
+                            }
+
+
+
+
+
+
                         }
                     }
                 }
@@ -299,9 +256,11 @@ class LocationService: Service() {
             }
         }
 
+        Log.d("dataNow",dataNow.toString())
         return dataNow
 
     }
+
 
     private fun distance(currentLatLng: LatLng, placeLatLng: LatLng): Boolean{
         val theta = currentLatLng.longitude - placeLatLng.longitude
@@ -317,17 +276,6 @@ class LocationService: Service() {
             return true
         }
         return false
-    }
-
-    private fun distancePrecise(currentLatLng: LatLng, placeLatLng: LatLng): Double {
-        val theta = currentLatLng.longitude - placeLatLng.longitude
-        var dist = Math.sin(deg2rad(currentLatLng.latitude)) * Math.sin(deg2rad(placeLatLng.latitude)) + Math.cos(deg2rad(currentLatLng.latitude)) * Math.cos(deg2rad(placeLatLng.latitude)) * Math.cos(deg2rad(theta))
-        dist = Math.acos(dist)
-        dist = rad2deg(dist)
-        dist *= 60 * 1.1515
-        dist *= 1.609344
-        dist *= 1000 // distance in meters
-        return dist
     }
 
     private fun deg2rad(deg: Double): Double {
