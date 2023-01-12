@@ -111,4 +111,11 @@
     <string name="your_scores">Twoje wyniki:</string>
     <string name="turn_on">Włączyć</string>
     <string name="turn_on_off">Włącz/wyłącz</string>
+    <string name="hint_5_points">Podpowiedź (-5 punktów)</string>
+    <string name="exit_the_game">Wyjdź z gry</string>
+    <string name="miejsce">Miejsce №</string>
+    <string name="please_wait">Proszę czekać, może to potrwać kilka sekund...</string>
+    <string name="welcome_to">Witamy w</string>
+    <string name="start_game">Uruchomić grę</string>
+    <string name="city_game">Grze Miejskiej</string>
 </resources>

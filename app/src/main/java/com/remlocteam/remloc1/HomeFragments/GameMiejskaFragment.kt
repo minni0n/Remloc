@@ -38,6 +38,7 @@ class GameMiejskaFragment : Fragment() {
     private lateinit var progressBar: ProgressBar
     private lateinit var content: LinearLayout
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -50,6 +51,8 @@ class GameMiejskaFragment : Fragment() {
 
         content.visibility = View.GONE
         progressBar.visibility = View.VISIBLE
+
+
 
         setData()
 

@@ -5,7 +5,7 @@
     <string name="sign_in_with_google">Увійдіть за допомогою Google</string>
     <string name="places">Місця</string>
     <string name="actions">Дії</string>
-    <string name="game_miejska">Гра Miejska</string>
+    <string name="game_miejska">Міська Гра</string>
     <string name="settings">Налаштування</string>
     <string name="help_and_feedback">Допомога та відгуки</string>
     <string name="profile">Профіль</string>
@@ -110,4 +110,11 @@
     <string name="your_scores">Ваші бали:</string>
     <string name="turn_on">Ввімкнути</string>
     <string name="turn_on_off">Увімкнути/вимкнути</string>
+    <string name="hint_5_points">Підказка (-5 балів)</string>
+    <string name="exit_the_game">Вийти з гри</string>
+    <string name="miejsce">Місце №</string>
+    <string name="please_wait">Зачекайте, це може зайняти кілька секунд...</string>
+    <string name="welcome_to">Ласкаво просимо до</string>
+    <string name="start_game">Почати гру</string>
+    <string name="city_game">Міської Гри</string>
 </resources>

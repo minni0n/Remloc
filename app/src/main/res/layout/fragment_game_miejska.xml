@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:textSize="40sp"
-            android:text="Welcome to"/>
+            android:text="@string/welcome_to"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -36,7 +36,7 @@
             android:layout_gravity="center_horizontal"
             android:textSize="40sp"
             android:textStyle="bold"
-            android:text="@string/game_miejska"/>
+            android:text="@string/city_game"/>
 
         <LinearLayout
             android:layout_marginTop="50dp"
@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_gravity="center|bottom"
             android:layout_height="wrap_content"
-            android:text="Start game" />
+            android:text="@string/start_game" />
 
 
         <LinearLayout

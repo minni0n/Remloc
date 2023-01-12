@@ -56,10 +56,10 @@ class LocationService: Service() {
             ACTION_STOP -> stop()
             ACTION_RESTART ->{
                 stop()
-                serviceScope.launch {
-                    delay(1000) // wait for 1 seconds
-                    start()
-                }
+//                serviceScope.launch {
+//                    delay(1000) // wait for 1 seconds
+//                    start()
+//                }
                 start()
             }
         }
@@ -86,7 +86,7 @@ class LocationService: Service() {
 
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-        var stopService = false
+        val stopService = false
 
         locationClient
             .getLocationUpdates(intervalTime)
@@ -96,9 +96,11 @@ class LocationService: Service() {
                 val currentLatLng = LatLng(location.latitude, location.longitude)
 
 
-                actionsFromDB.forEach { action ->
-                    stopService = action.placeName == null
-                }
+//                actionsFromDB.forEach { action ->
+//
+//                    // bug
+//                    stopService = action.placeName == null
+//                }
 
                 if (stopService){
                     val updatedNotification = notification.setContentText(

@@ -2,7 +2,10 @@ package com.remlocteam.remloc1.CityGameFragments
 
 import android.annotation.SuppressLint
 import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.location.Location
+import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
@@ -10,11 +13,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import com.bumptech.glide.Glide
 import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -45,9 +46,10 @@ class CityGamePlaceFragment : Fragment() {
     private var timer: Long = 0
     private var startTime: Long = 0
     private var endTime: Long = 0
+    private var imageURL: String = ""
     private lateinit var selectedCity: String
-    private lateinit var progressBar: ProgressBar
-    private lateinit var content: LinearLayout
+    private lateinit var imageHint: ImageView
+    private lateinit var currentLanguage: String
 
             @SuppressLint("SetTextI18n")
             override fun onCreateView(
@@ -56,12 +58,9 @@ class CityGamePlaceFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
                 binding = FragmentCityGamePlaceBinding.inflate(layoutInflater)
+                imageHint = binding.imageHint
 
-                progressBar = binding.progressBar
-                content = binding.content
-
-                content.visibility = View.GONE
-                progressBar.visibility = View.VISIBLE
+                currentLanguage = (activity as HomeActivity?)!!.getCurrentLanguage().toString()
 
                 gamePlaceNumber = (activity as HomeActivity?)!!.getPlaceNumber()
 
@@ -70,7 +69,7 @@ class CityGamePlaceFragment : Fragment() {
                 binding.city.text = selectedCity
 
                 auth = FirebaseAuth.getInstance()
-                database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference("Games/$selectedCity")
+                database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference("Games/$selectedCity/$currentLanguage")
 
                 database.get().addOnSuccessListener { it ->
                      childCount = it.childrenCount.toInt()
@@ -80,16 +79,49 @@ class CityGamePlaceFragment : Fragment() {
                 // Location tracking
                 getLocationUpdates()
 
-                progressBar.visibility = View.GONE
-                content.visibility = View.VISIBLE
-
                 // Buttons listener
                 binding.exitGame.setOnClickListener {
                     onStop()
                     backToMenu()
                 }
 
+
+                binding.showHintBtn.setOnClickListener {
+                    score -= 5
+                    imageHint.visibility = View.VISIBLE
+                    binding.showHintBtn.visibility = View.GONE
+                    setImageHint()
+                }
+
                 return binding.root
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    @Suppress("DEPRECATION")
+    private inner class DownloadImageFromInternet(var imageView: ImageView) : AsyncTask<String, Void, Bitmap?>() {
+        init {
+            Toast.makeText(requireContext(), getString(R.string.please_wait),     Toast.LENGTH_SHORT).show()
+        }
+        override fun doInBackground(vararg urls: String): Bitmap? {
+
+            var imageURL = urls[0]
+            if (imageURL==""){
+                imageURL = "https://media.licdn.com/dms/image/C5612AQEPYce5KpNLyg/article-cover_image-shrink_720_1280/0/1551659700811?e=1678924800&v=beta&t=SwwpRDk2nez4mC4oBDGXdf8AtJhmu7ljFDj4i7dKtTs"
+            }
+            var image: Bitmap? = null
+            try {
+                val `in` = java.net.URL(imageURL).openStream()
+                image = BitmapFactory.decodeStream(`in`)
+            }
+            catch (e: Exception) {
+                Log.e("Error Message", e.message.toString())
+                e.printStackTrace()
+            }
+            return image
+        }
+        override fun onPostExecute(result: Bitmap?) {
+            imageView.setImageBitmap(result)
+        }
     }
 
     private fun checkPlaceSmth(){
@@ -199,7 +231,7 @@ class CityGamePlaceFragment : Fragment() {
         val descriptionView = view.findViewById<TextView>(R.id.description)
 
 
-        score = calculateScore(timer, 100, 1800.0 )
+        score += calculateScore(timer, 100, 1800.0 )
 
         val congrats = getString(R.string.congrats_score)
 
@@ -248,7 +280,21 @@ class CityGamePlaceFragment : Fragment() {
         }
     }
 
+    private fun setImageHint(){
+        database.child(gamePlaceNumber.toString()).get().addOnSuccessListener { place ->
+            imageURL = place.child("hint").value.toString()
+            DownloadImageFromInternet(imageHint).execute(imageURL)
+        }.addOnFailureListener{
+
+            Toast.makeText(activity, getString(R.string.failed), Toast.LENGTH_SHORT).show()
+        }
+
+    }
+
     private fun setData() {
+
+        imageHint.visibility = View.GONE
+        binding.showHintBtn.visibility = View.VISIBLE
 
         database.child(gamePlaceNumber.toString()).get().addOnSuccessListener { place ->
 
@@ -257,6 +303,7 @@ class CityGamePlaceFragment : Fragment() {
             longitude = place.child("longitude").value as Double
             latitude = place.child("latitude").value as Double
             placeName = place.child("placeName").value.toString()
+            imageURL = place.child("hint").value.toString()
 
         }.addOnFailureListener{
 
