@@ -17,7 +17,8 @@
             android:id="@+id/myMap"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="300dp">
+            android:layout_height="300dp"
+            tools:ignore="FragmentTagUsage">
         </fragment>
 
         <View
@@ -29,7 +30,8 @@
             android:name="com.remlocteam.remloc1.HomeFragments.PlacesFragment"
             android:id="@+id/placesFragment"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            tools:ignore="FragmentTagUsage" />
 
     </LinearLayout>
 

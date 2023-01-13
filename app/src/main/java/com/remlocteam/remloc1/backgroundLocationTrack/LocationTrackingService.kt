@@ -2,19 +2,22 @@ package com.remlocteam.remloc1.backgroundLocationTrack
 
 
 import android.annotation.SuppressLint
+import android.app.NotificationManager
 import android.app.Service
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.BitmapFactory
 import android.location.Location
+import android.media.AudioManager
 import android.os.IBinder
+import android.provider.Settings
+import android.telephony.SmsManager
 import android.util.Log
-import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.remlocteam.remloc1.Data.ActionsData
+import com.google.firebase.database.*
 import com.remlocteam.remloc1.R
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -42,6 +45,12 @@ class LocationTrackingService : Service() {
     @SuppressLint("MissingPermission")
     override fun onCreate() {
         super.onCreate()
+
+        auth = FirebaseAuth.getInstance()
+        uid = auth.currentUser?.uid.toString()
+
+        database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(uid)
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         val locationRequest = LocationRequest().apply {
             interval = 10000
@@ -75,8 +84,101 @@ class LocationTrackingService : Service() {
     private fun send(location: Location) {
 
         Log.d("LocationTrackingService", "Current location: ${location.latitude}, ${location.longitude}")
+        readLocationData(location)
     }
 
     override fun onBind(intent: Intent?): IBinder? = null
+
+
+    private fun readLocationData(currentLocation: Location) {
+
+        database.child("Actions").addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(actionsInfo: DataSnapshot) {
+
+                actionsInfo.children.forEach { actionsTypes ->
+                        actionsTypes.children.forEach{ action ->
+
+                            val turnOn = action.child("turnOn").value as Boolean
+
+                            if (turnOn){
+
+                                val placeLong = action.child("longitude").value as Double
+                                val placelatt = action.child("latitude").value as Double
+
+                                val placeLocation = Location("Location 2")
+                                placeLocation.latitude = placelatt
+                                placeLocation.longitude = placeLong
+
+                                if (distanceBetweenAB(currentLocation, placeLocation) < getSliderValue()){
+
+                                    val phoneNumber = action.child("phoneNumber").value.toString()
+                                    val smsText = action.child("smsText").value.toString()
+                                    val placeName = action.child("placeName").value.toString()
+                                    val actionType = action.child("actionType").value.toString()
+
+
+                                    when(actionType){
+                                        ("Sms")->{
+                                            val smsManager = SmsManager.getDefault()
+                                            // Send the SMS
+                                            smsManager.sendTextMessage(phoneNumber, null, smsText, null, null)
+
+                                            database.child("Actions/$actionType/${action.key}/turnOn").setValue(false)
+
+                                            Log.d("LocationTrackingService", "turnOn: $action.key")
+
+                                        }
+                                        ("Notification")->{
+                                            val newNotification = NotificationCompat.Builder(this@LocationTrackingService, "location")
+                                                .setContentTitle(placeName)
+                                                .setContentText(smsText)
+                                                .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+                                                .setSmallIcon(R.drawable.ic_baseline_doorbell_24)
+                                                .setLargeIcon(
+                                                    BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
+                                                .setOngoing(false)
+
+                                            val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+                                            notificationManager.notify(2, newNotification.build())
+
+                                            database.child("Actions/$actionType/${action.key}/turnOn").setValue(false)
+                                        }
+                                        ("Mute")->{
+                                            val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+                                            audioManager.ringerMode = AudioManager.RINGER_MODE_VIBRATE
+
+                                            database.child("Actions/$actionType/${action.key}/turnOn").setValue(false)
+                                        }
+                                    }
+                                }
+                            }
+
+
+                        }
+
+
+
+
+                }
+                //retrieve location data and log it
+
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.e("LocationTrackingService", "Error reading location data: ${error.message}")
+            }
+        })
+    }
+
+    private fun distanceBetweenAB(location1: Location, location2: Location): Double {
+        val distance = location1.distanceTo(location2)
+
+        return distance.toDouble()
+    }
+
+    private fun getSliderValue(): Int {
+        val sp: SharedPreferences = getSharedPreferences("Distance", MODE_PRIVATE)
+        return sp.getInt("TriggerDistanceValue", 10)
+    }
 
 }

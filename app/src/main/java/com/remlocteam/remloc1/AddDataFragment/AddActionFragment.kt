@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.remlocteam.remloc1.Data.ActionMuteData
 import com.remlocteam.remloc1.Data.ActionNotificationData
 import com.remlocteam.remloc1.Data.ActionsData
+import com.remlocteam.remloc1.Data.PlacesData
 import com.remlocteam.remloc1.HomeActivity
 import com.remlocteam.remloc1.HomeFragments.ActionsFragment
 import com.remlocteam.remloc1.MapsActivity
@@ -217,8 +218,9 @@ class AddActionFragment : Fragment() {
 
                     (2) -> {
                         val smsText = smsTextEt.text.toString()
+                        val placeName = placeSpinner.selectedItem.toString()
                         if (smsText!=""){
-                            val action = ActionNotificationData(placeSpinner.selectedItem.toString(), smsText,"Notification",latitudes[selectedPlaceIndex-2],longitudes[selectedPlaceIndex-2],true)
+                            val action = ActionsData(null,null,smsText,placeName,"Notification",latitudes[selectedPlaceIndex-2],longitudes[selectedPlaceIndex-2],true)
                             val key: String? = database.push().key
                             database.child("Actions//Notification//$key").setValue(action).addOnCompleteListener{
                                 if(it.isSuccessful){
@@ -235,7 +237,8 @@ class AddActionFragment : Fragment() {
                     }
 
                     (3) -> {
-                        val action = ActionMuteData(placeSpinner.selectedItem.toString(),"Mute",latitudes[selectedPlaceIndex-2],longitudes[selectedPlaceIndex-2],true)
+                        val placeName = placeSpinner.selectedItem.toString()
+                        val action = ActionsData(null,null,null,placeName,"Mute",latitudes[selectedPlaceIndex-2],longitudes[selectedPlaceIndex-2],true)
                         val key: String? = database.push().key
                         database.child("Actions//Mute//$key").setValue(action).addOnCompleteListener{
                             if(it.isSuccessful){
