@@ -1,7 +1,4 @@
 # RemLoc
-![RemLoc Logo](https://user-images.githubusercontent.com/73343881/212086128-2f3feb7f-252c-46b3-8cd8-540b85a1eafc.png)
-
-
 RemLoc - reminder and notification application 
 
 The RemLoc app is a tool that will help you remember important things you want to do in specific places. You can set reminders for each place where you want to do something, for example, "Buy bread at the store" or "Call the client when I'm in the office". When you arrive at the designated location, you will receive a notification with the reminder you previously set. 
