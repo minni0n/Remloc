@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.remlocteam.remloc1.MainActivity
+import com.remlocteam.remloc1.backgroundLocationTrack.LocationTrackingService
 import com.remlocteam.remloc1.foregroundLocationCheck.LocationService
 
 
@@ -46,6 +47,9 @@ class SettingsFragment : Fragment() {
 
         // Inflate the layout for this fragment
         binding = FragmentSettingsBinding.inflate(layoutInflater)
+
+        binding.stopStartBtnLayout.visibility = View.GONE
+
         //slider values
         slider = binding.rangeSlider
         sliderValue = binding.sliderRangeValue
@@ -199,6 +203,18 @@ class SettingsFragment : Fragment() {
 
 
 
+        binding.locationTrackingSwitch.isChecked = (activity as HomeActivity?)!!.isServiceRunning()
+
+        binding.locationTrackingSwitch.setOnCheckedChangeListener{ _, b ->
+
+            if (!b){
+                (activity as HomeActivity?)!!.stopLocationService()
+            }
+            if (b){
+                (activity as HomeActivity?)!!.startLocationService()
+            }
+
+        }
 
 
         return binding.root

@@ -70,8 +70,6 @@ class AddActionFragment : Fragment() {
         uid = auth.currentUser?.uid.toString()
 
         database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(uid)
-//        setData()
-
     }
 
     private fun init() {
@@ -126,7 +124,7 @@ class AddActionFragment : Fragment() {
     private fun setNeededLayout() {
         typeOfActionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-
+                // do something with the selected item
                 when(position){
                     (0)->{
                         binding.smsTextLayout.visibility = View.GONE
@@ -145,7 +143,6 @@ class AddActionFragment : Fragment() {
                         binding.contactsLayout.visibility = View.GONE
                     }
                 }
-                // do something with the selected item
             }
 
             override fun onNothingSelected(parent: AdapterView<*>) {

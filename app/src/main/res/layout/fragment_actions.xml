@@ -7,17 +7,45 @@
     android:background="?colorSecondary"
     android:layout_height="match_parent"
     tools:context=".HomeFragments.ActionsFragment">
-    
-    <ListView
-        android:id="@+id/listOfActions"
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/action_item"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        android:orientation="vertical"
-        android:padding="4dp">
-    </ListView>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/serviceIsTurnedOffLayout"
+            android:layout_marginVertical="10dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_width="wrap_content"
+            android:background="@drawable/bg_round_white"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+
+                android:layout_marginHorizontal="10dp"
+                android:textColor="@color/black"
+                android:layout_marginVertical="5dp"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Śledzenie lokalizacji jest wyłączone!\n Jeśli chcesz śledzić swoje akcje, przejdź do Ustawień i włącz Śledzenie lokalizacji"/>
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listOfActions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/action_item"
+            android:orientation="vertical"
+            android:padding="4dp"/>
+
+    </LinearLayout>
+
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton

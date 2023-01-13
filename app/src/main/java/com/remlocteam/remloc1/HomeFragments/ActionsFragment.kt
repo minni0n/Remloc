@@ -41,6 +41,13 @@ class ActionsFragment : Fragment() {
         binding = FragmentActionsBinding.inflate(layoutInflater)
 
 
+
+        if ((activity as HomeActivity?)!!.isServiceRunning()){
+            binding.serviceIsTurnedOffLayout.visibility = View.GONE
+        }else{
+            binding.serviceIsTurnedOffLayout.visibility = View.VISIBLE
+        }
+
         val listOfActions: ListView = binding.listOfActions
         var data: ArrayList<ActionsData> = ArrayList()
 

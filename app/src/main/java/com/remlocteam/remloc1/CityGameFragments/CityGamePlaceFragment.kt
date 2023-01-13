@@ -185,12 +185,12 @@ class CityGamePlaceFragment : Fragment() {
     private fun getLocationUpdates() {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireActivity())
 
-        val time = calculateNextLocationRequestTime()
-        Log.d("time123", time.toString())
+//        val time = calculateNextLocationRequestTime()
+//        Log.d("time123", time.toString())
 
         val locationRequest = LocationRequest().apply {
-            interval = time // 5 seconds
-            fastestInterval = time
+            interval = 5000 // 5 seconds
+            fastestInterval = 5000
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
 
@@ -316,27 +316,27 @@ class CityGamePlaceFragment : Fragment() {
         startTimer()
     }
 
-    @SuppressLint("MissingPermission")
-    private fun calculateNextLocationRequestTime(): Long {
-        // Get current location
-        var nextTimeRequest: Long = 0
-        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
-            if (location != null) {
-                val currentLatitude = location.latitude
-                val currentLongitude = location.longitude
-                // Calculate distance between current location and target location
-                val results = FloatArray(1)
-                Location.distanceBetween(currentLatitude, currentLongitude, latitude, longitude, results)
-                val distance = results[0]
-                // Set interval for location requests based on distance (e.g. every 5 meters)
-                val interval: Long = 5 // 5 meters
-                // Calculate next request time based on distance and interval
-                val nextRequestTime = (distance / interval) * 1000
-                nextTimeRequest = nextRequestTime.toLong()
-            }
-        }
-        return nextTimeRequest
-    }
+//    @SuppressLint("MissingPermission")
+//    private fun calculateNextLocationRequestTime(): Long {
+//        // Get current location
+//        var nextTimeRequest: Long = 0
+//        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+//            if (location != null) {
+//                val currentLatitude = location.latitude
+//                val currentLongitude = location.longitude
+//                // Calculate distance between current location and target location
+//                val results = FloatArray(1)
+//                Location.distanceBetween(currentLatitude, currentLongitude, latitude, longitude, results)
+//                val distance = results[0]
+//                // Set interval for location requests based on distance (e.g. every 5 meters)
+//                val interval: Long = 5 // 5 meters
+//                // Calculate next request time based on distance and interval
+//                val nextRequestTime = (distance / interval) * 1000
+//                nextTimeRequest = nextRequestTime.toLong()
+//            }
+//        }
+//        return nextTimeRequest
+//    }
 
     private fun startTimer(){
         startTime = System.currentTimeMillis()

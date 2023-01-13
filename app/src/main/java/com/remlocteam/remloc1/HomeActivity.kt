@@ -1,47 +1,39 @@
 package com.remlocteam.remloc1
 
 import android.annotation.SuppressLint
+import android.app.ActivityManager
 import android.content.Intent
 import android.content.SharedPreferences
+import android.os.Build
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.util.Log
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import com.remlocteam.remloc1.HomeFragments.ActionsFragment
-import com.remlocteam.remloc1.HomeFragments.GameMiejskaFragment
-import com.remlocteam.remloc1.HomeFragments.HelpReviewFragment
-import com.remlocteam.remloc1.HomeFragments.SettingsFragment
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import com.remlocteam.remloc1.HomeFragments.ActionsFragment
+import com.remlocteam.remloc1.HomeFragments.GameMiejskaFragment
+import com.remlocteam.remloc1.HomeFragments.HelpReviewFragment
+import com.remlocteam.remloc1.HomeFragments.SettingsFragment
+import com.remlocteam.remloc1.backgroundLocationTrack.LocationTrackingService
 import com.remlocteam.remloc1.foregroundLocationCheck.LocationService
 import de.hdodenhof.circleimageview.CircleImageView
 import java.util.*
 
 
 class HomeActivity : AppCompatActivity() {
-
-//    interface IOnBackPressed {
-//        fun onBackPressed(): Boolean
-//    }
-//
-//
-//    override fun onBackPressed() {
-//        val fragment =
-//            this.supportFragmentManager.findFragmentById(R.id.cityGameWeb)
-//        (fragment as? IOnBackPressed)?.onBackPressed()?.not()?.let {
-//            super.onBackPressed()
-//        }
-//    }
 
 
 
@@ -59,17 +51,18 @@ class HomeActivity : AppCompatActivity() {
     private val contactsList: MutableList<String> = ArrayList()
 
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
 
-
+//        startLocationService()
 
 
         val sp: SharedPreferences = getSharedPreferences("Language", MODE_PRIVATE)
-        val lang = sp.getString("My_Lang", "en")
+        val lang = sp.getString("My_Lang", "pl")
 
         if (lang != null) {
             currentLang = lang
@@ -269,6 +262,7 @@ class HomeActivity : AppCompatActivity() {
         return prefs.getString("city", null)
     }
 
+
     @SuppressLint("Range")
     fun readContacts(): MutableList<String> {
         val contacts = contentResolver.query(
@@ -296,4 +290,24 @@ class HomeActivity : AppCompatActivity() {
         return contactsList
     }
 
+    fun isServiceRunning(): Boolean {
+        val manager = getSystemService(ACTIVITY_SERVICE) as ActivityManager
+        for (service in manager.getRunningServices(Int.MAX_VALUE)) {
+            if ("com.remlocteam.remloc1.backgroundLocationTrack.LocationTrackingService" == service.service.className) {
+                return true
+            }
+        }
+        return false
+    }
+
+    fun stopLocationService(){
+        val intent = Intent(this, LocationTrackingService::class.java)
+        stopService(intent)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun startLocationService(){
+        val intentService = Intent(this, LocationTrackingService::class.java)
+        startForegroundService(intentService)
+    }
 }

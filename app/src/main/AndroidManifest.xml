@@ -28,6 +28,10 @@
             android:name=".foregroundLocationCheck.LocationService"
             android:foregroundServiceType="location" />
 
+        <service android:name=".backgroundLocationTrack.LocationTrackingService"
+            android:foregroundServiceType="location"
+            android:exported="false" />
+
         <activity
             android:name=".MapActivity"
             android:exported="true"
