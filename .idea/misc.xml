@@ -18,10 +18,12 @@
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable-xhdpi/bg_round_green.xml" value="0.2035" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/bg_round.xml" value="0.2305" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/bg_round_gray.xml" value="0.256" />
+        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/bg_round_gray2.xml" value="0.2185" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/bg_round_pastel_gray.xml" value="0.256" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/border.xml" value="0.2505" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/border_miejsce.xml" value="0.2505" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/btn_ok.xml" value="0.24" />
+        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/checkbox_color.xml" value="0.306" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/gradient_spinner.xml" value="0.335" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.2385" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/ic_baseline_help_24.xml" value="0.3" />
@@ -40,6 +42,8 @@
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/ic_magnify.xml" value="0.2385" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/ic_remloc_logopng.xml" value="0.2975" />
+        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/rounded_corners.xml" value="0.2715" />
+        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/transparent.xml" value="0.2715" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/drawable/white_border.xml" value="0.3675" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/action_item.xml" value="0.25" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/activity_cur_loc.xml" value="0.3015625" />
@@ -72,8 +76,10 @@
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/place_alert_dialog.xml" value="0.24479166666666666" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/place_item.xml" value="0.33" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/place_score.xml" value="0.2734375" />
-        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/provide_label_layout.xml" value="0.5" />
+        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/provide_label_layout.xml" value="0.33" />
+        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/rounded_corners_alert_gialog.xml" value="0.26666666666666666" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/sms_action_layout.xml" value="0.246875" />
+        <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/layout/transperant.xml" value="0.26666666666666666" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/menu/nav_menu.xml" value="0.31666666666666665" />
         <entry key="..\:/Users/Serhii/AndroidStudioProjects/Remloc/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.303" />
         <entry key="..\:/Users/Serhii/AppData/Local/Android/Sdk/platforms/android-32/data/res/layout/simple_list_item_1.xml" value="0.259375" />

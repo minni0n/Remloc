@@ -97,7 +97,7 @@
     <string name="send_an_a_email">Отправить e-mail</string>
     <string name="help">Помощь</string>
     <string name="feedback">Обратная связь</string>
-    <string name="theme">Выберете тему</string>
+    <string name="choose_theme">Выберете тему</string>
     <string name="select_city">Выберите игру</string>
     <string name="game_suggest">Предложить игру</string>
     <string name="user_manual">Интсрукция пользователя</string>
@@ -117,4 +117,5 @@
     <string name="welcome_to">Добро пожаловать в</string>
     <string name="start_game">Начать игру</string>
     <string name="city_game">Городской Игре</string>
+    <string name="theme" >Тема</string>
 </resources>

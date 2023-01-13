@@ -15,7 +15,7 @@
     <string name="close">Zamknij</string>
 
     <string name="add">Dodać</string>
-    <string name="search_location">Wyszukaj lokalizację</string>
+    <string name="search_location">Wyszukaj miejsce</string>
     <string name="enter_phone_number">Wpisz numer telefonu</string>
     <string name="select_contact">Wybierz kontakt:</string>
     <string name="enter_your_text_message">Wpisz swoją wiadomość</string>
@@ -47,7 +47,7 @@
     <string name="choose_place">Wybierz miejsce</string>
     <string name="choose_contact">Wybierz kontakt</string>
     <string name="already_selected">Język już wybrany</string>
-    <string name="provide_label">Wpisz tytuł</string>
+    <string name="provide_label">Wpisz nazwę</string>
     <string name="place">Miejsce</string>
     <string name="change_contact">Zmień kontakt:</string>
     <string name="select_type_of_action">Wybierz rodzaj akcji</string>
@@ -67,11 +67,11 @@
     <string name="if_you_want_to_deny_a_permission_you_need_to_go_to">Jeśli chcesz odmówić pozwolenia, musisz przejść do:</string>
     <string name="settings_apps_remloc_permissions"><![CDATA[Ustawienia > Aplikacje > RemLoc > Pozwolenia]]></string>
     <string name="delete_all_data_from_app">Usuń wszystkie dane z aplikacji</string>
-    <string name="label">Etykieta</string>
+    <string name="label">Nazwa miejsca</string>
     <string name="use_the_default_value">Użyj wartości domyślnej</string>
     <string name="cancel">Anulować</string>
     <string name="ok">Ok</string>
-    <string name="success" >Powodzenie</string>
+    <string name="success" >Miejsce dodane</string>
     <string name="failed_to_upd_data">Nie udało się zaktualizować danych</string>
     <string name="set_parameters">Ustaw wszystkie parametry</string>
     <string name="failed">Przegrany</string>
@@ -98,7 +98,7 @@
     <string name="send_an_a_email">Wyślij e-mail</string>
     <string name="help">Pomoc</string>
     <string name="feedback">Informacja zwrotna</string>
-    <string name="theme">Wybrać temat</string>
+    <string name="choose_theme">Wybrać temat</string>
     <string name="select_city">Wybierz grę</string>
     <string name="game_suggest">Zaproponuj grę</string>
     <string name="user_manual">Instrukcja użytkownika</string>
@@ -118,4 +118,5 @@
     <string name="welcome_to">Witamy w</string>
     <string name="start_game">Uruchomić grę</string>
     <string name="city_game">Grze Miejskiej</string>
+    <string name="theme" >Temat</string>
 </resources>

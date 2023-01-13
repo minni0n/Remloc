@@ -15,11 +15,11 @@
 
         <TextView
             android:layout_marginTop="20dp"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/gray"
-            android:text="@string/choose_your_theme"
+            android:text="@string/choose_theme"
             android:layout_marginBottom="10dp"
             android:textSize="20sp" />
 
@@ -38,7 +38,7 @@
         <TextView
             android:id="@+id/themeTextView"
             android:layout_marginTop="20dp"
-            android:layout_marginStart="15dp"
+            android:layout_marginStart="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/gray"

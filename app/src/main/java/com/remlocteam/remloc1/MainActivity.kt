@@ -38,14 +38,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val prefs = getSharedPreferences("Language", MODE_PRIVATE)
-        val lang = prefs.getString("My_Lang", null)
+        setLocale("pl")
 
-        if (lang != null) {
-            setLocale(lang)
-        } else {
-            setLocale("en")
-        }
 
 
         FirebaseApp.initializeApp(this)

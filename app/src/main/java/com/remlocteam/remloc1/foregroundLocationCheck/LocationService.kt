@@ -56,10 +56,6 @@ class LocationService: Service() {
             ACTION_STOP -> stop()
             ACTION_RESTART ->{
                 stop()
-//                serviceScope.launch {
-//                    delay(1000) // wait for 1 seconds
-//                    start()
-//                }
                 start()
             }
         }
@@ -83,7 +79,26 @@ class LocationService: Service() {
             R.mipmap.ic_launcher))
             .setOngoing(true)
 
-
+//        spinnerPlaces.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
+//
+//            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
+//
+//                when(p2){
+//
+//                    1-> {
+//                        val intent = Intent(requireContext(), MapsActivity::class.java)
+//                        startActivity(intent)
+//                    }
+//
+//                }
+//
+//            }
+//
+//            override fun onNothingSelected(p0: AdapterView<*>?) {
+//
+//            }
+//
+//        }
 
         val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val stopService = false

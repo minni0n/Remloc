@@ -69,29 +69,11 @@ class ActionsFragment : Fragment() {
 
         }
 
-//
-//        turnOn.setOnCheckedChangeListener{ _, b ->
-//
-//            if (b){
-////                saveData(keys.toString(), actionTypeArray.toString())
-//                Log.d("")
-//            }
-//
-//        }
 
         return binding.root
     }
 
 
-
-//    private fun saveData(s: String, s1: String) {
-//        auth = FirebaseAuth.getInstance()
-//        val uid = auth.currentUser?.uid
-//        if (uid != null) {
-//            database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(uid)
-//            database.child("Actions").
-//        }
-//    }
 
     private fun readData(): ArrayList<ActionsData>{
         auth = FirebaseAuth.getInstance()

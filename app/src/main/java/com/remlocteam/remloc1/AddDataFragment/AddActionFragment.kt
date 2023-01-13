@@ -9,343 +9,252 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.remlocteam.remloc1.Data.ActionMuteData
 import com.remlocteam.remloc1.Data.ActionNotificationData
 import com.remlocteam.remloc1.Data.ActionsData
 import com.remlocteam.remloc1.HomeActivity
 import com.remlocteam.remloc1.HomeFragments.ActionsFragment
+import com.remlocteam.remloc1.MapsActivity
 import com.remlocteam.remloc1.R
 import com.remlocteam.remloc1.databinding.FragmentAddActionBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
-import com.remlocteam.remloc1.foregroundLocationCheck.LocationService
 
 
 class AddActionFragment : Fragment() {
 
     private lateinit var binding : FragmentAddActionBinding
-    private lateinit var database : DatabaseReference
+    private lateinit var database: DatabaseReference
     private lateinit var auth: FirebaseAuth
-    private lateinit var smsText: EditText
-    private lateinit var placeName: Spinner
-    private lateinit var contactInfo: Spinner
-    private lateinit var buttonSave: Button
-    private lateinit var spinnerPlaces: Spinner
-    private lateinit var spinnerContacts: Spinner
-    private var typeOfAction: Int = 0
-    private lateinit var places: MutableList<String>
+    private lateinit var uid: String
+
     private lateinit var longitudes: MutableList<Double>
     private lateinit var latitudes: MutableList<Double>
-    private lateinit var contacts: MutableList<String>
 
-//    private val permissionRequest = 101
+    private lateinit var placeSpinner: Spinner
+    private lateinit var typeOfActionSpinner: Spinner
+    private lateinit var contactsSpinner: Spinner
+    private lateinit var smsTextEt: EditText
+    private lateinit var saveActionBtn: Button
 
     @SuppressLint("ServiceCast")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): LinearLayout {
-
-
-        // Inflate the layout for this fragment
         binding = FragmentAddActionBinding.inflate(layoutInflater)
 
-        places = mutableListOf(getString(R.string.choose_place))
-        longitudes = mutableListOf()
-        latitudes = mutableListOf()
-        contacts = mutableListOf("")
-//        places.clear()
+        // Init and firebase setup
+        init()
+        firebaseAuth()
 
+        // Set spinners values
+        setPlacesSpinner()
+        setTypeOfActionSpinner()
+        setContactsSpinner()
 
-        spinnerPlaces = binding.placesSpinner
-        spinnerContacts = binding.contactsSpinner
+        // Set layout
+        setNeededLayout()
+        addPlace()
 
-        readData()
-        contacts = (activity as HomeActivity?)!!.readContacts()
-//        contacts = mutableListOf((activity as HomeActivity?)!!.readContacts())
-
-        val adapter1: ArrayAdapter<String>? = activity?.let {
-            ArrayAdapter<String>(
-                it,
-                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, places
-            )
-        }
-
-        val adapter2: ArrayAdapter<String>? = activity?.let {
-            ArrayAdapter<String>(
-                it,
-                androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, contacts
-            )
-        }
-
-
-        val actionsList = ArrayList<String>()
-        actionsList.add(getString(R.string.select_type_of_action))
-        actionsList.add(getString(R.string.sms))
-        actionsList.add(getString(R.string.mute_the_sound))
-        actionsList.add(getString(R.string.notification))
-
-        val adapter = activity?.let { ArrayAdapter(it, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, actionsList) }
-        binding.typeOfActionSpinner.adapter = adapter
-
-        binding.typeOfActionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener{
-
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-
-                when(p2){
-
-                    0->{
-                        typeOfAction = p2
-                        binding.smsText.setText("")
-                        binding.contactsSpinner.setSelection(0)
-                        binding.smsText.visibility = View.GONE
-                        binding.contactsSpinner.visibility = View.GONE
-                    }
-                    1-> {
-                        typeOfAction = p2
-                        binding.contactsSpinner.isEnabled = true
-                        binding.smsText.isEnabled = true
-                        binding.smsText.visibility = View.VISIBLE
-                        binding.contactsSpinner.visibility = View.VISIBLE
-                    }
-                    2-> {
-                        typeOfAction = p2
-                        binding.smsText.setText("")
-                        binding.contactsSpinner.setSelection(0)
-                        binding.smsText.visibility = View.GONE
-                        binding.contactsSpinner.visibility = View.GONE
-                    }
-                    3-> {
-                        typeOfAction = p2
-                        binding.smsText.setText("")
-                        binding.contactsSpinner.setSelection(0)
-                        binding.smsText.visibility = View.VISIBLE
-                        binding.contactsSpinner.visibility = View.GONE
-                    }
-                }
-
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-
-            }
-
-        }
-
-
-        spinnerPlaces.adapter = adapter1
-        spinnerContacts.adapter = adapter2
-
-
-        buttonSave = binding.btnSaveAction
-        auth = FirebaseAuth.getInstance()
-
-
-
-
-
-        buttonSave.setOnClickListener{
-
-//            Intent(context, LocationService::class.java).apply {
-//                action = LocationService.ACTION_RESTART
-//                context?.startService(this)
-//            }
-
-            saveData()
-
-        }
+        // Save button
+        saveButtonListener()
 
         return binding.root
     }
 
-    private fun saveData(){
 
+    private fun firebaseAuth(){
         auth = FirebaseAuth.getInstance()
-        val uid = auth.currentUser?.uid
+        uid = auth.currentUser?.uid.toString()
 
-        when(typeOfAction){
+        database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(uid)
+//        setData()
 
-            1-> {
-                smsText = binding.smsText
-                placeName = binding.placesSpinner
-                contactInfo = binding.contactsSpinner
+    }
 
-                val placeIndex = placeName.selectedItemId.toInt()-1
+    private fun init() {
+        placeSpinner = binding.placesSpinner
+        typeOfActionSpinner = binding.typeOfActionSpinner
+        contactsSpinner = binding.contactsSpinner
+        smsTextEt = binding.smsTextEt
+        saveActionBtn = binding.btnSaveAction
+    }
 
-                val strPhoneNumberOld = binding.contactsSpinner.selectedItem.toString()
-                val strSmsText = smsText.text.toString()
-                val strPlaceName: String = binding.placesSpinner.selectedItem.toString()
+    private fun setPlacesSpinner(){
 
-                if (strSmsText!="" && strPlaceName != getString(R.string.choose_place) && strPhoneNumberOld!= getString(R.string.choose_contact)){
+        longitudes = mutableListOf()
+        latitudes = mutableListOf()
+        val defaultItems = mutableListOf("Wybierz miejsce", " + Dodaj miejsce")
+        val placeSpinnerAdapter = ArrayAdapter(requireContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, defaultItems)
+        placeSpinner.adapter = placeSpinnerAdapter
 
-                    ///
-                    val index = strPhoneNumberOld.indexOf(": ") + 2
-                    val len = strPhoneNumberOld.length
-                    val strPhoneNumber = strPhoneNumberOld.subSequence(index, len).toString()
-                    val contactName = strPhoneNumberOld.subSequence(0, index-2).toString()
-                    ///
+        database.child("Places").get().addOnSuccessListener { places ->
 
-                    if (uid!= null){
+            places.children.forEach {   placeInfo ->
 
-                        database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(uid)
+                val placeName = placeInfo.child("placeName").value.toString()
+                val longitude = placeInfo.child("longitude").value
+                val latitude = placeInfo.child("latitude").value
+
+                latitudes.add(latitude as Double)
+                longitudes.add(longitude as Double)
+
+                defaultItems.add(placeName)
+            }
+            placeSpinnerAdapter.notifyDataSetChanged()
+
+        }.addOnFailureListener{
+            Toast.makeText(activity, getString(R.string.failed), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun setTypeOfActionSpinner(){
+        val defaultItems = mutableListOf("Wybierz rodzaj akcji","Sms", "Powiadomienie", "Wycisz dźwięk")
+        val typeOfActionSpinnerAdapter = ArrayAdapter(requireContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, defaultItems)
+        typeOfActionSpinner.adapter = typeOfActionSpinnerAdapter
+    }
+
+    private fun setContactsSpinner(){
+
+        val contacts = (activity as HomeActivity?)!!.readContacts()
+        val contactsSpinnerAdapter = ArrayAdapter(requireContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, contacts)
+        contactsSpinner.adapter = contactsSpinnerAdapter
+    }
+
+    private fun setNeededLayout() {
+        typeOfActionSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+
+                when(position){
+                    (0)->{
+                        binding.smsTextLayout.visibility = View.GONE
+                        binding.contactsLayout.visibility = View.GONE
+                    }
+                    (1)->{
+                        binding.smsTextLayout.visibility = View.VISIBLE
+                        binding.contactsLayout.visibility = View.VISIBLE
+                    }
+                    (2)->{
+                        binding.smsTextLayout.visibility = View.VISIBLE
+                        binding.contactsLayout.visibility = View.GONE
+                    }
+                    (3)->{
+                        binding.smsTextLayout.visibility = View.GONE
+                        binding.contactsLayout.visibility = View.GONE
+                    }
+                }
+                // do something with the selected item
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // do something when nothing is selected
+            }
+        }
+    }
+
+
+    private fun addPlace(){
+        placeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parent: AdapterView<*>, view: View, position: Int, id: Long) {
+
+                when(position){
+
+                    (1)->{
+                        val intent = Intent(requireActivity(), MapsActivity::class.java)
+                        startActivity(intent)
+                    }
+
+                }
+                // do something with the selected item
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>) {
+                // do something when nothing is selected
+            }
+        }
+    }
+
+    private fun saveButtonListener() {
+        saveActionBtn.setOnClickListener {
+
+            val selectedPlaceIndex = placeSpinner.selectedItemPosition
+
+            if (selectedPlaceIndex != 0 && selectedPlaceIndex != 1){
+                when(typeOfActionSpinner.selectedItemPosition){
+
+                    (0) -> {
+                        Toast.makeText(activity, "Prosze wybrać rodzaj akcji!", Toast.LENGTH_SHORT).show()
+                    }
+
+                    (1) -> {
+                        val smsText = smsTextEt.text.toString()
+                        val placeName = placeSpinner.selectedItem.toString()
+                        val contactData = contactsSpinner.selectedItem.toString()
+                        val contactName = contactData.substringBefore(": ")
+                        val contactPhoneNumber = contactData.substringAfter(": ")
+
+                        if (smsText!=""){
+                            if (contactsSpinner.selectedItemPosition != 0){
+                                val action = ActionsData(contactName, contactPhoneNumber, smsText, placeName, "Sms", latitudes[selectedPlaceIndex-2], longitudes[selectedPlaceIndex-2], true)
+                                val key: String? = database.push().key
+                                database.child("Actions//Sms//$key").setValue(action).addOnCompleteListener{
+                                    if(it.isSuccessful){
+                                        Toast.makeText(activity, getString(R.string.success), Toast.LENGTH_SHORT).show()
+                                        (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
+
+                                    }else{
+                                        Toast.makeText(activity, getString(R.string.failed_to_upd_data), Toast.LENGTH_SHORT).show()
+                                    }
+                                }
+                            }else{
+                                Toast.makeText(activity, "Prosze wybrać kontakt!", Toast.LENGTH_SHORT).show()
+                            }
+
+                        }else{
+                            Toast.makeText(activity, "Prosze podać text wiadomości!", Toast.LENGTH_SHORT).show()
+                        }
+
+                    }
+
+                    (2) -> {
+                        val smsText = smsTextEt.text.toString()
+                        if (smsText!=""){
+                            val action = ActionNotificationData(placeSpinner.selectedItem.toString(), smsText,"Notification",latitudes[selectedPlaceIndex-2],longitudes[selectedPlaceIndex-2],true)
+                            val key: String? = database.push().key
+                            database.child("Actions//Notification//$key").setValue(action).addOnCompleteListener{
+                                if(it.isSuccessful){
+                                    Toast.makeText(activity, getString(R.string.success), Toast.LENGTH_SHORT).show()
+                                    (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
+
+                                }else{
+                                    Toast.makeText(activity, getString(R.string.failed_to_upd_data), Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }else{
+                            Toast.makeText(activity, "Prosze podać text wiadomości!", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+
+                    (3) -> {
+                        val action = ActionMuteData(placeSpinner.selectedItem.toString(),"Mute",latitudes[selectedPlaceIndex-2],longitudes[selectedPlaceIndex-2],true)
                         val key: String? = database.push().key
-                        val action = ActionsData(contactName, strPhoneNumber, strSmsText, strPlaceName, "Sms", latitudes[placeIndex], longitudes[placeIndex], true)
-
-                        database.child("Actions//Sms//$key").setValue(action).addOnCompleteListener{
+                        database.child("Actions//Mute//$key").setValue(action).addOnCompleteListener{
                             if(it.isSuccessful){
                                 Toast.makeText(activity, getString(R.string.success), Toast.LENGTH_SHORT).show()
                                 (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
 
                             }else{
-
                                 Toast.makeText(activity, getString(R.string.failed_to_upd_data), Toast.LENGTH_SHORT).show()
-
                             }
                         }
                     }
-                }else{
-                    Toast.makeText(activity, getString(R.string.set_parameters),Toast.LENGTH_SHORT).show()
                 }
-
-            }
-            2-> {
-
-                placeName = binding.placesSpinner
-
-                val placeIndex = placeName.selectedItemId.toInt()-1
-                val strPlaceName: String = binding.placesSpinner.selectedItem.toString()
-
-                if (strPlaceName != getString(R.string.choose_place) ) {
-                    if (uid != null) {
-
-                        database =
-                            FirebaseDatabase.getInstance(getString(R.string.firebase_database_url))
-                                .getReference(uid)
-                        val key: String? = database.push().key
-                        val action = ActionMuteData(
-                            strPlaceName,
-                            "Mute",
-                            latitudes[placeIndex],
-                            longitudes[placeIndex],
-                            true
-                        )
-
-                        database.child("Actions//Mute//$key").setValue(action)
-                            .addOnCompleteListener {
-                                if (it.isSuccessful) {
-                                    Toast.makeText(
-                                        activity,
-                                        getString(R.string.success),
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    (activity as HomeActivity?)!!.replaceFragment(
-                                        ActionsFragment(),
-                                        getString(R.string.actions)
-                                    )
-
-                                } else {
-
-                                    Toast.makeText(
-                                        activity,
-                                        getString(R.string.failed_to_upd_data),
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-
-                                }
-                            }
-                    }
-                }else{
-                    Toast.makeText(activity, getString(R.string.set_parameters),Toast.LENGTH_SHORT).show()
-                }
-            }
-            3-> {
-
-                placeName = binding.placesSpinner
-                smsText = binding.smsText
-
-                val strSmsText = smsText.text.toString()
-                val placeIndex = placeName.selectedItemId.toInt()-1
-                val strPlaceName: String = binding.placesSpinner.selectedItem.toString()
-
-                if (strPlaceName != getString(R.string.choose_place) ) {
-                    if (uid != null) {
-
-                        database =
-                            FirebaseDatabase.getInstance(getString(R.string.firebase_database_url))
-                                .getReference(uid)
-                        val key: String? = database.push().key
-                        val action = ActionNotificationData(
-                            strPlaceName,
-                            strSmsText,
-                            "Notification",
-                            latitudes[placeIndex],
-                            longitudes[placeIndex],
-                            true
-                        )
-
-                        database.child("Actions//Notification//$key").setValue(action)
-                            .addOnCompleteListener {
-                                if (it.isSuccessful) {
-                                    Toast.makeText(
-                                        activity,
-                                        getString(R.string.success),
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                    (activity as HomeActivity?)!!.replaceFragment(
-                                        ActionsFragment(),
-                                        getString(R.string.actions)
-                                    )
-
-                                } else {
-
-                                    Toast.makeText(
-                                        activity,
-                                        getString(R.string.failed_to_upd_data),
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-
-                                }
-                            }
-                    }
-                }else{
-                    Toast.makeText(activity, getString(R.string.set_parameters),Toast.LENGTH_SHORT).show()
-                }
+            }else{
+                Toast.makeText(activity, "Prosze wybrać miejsce!", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-
-    private fun readData(){
-        auth = FirebaseAuth.getInstance()
-        val uid = auth.currentUser?.uid
-
-        if (uid != null) {
-
-            database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(uid)
-            database.child("Places").get().addOnSuccessListener {
-                if(it.exists()){
-
-                    it.children.forEach{ placeInfo ->
-
-                        val placeName = placeInfo.child("placeName").value
-                        val longitude = placeInfo.child("longitude").value
-                        val latitude = placeInfo.child("latitude").value
-
-                        latitudes.add(latitude as Double)
-                        longitudes.add(longitude as Double)
-                        places.add(placeName.toString())
-
-                    }
-
-                }
-
-            }.addOnFailureListener{
-
-                Toast.makeText(activity, getString(R.string.failed),Toast.LENGTH_SHORT).show()
-
-            }
-        }
-
     }
 
 

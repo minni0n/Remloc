@@ -1,6 +1,5 @@
 package com.remlocteam.remloc1
 
-import com.google.android.libraries.places.api.model.TypeFilter
 import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import android.Manifest
@@ -44,6 +43,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_maps.*
+import kotlinx.android.synthetic.main.provide_label_layout.*
 import java.io.IOException
 
 
@@ -79,7 +79,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
         setContentView(R.layout.activity_maps)
 
         title = getString(R.string.find_place)
-
         locationSearch = findViewById(R.id.et_search)
         searchBtn = findViewById(R.id.search)
         saveBtn = findViewById(R.id.savePlaceBtn)
@@ -338,33 +337,28 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
         val location: String = this.locationSearch.text.toString().trim()
         var addressList: List<Address>? = null
 
-        if (location == ""){
-
-        }else{
+        if (location != ""){
             val geoCoder = Geocoder(this)
             try {
                 addressList = geoCoder.getFromLocationName(location, 1)
+                if (addressList!!.isNotEmpty()){
+                    val address = addressList[0]
+                    val latLng = LatLng(address.latitude, address.longitude)
+
+                    markerOnMap = MarkerOptions().position(latLng).title(location)
+
+
+
+                    marker = mMap!!.addMarker(markerOnMap!!)
+                    mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15F))
+
+                }else{
+                    Toast.makeText(this, getString(R.string.cant_find), Toast.LENGTH_SHORT).show()
+                }
 
             }catch (e: IOException){
                 e.printStackTrace()
             }
-
-            if (addressList!!.isNotEmpty()){
-                val address = addressList[0]
-                val latLng = LatLng(address.latitude, address.longitude)
-
-                markerOnMap = MarkerOptions().position(latLng).title(location)
-
-
-
-                marker = mMap!!.addMarker(markerOnMap!!)
-                mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15F))
-
-            }else{
-                Toast.makeText(this, getString(R.string.cant_find), Toast.LENGTH_SHORT).show()
-            }
-
-
         }
     }
 
@@ -429,12 +423,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
             e.printStackTrace()
         }
         val address = addressList!![0]
-
+        var trimmedAddressLine = ""
         checkBox.setOnCheckedChangeListener { _, isChecked  ->
 
             if(isChecked){
                 label.isEnabled = false
-                label.setText(address.getAddressLine(0))
+                val addressLineNow = address.getAddressLine(0)
+                trimmedAddressLine = addressLineNow.substringBefore(",")
+                label.setText(trimmedAddressLine)
             }else{
                 label.isEnabled = true
                 label.setText("")
@@ -453,7 +449,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
                 val locationName = if(!checkBox.isChecked){
                     label.text.toString()
                 }else{
-                    address.getAddressLine(0)
+                    trimmedAddressLine
                 }
                 if(locationName!=""){
                     savePlaceToFB(address, locationName)

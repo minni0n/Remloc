@@ -96,7 +96,7 @@
         <LinearLayout
             android:layout_marginHorizontal="5dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/bg_round_pastel_gray"
+            android:background="@drawable/bg_round_gray2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 

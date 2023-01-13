@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/black</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/background_places_day</item>
-        <item name="colorSecondaryVariant">#A4A6AA</item>
+        <item name="colorSecondaryVariant">#D5D8DF</item>
         <item name="colorOnSecondary">@color/black</item>
 
 
@@ -19,6 +19,17 @@
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/black</item>
 
+    </style>
+
+
+    <style name="CheckBoxForActions">
+        <item name="colorControlNormal">@color/red</item>
+        <item name="colorAccent">@color/green</item>
+    </style>
+
+    <style name="CheckBoxForPlaceName">
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorAccent">@color/white</item>
     </style>
 
 

@@ -13,7 +13,7 @@
     <string name="close">Close</string>
 
     <string name="add">Add</string>
-    <string name="search_location">Search Location</string>
+    <string name="search_location">Search location</string>
     <string name="enter_phone_number">Enter phone number</string>
     <string name="select_contact">Select contact:</string>
     <string name="enter_your_text_message">Enter your message</string>
@@ -101,7 +101,7 @@
     <string name="send_an_a_email">Send an a email</string>
     <string name="help">Help</string>
     <string name="feedback">Feedback</string>
-    <string name="theme">Choose theme</string>
+    <string name="choose_theme">Choose theme</string>
     <string name="select_city">Select game</string>
     <string name="game_suggest">Suggest a game</string>
     <string name="user_manual">User manual</string>
@@ -122,6 +122,7 @@
     <string name="welcome_to">Welcome to</string>
     <string name="start_game">Start game</string>
     <string name="city_game">City Game</string>
+    <string name="theme" >Theme</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

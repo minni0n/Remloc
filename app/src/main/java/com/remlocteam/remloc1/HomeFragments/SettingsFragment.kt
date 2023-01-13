@@ -50,6 +50,8 @@ class SettingsFragment : Fragment() {
         slider = binding.rangeSlider
         sliderValue = binding.sliderRangeValue
 
+        binding.languageChange.visibility = View.GONE
+
         slider.progress = (activity as HomeActivity?)!!.getSliderValue()
         sliderValue.text = slider.progress.toString()
         //shared pref for slider
