@@ -1,83 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?colorSecondary"
-    android:orientation="vertical"
-
-    tools:context=".AddDataFragment.AddActionFragment">
+    android:orientation="vertical">
 
     <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Spinner
-            android:id="@+id/placesSpinner"
-            android:layout_width="match_parent"
-            android:background="?colorPrimaryVariant"
-            android:layout_height="40dp"
-            android:spinnerMode="dropdown"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Spinner
-            android:id="@+id/typeOfActionSpinner"
-            android:layout_width="match_parent"
-            android:background="?colorPrimaryVariant"
-            android:layout_height="40dp"
-            android:spinnerMode="dropdown"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/contactsLayout"
-        android:layout_marginTop="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <Spinner
-            android:id="@+id/contactsSpinner"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="?colorPrimaryVariant"
-            android:spinnerMode="dropdown"/>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/smsTextLayout"
-        android:layout_marginVertical="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?colorPrimaryVariant">
+        android:orientation="vertical"
+        tools:ignore="UselessParent">
 
-        <EditText
-            android:id="@+id/smsTextEt"
-            android:layout_marginHorizontal="10dp"
+        <LinearLayout
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:hint="@string/enter_your_text_message"
-            android:background="?colorPrimaryVariant"
-            android:textColorHint="@color/gray"
-            android:textColor="?android:textColor" />
+            android:layout_height="wrap_content">
 
+            <Spinner
+                android:id="@+id/placesSpinner"
+                android:layout_width="match_parent"
+                android:background="?colorPrimaryVariant"
+                android:layout_height="40dp"
+                android:spinnerMode="dropdown"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:id="@+id/typeOfActionSpinner"
+                android:layout_width="match_parent"
+                android:background="?colorPrimaryVariant"
+                android:layout_height="40dp"
+                android:spinnerMode="dropdown"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/contactsLayout"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Spinner
+                android:id="@+id/contactsSpinner"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="?colorPrimaryVariant"
+                android:spinnerMode="dropdown"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/smsTextLayout"
+            android:layout_marginVertical="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?colorPrimaryVariant">
+
+            <EditText
+                android:id="@+id/smsTextEt"
+                android:layout_marginHorizontal="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="40dp"
+                android:hint="@string/enter_your_text_message"
+                android:background="?colorPrimaryVariant"
+                android:textColorHint="@color/gray"
+                android:textColor="?android:textColor" />
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btnSaveAction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="@string/save_action" />
     </LinearLayout>
 
 
 
 
-    <Button
-        android:id="@+id/btnSaveAction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="@string/save_action" />
-
-
-</LinearLayout>
+</ScrollView>

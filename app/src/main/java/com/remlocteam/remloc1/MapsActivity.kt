@@ -140,12 +140,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
                 val geoCoder = Geocoder(this)
                 addressList = geoCoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
 
-                if (addressList != null) {
-                    if (addressList.isNotEmpty()){
-                        marker = googleMap.addMarker(MarkerOptions().position(latLng))
-                    }else{
-                        Toast.makeText(this, getString(R.string.cant_find), Toast.LENGTH_SHORT).show()
-                    }
+                if (addressList.isNotEmpty() && addressList != null){
+                    marker = googleMap.addMarker(MarkerOptions().position(latLng))
+                }else{
+                    Toast.makeText(this, getString(R.string.cant_find), Toast.LENGTH_SHORT).show()
                 }
 
             }

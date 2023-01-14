@@ -1,17 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?colorSecondary"
-    tools:context=".EditDataFragments.EditActionFragment"
     android:orientation="vertical">
 
    <LinearLayout
-       android:id="@+id/turnOnOffLayout"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
        android:orientation="vertical">
+
+       <LinearLayout
+           android:id="@+id/turnOnOffLayout"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical">
+
+           <TextView
+               android:layout_marginTop="10dp"
+               android:layout_marginStart="15dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textColor="@color/gray"
+               android:text="@string/turn_on_off"
+               android:textSize="16sp" />
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_marginHorizontal="10dp"
+               android:layout_marginBottom="10dp"
+               android:orientation="horizontal"
+               android:gravity="center_horizontal">
+
+               <Switch
+                   android:id="@+id/switchTurnOn"
+                   android:layout_width="0dp"
+                   android:layout_height="wrap_content"
+                   android:layout_weight="1"
+                   android:text="@string/turn_on"
+                   android:textSize="20sp"
+                   tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+           </LinearLayout>
+
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="?android:attr/listDivider" />
+
+       </LinearLayout>
 
        <TextView
            android:layout_marginTop="10dp"
@@ -19,225 +59,190 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:textColor="@color/gray"
-           android:text="@string/turn_on_off"
+           android:text="@string/action_type"
            android:textSize="16sp" />
 
-       <LinearLayout
+       <TextView
+           android:id="@+id/actionTypeTV"
+           android:layout_marginStart="10dp"
+           android:layout_marginBottom="10dp"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:layout_marginHorizontal="10dp"
-           android:layout_marginBottom="10dp"
-           android:orientation="horizontal"
-           android:gravity="center_horizontal">
-
-           <Switch
-               android:id="@+id/switchTurnOn"
-               android:layout_width="0dp"
-               android:layout_height="wrap_content"
-               android:layout_weight="1"
-               android:text="@string/turn_on"
-               android:textSize="20sp"
-               tools:ignore="UseSwitchCompatOrMaterialXml" />
-
-       </LinearLayout>
-
+           android:text="@string/sms"
+           android:textSize="20sp" />
 
        <View
            android:layout_width="match_parent"
            android:layout_height="1dp"
            android:background="?android:attr/listDivider" />
 
+       <TextView
+           android:layout_marginTop="10dp"
+           android:layout_marginStart="15dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:textColor="@color/gray"
+           android:text="@string/place_name"
+           android:textSize="16sp" />
+
+       <TextView
+           android:id="@+id/placeName"
+           android:layout_marginStart="10dp"
+           android:layout_marginBottom="10dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:text="@string/home"
+           android:textSize="20sp" />
+
+       <View
+           android:layout_width="match_parent"
+           android:layout_height="1dp"
+           android:background="?android:attr/listDivider" />
+
+
+       <LinearLayout
+           android:id="@+id/unnecessaryLayout"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:orientation="vertical">
+
+           <TextView
+               android:layout_marginTop="10dp"
+               android:layout_marginStart="15dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:textColor="@color/gray"
+               android:text="@string/sms_text"
+               android:textSize="16sp" />
+
+           <TextView
+               android:id="@+id/smsText"
+               android:layout_marginStart="10dp"
+               android:layout_marginBottom="10dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:text="@string/next"
+               android:textSize="20sp" />
+
+           <View
+               android:layout_width="match_parent"
+               android:layout_height="1dp"
+               android:background="?android:attr/listDivider" />
+
+           <LinearLayout
+               android:id="@+id/contactNamePhone"
+               android:layout_width="match_parent"
+               android:orientation="vertical"
+               android:layout_height="wrap_content">
+
+               <TextView
+                   android:layout_marginTop="10dp"
+                   android:layout_marginStart="15dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:textColor="@color/gray"
+                   android:text="@string/contact_name_and_phone_number"
+                   android:textSize="16sp" />
+
+               <LinearLayout
+                   android:orientation="vertical"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content">
+
+                   <TextView
+                       android:id="@+id/contactName"
+                       android:layout_marginStart="10dp"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:text="@string/next"
+                       android:textSize="20sp" />
+
+                   <TextView
+                       android:id="@+id/phoneNumber"
+                       android:layout_marginStart="10dp"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:text="@string/next"
+                       android:textSize="20sp" />
+
+               </LinearLayout>
+
+               <View
+                   android:layout_marginTop="10dp"
+                   android:layout_width="match_parent"
+                   android:layout_height="1dp"
+                   android:background="?android:attr/listDivider" />
+
+           </LinearLayout>
+
+
+
+       </LinearLayout>
+
+
+
+       <LinearLayout
+           android:layout_marginVertical="20dp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:background="?colorPrimaryVariant">
+
+           <EditText
+               android:id="@+id/smsTextEdit"
+               android:layout_marginHorizontal="10dp"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:minHeight="40dp"
+               android:hint="@string/edit_sms_text"
+               android:background="?colorPrimaryVariant"
+               android:textColorHint="@color/gray"
+               android:textColor="?android:textColor" />
+
+       </LinearLayout>
+
+       <Spinner
+           android:layout_marginTop="20dp"
+           android:id="@+id/contactsSpinner"
+           android:background="?colorPrimaryVariant"
+           android:layout_width="match_parent"
+           android:layout_height="40dp" />
+
+       <Spinner
+           android:layout_marginTop="20dp"
+           android:id="@+id/placesSpinner"
+           android:background="?colorPrimaryVariant"
+           android:layout_width="match_parent"
+           android:layout_height="40dp" />
+
+
+
+       <Button
+           android:id="@+id/btnEditData"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:layout_marginTop="20dp"
+           android:text="@string/edit_action" />
+
+       <Button
+           android:id="@+id/btnSavePlaceChanges"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center"
+           android:layout_marginTop="20dp"
+           android:text="@string/save_changes" />
+
+
+
+       <Button
+           android:id="@+id/btnDeleteAction"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_gravity="center_horizontal|bottom"
+           android:layout_marginTop="10dp"
+           android:backgroundTint="@color/red"
+           android:text="@string/remove_action" />
+
    </LinearLayout>
 
-    <TextView
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/gray"
-        android:text="@string/action_type"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/actionTypeTV"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/sms"
-        android:textSize="20sp" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider" />
-
-    <TextView
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="15dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/gray"
-        android:text="@string/place_name"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/placeName"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/home"
-        android:textSize="20sp" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider" />
-
-
-    <LinearLayout
-        android:id="@+id/unnecessaryLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_marginTop="10dp"
-            android:layout_marginStart="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/gray"
-            android:text="@string/sms_text"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/smsText"
-            android:layout_marginStart="10dp"
-            android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/next"
-            android:textSize="20sp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="?android:attr/listDivider" />
-
-        <LinearLayout
-            android:id="@+id/contactNamePhone"
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="15dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/gray"
-                android:text="@string/contact_name_and_phone_number"
-                android:textSize="16sp" />
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <TextView
-                    android:id="@+id/contactName"
-                    android:layout_marginStart="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/next"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/phoneNumber"
-                    android:layout_marginStart="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/next"
-                    android:textSize="20sp" />
-
-            </LinearLayout>
-
-            <View
-                android:layout_marginTop="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="?android:attr/listDivider" />
-
-        </LinearLayout>
-
-
-
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:layout_marginVertical="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?colorPrimaryVariant">
-
-        <EditText
-            android:id="@+id/smsTextEdit"
-            android:layout_marginHorizontal="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:hint="@string/edit_sms_text"
-            android:background="?colorPrimaryVariant"
-            android:textColorHint="@color/gray"
-            android:textColor="?android:textColor"
-            android:autofillHints=""
-            android:inputType="text" />
-
-    </LinearLayout>
-
-    <Spinner
-        android:layout_marginTop="20dp"
-        android:id="@+id/contactsSpinner"
-        android:background="?colorPrimaryVariant"
-        android:layout_width="match_parent"
-        android:layout_height="40dp" />
-
-    <Spinner
-        android:layout_marginTop="20dp"
-        android:id="@+id/placesSpinner"
-        android:background="?colorPrimaryVariant"
-        android:layout_width="match_parent"
-        android:layout_height="40dp" />
-
-
-
-    <Button
-        android:id="@+id/btnEditData"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="@string/edit_action" />
-
-    <Button
-        android:id="@+id/btnSavePlaceChanges"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="@string/save_changes" />
-
-
-
-    <Button
-        android:id="@+id/btnDeleteAction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/red"
-        android:text="@string/remove_action" />
-
-</LinearLayout>
+</ScrollView>

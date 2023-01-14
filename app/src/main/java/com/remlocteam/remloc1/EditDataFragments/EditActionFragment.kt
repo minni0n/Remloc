@@ -1,6 +1,9 @@
 package com.remlocteam.remloc1.EditDataFragments
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -103,6 +106,13 @@ class EditActionFragment(private val key: String , private val actionType: Strin
         placesSpinner.adapter = adapterPlaces
         contactsSpinner.adapter = adapterContacts
 
+
+        binding.smsText.setOnClickListener {
+            val clipboard = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("text", binding.smsText.text)
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(context, "Tekst skopiowany do schowka", Toast.LENGTH_SHORT).show()
+        }
 
         editAction.setOnClickListener {
             when (actionType) {
