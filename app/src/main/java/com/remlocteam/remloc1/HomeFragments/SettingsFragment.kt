@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.remlocteam.remloc1.MainActivity
+import com.remlocteam.remloc1.Utils
 import com.remlocteam.remloc1.backgroundLocationTrack.LocationTrackingService
 import com.remlocteam.remloc1.foregroundLocationCheck.LocationService
 import kotlinx.coroutines.Dispatchers
@@ -52,6 +53,8 @@ class SettingsFragment : Fragment() {
 
         // Inflate the layout for this fragment
         binding = FragmentSettingsBinding.inflate(layoutInflater)
+
+        Utils().checkAllPermissions(requireContext())
 
 //        binding.stopStartBtnLayout.visibility = View.GONE
 

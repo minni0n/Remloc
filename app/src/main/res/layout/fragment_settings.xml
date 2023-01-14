@@ -175,7 +175,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray"
-                android:text="Sprawdzanie lokalizacji w tle"
+                android:text="@string/checking_for_back_loc_track"
                 android:textSize="20sp" />
 
             <LinearLayout
@@ -194,7 +194,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textColor="?colorOnPrimary"
-                    android:text="Śledzenie lokalizacji"
+                    android:text="@string/location_tracking"
                     android:textSize="20sp"
                     tools:ignore="UseSwitchCompatOrMaterialXml" />
 
@@ -288,7 +288,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/gray"
                     android:textSize="16sp"
-                    android:text="Na pewno chcesz usunąć \nwszystkie dane z aplikacji?"
+                    android:text="@string/delete_data_for_sure"
                     tools:ignore="NestedWeights" />
 
                 <TextView
@@ -301,7 +301,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/red"
-                    android:text="Usunąć"/>
+                    android:text="@string/remove"/>
 
             </LinearLayout>
 
@@ -327,7 +327,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/gray"
                     android:textSize="16sp"
-                    android:text="Na pewno chcesz usunąć\n swoje konto?"
+                    android:text="@string/delete_acc_for_sure"
                     tools:ignore="NestedWeights" />
 
                 <TextView
@@ -340,7 +340,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="@color/red"
-                    android:text="Usunąć"/>
+                    android:text="@string/remove"/>
 
             </LinearLayout>
 

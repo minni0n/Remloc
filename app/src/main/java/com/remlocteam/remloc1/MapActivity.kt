@@ -50,6 +50,8 @@ open class MapActivity: AppCompatActivity(), OnMapReadyCallback, LocationListene
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_map)
 
+        Utils().checkAllPermissions(this)
+
         addPlaceBtn = findViewById(R.id.addPlaceScreen)
 
         title = getString(R.string.places)

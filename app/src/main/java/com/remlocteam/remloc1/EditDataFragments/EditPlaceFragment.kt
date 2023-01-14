@@ -15,7 +15,9 @@ import com.remlocteam.remloc1.databinding.FragmentEditPlaceBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.remlocteam.remloc1.HomeActivity
 import com.remlocteam.remloc1.R
+import com.remlocteam.remloc1.Utils
 
 
 class EditPlaceFragment(private val key: String) : Fragment() {
@@ -39,6 +41,8 @@ class EditPlaceFragment(private val key: String) : Fragment() {
     ): View {
         // Inflate the layout for this fragment
         binding = FragmentEditPlaceBinding.inflate(layoutInflater)
+
+        Utils().checkAllPermissions(requireContext())
 
         auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid

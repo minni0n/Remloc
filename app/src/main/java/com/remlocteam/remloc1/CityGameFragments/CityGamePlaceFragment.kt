@@ -24,6 +24,7 @@ import com.remlocteam.remloc1.Data.ScoreData
 import com.remlocteam.remloc1.HomeActivity
 import com.remlocteam.remloc1.HomeFragments.GameMiejskaFragment
 import com.remlocteam.remloc1.R
+import com.remlocteam.remloc1.Utils
 import com.remlocteam.remloc1.databinding.FragmentCityGamePlaceBinding
 
 class CityGamePlaceFragment : Fragment() {
@@ -58,6 +59,9 @@ class CityGamePlaceFragment : Fragment() {
     ): View {
         // Inflate the layout for this fragment
                 binding = FragmentCityGamePlaceBinding.inflate(layoutInflater)
+
+                Utils().checkAllPermissions(requireContext())
+
                 imageHint = binding.imageHint
 
                 currentLanguage = (activity as HomeActivity?)!!.getCurrentLanguage().toString()

@@ -20,6 +20,7 @@ import com.remlocteam.remloc1.HomeActivity
 import com.remlocteam.remloc1.HomeFragments.ActionsFragment
 import com.remlocteam.remloc1.MapsActivity
 import com.remlocteam.remloc1.R
+import com.remlocteam.remloc1.Utils
 import com.remlocteam.remloc1.databinding.FragmentAddActionBinding
 
 
@@ -45,6 +46,8 @@ class AddActionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): LinearLayout {
         binding = FragmentAddActionBinding.inflate(layoutInflater)
+
+        Utils().checkAllPermissions(requireContext())
 
         // Init and firebase setup
         init()

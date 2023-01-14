@@ -118,4 +118,9 @@
     <string name="start_game">Начать игру</string>
     <string name="city_game">Городской Игре</string>
     <string name="theme" >Тема</string>
+    <string name="remove">Usuń</string>
+    <string name="delete_acc_for_sure">Na pewno chcesz usunąć\n swoje konto?</string>
+    <string name="delete_data_for_sure">Na pewno chcesz usunąć \nwszystkie dane z aplikacji?</string>
+    <string name="location_tracking">Śledzenie lokalizacji</string>
+    <string name="checking_for_back_loc_track">Sprawdzanie lokalizacji w tle</string>
 </resources>

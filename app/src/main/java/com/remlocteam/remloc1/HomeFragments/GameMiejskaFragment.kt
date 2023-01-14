@@ -22,6 +22,7 @@ import com.remlocteam.remloc1.Data.PlacesData
 import com.remlocteam.remloc1.Data.ScoreData
 import com.remlocteam.remloc1.DataAdapter.PlaceAdapter
 import com.remlocteam.remloc1.DataAdapter.ScoreAdapter
+import com.remlocteam.remloc1.Utils
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -46,7 +47,7 @@ class GameMiejskaFragment : Fragment() {
         binding = FragmentGameMiejskaBinding.inflate(layoutInflater)
 
 
-
+        Utils().checkAllPermissions(requireContext())
 
 
         setData()

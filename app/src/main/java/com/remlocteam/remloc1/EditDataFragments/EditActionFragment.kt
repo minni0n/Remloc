@@ -15,6 +15,7 @@ import com.remlocteam.remloc1.databinding.FragmentEditActionBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.remlocteam.remloc1.Utils
 
 class EditActionFragment(private val key: String , private val actionType: String) : Fragment() {
 
@@ -48,7 +49,7 @@ class EditActionFragment(private val key: String , private val actionType: Strin
     ): View? {
         binding = FragmentEditActionBinding.inflate(layoutInflater)
 
-
+        Utils().checkAllPermissions(requireContext())
 
         // initialization of data
         smsTextEdit = binding.smsTextEdit

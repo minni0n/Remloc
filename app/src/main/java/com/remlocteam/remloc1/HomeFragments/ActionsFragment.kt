@@ -18,6 +18,7 @@ import com.remlocteam.remloc1.databinding.FragmentActionsBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.remlocteam.remloc1.Utils
 
 
 class ActionsFragment : Fragment() {
@@ -40,7 +41,7 @@ class ActionsFragment : Fragment() {
 
         binding = FragmentActionsBinding.inflate(layoutInflater)
 
-
+        Utils().checkAllPermissions(requireContext())
 
         if ((activity as HomeActivity?)!!.isServiceRunning()){
             binding.serviceIsTurnedOffLayout.visibility = View.GONE

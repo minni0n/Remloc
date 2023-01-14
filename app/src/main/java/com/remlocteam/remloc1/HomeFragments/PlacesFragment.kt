@@ -18,6 +18,7 @@ import com.remlocteam.remloc1.databinding.FragmentPlacesBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.remlocteam.remloc1.Utils
 
 class PlacesFragment : Fragment() {
 
@@ -38,6 +39,8 @@ class PlacesFragment : Fragment() {
         // Inflate the layout for this fragment
 
         binding = FragmentPlacesBinding.inflate(layoutInflater)
+
+        Utils().checkAllPermissions(requireContext())
 
         val listOfPlaces: ListView = binding.listOfPlaces
 

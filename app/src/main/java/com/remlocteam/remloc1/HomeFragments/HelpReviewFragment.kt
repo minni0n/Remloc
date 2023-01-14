@@ -17,6 +17,7 @@ import android.widget.Toast
 import androidx.core.text.HtmlCompat
 import com.remlocteam.remloc1.HomeActivity
 import com.remlocteam.remloc1.R
+import com.remlocteam.remloc1.Utils
 import com.remlocteam.remloc1.databinding.FragmentHelpReviewBinding
 
 
@@ -34,6 +35,9 @@ class HelpReviewFragment : Fragment() {
 
         // Inflate the layout for this fragment
         binding = FragmentHelpReviewBinding.inflate(layoutInflater)
+
+        Utils().checkAllPermissions(requireContext())
+
 
 //        language = (activity as HomeActivity?)!!.getCurrentLanguage().toString()
         language = "pl"
