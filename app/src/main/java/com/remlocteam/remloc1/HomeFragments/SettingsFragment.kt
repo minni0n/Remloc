@@ -1,9 +1,11 @@
 package com.remlocteam.remloc1.HomeFragments
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -38,6 +40,7 @@ class SettingsFragment : Fragment() {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -204,14 +207,26 @@ class SettingsFragment : Fragment() {
 
 
         binding.locationTrackingSwitch.isChecked = (activity as HomeActivity?)!!.isServiceRunning()
+        if (binding.locationTrackingSwitch.isChecked){
+            binding.locationTrackingSwitch.setTextColor(Color.WHITE)
+            binding.locationTrackingLayout.setBackgroundResource(R.drawable.bg_round_pastel_blue_no_border)
+        }else{
+            binding.locationTrackingSwitch.setTextColor(Color.BLACK)
+            binding.locationTrackingLayout.setBackgroundResource(R.drawable.bg_round_white)
+        }
+
 
         binding.locationTrackingSwitch.setOnCheckedChangeListener{ _, b ->
 
             if (!b){
                 (activity as HomeActivity?)!!.stopLocationService()
+                binding.locationTrackingSwitch.setTextColor(Color.BLACK)
+                binding.locationTrackingLayout.setBackgroundResource(R.drawable.bg_round_white)
             }
             if (b){
                 (activity as HomeActivity?)!!.startLocationService()
+                binding.locationTrackingSwitch.setTextColor(Color.WHITE)
+                binding.locationTrackingLayout.setBackgroundResource(R.drawable.bg_round_pastel_blue_no_border)
             }
 
         }
