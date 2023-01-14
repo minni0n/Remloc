@@ -31,14 +31,27 @@ class MainActivity : AppCompatActivity() {
     private val Req_Code: Int = 123
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var locale: Locale
-//    private var currentLanguage = "en"
     private var currentLang: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        setLocale("pl")
+
+
+        val sp: SharedPreferences = getSharedPreferences("Language", MODE_PRIVATE)
+        val lang = sp.getString("My_Lang", "language_null")
+
+        if (lang == "language_null"){
+            val current = Locale.getDefault()
+            currentLang = current.language
+//            Toast.makeText(this, currentLang,Toast.LENGTH_LONG).show()
+        }else{
+            currentLang = lang
+        }
+
+
+        setLocale(currentLang!!)
 
 
 
@@ -114,7 +127,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun setLocale(localeName: String) {
+    private fun setLocale(localeName: String) {
 
         val currentLanguage = intent.getStringExtra(currentLang).toString()
 

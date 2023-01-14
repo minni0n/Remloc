@@ -18,7 +18,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginBottom="10dp">
             <TextView
                 android:layout_marginVertical="10dp"
                 android:layout_width="wrap_content"
@@ -31,7 +32,18 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="10dp">
+                android:layout_marginHorizontal="10dp"
+                android:layout_gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_marginEnd="10dp"
+                    android:textAlignment="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray"
+                    android:text="@string/choose_app_language"
+                    android:textSize="20sp" />
                 <Spinner
                     android:id="@+id/languagesSpinner"
                     android:layout_width="match_parent"
@@ -141,6 +153,7 @@
             android:gravity="center">
 
             <TextView
+                android:textAlignment="center"
                 android:layout_marginTop="10dp"
                 android:layout_marginHorizontal="16dp"
                 android:layout_width="wrap_content"
@@ -149,6 +162,7 @@
                 android:text="@string/if_you_want_to_deny_a_permission_you_need_to_go_to"
                 android:textSize="15sp" />
             <TextView
+                android:textAlignment="center"
                 android:layout_marginHorizontal="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -171,6 +185,7 @@
             android:gravity="center">
 
             <TextView
+                android:textAlignment="center"
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -219,6 +234,7 @@
         android:gravity="center">
 
         <TextView
+            android:textAlignment="center"
             android:layout_marginVertical="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -229,10 +245,7 @@
     </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+
             <SeekBar
                 android:layout_marginHorizontal="10dp"
                 android:id="@+id/rangeSlider"
@@ -277,7 +290,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="horizontal"
-                android:gravity="center_vertical|center"
+                android:gravity="center_vertical"
                 android:layout_weight="3"
                 tools:ignore="RtlHardcoded">
 
@@ -285,18 +298,16 @@
                     android:layout_marginStart="10dp"
                     android:textAlignment="center"
                     android:layout_width="wrap_content"
+                    android:maxWidth="250dp"
                     android:layout_height="wrap_content"
                     android:textColor="@color/gray"
                     android:textSize="16sp"
                     android:text="@string/delete_data_for_sure"
                     tools:ignore="NestedWeights" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="                "/>
+
                 <Button
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginLeft="20dp"
                     android:id="@+id/deleteAllFromDatabase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -311,12 +322,13 @@
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider" />
 
+
             <LinearLayout
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:orientation="horizontal"
-                android:gravity="center_vertical|center"
+                android:gravity="center_vertical"
                 android:layout_weight="3"
                 tools:ignore="RtlHardcoded">
 
@@ -324,18 +336,16 @@
                     android:layout_marginStart="10dp"
                     android:textAlignment="center"
                     android:layout_width="wrap_content"
+                    android:maxWidth="250dp"
                     android:layout_height="wrap_content"
                     android:textColor="@color/gray"
                     android:textSize="16sp"
                     android:text="@string/delete_acc_for_sure"
                     tools:ignore="NestedWeights" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="                   "/>
+
                 <Button
-                    android:layout_marginEnd="10dp"
+                    android:layout_marginLeft="20dp"
                     android:id="@+id/deleteAccountFromFirebase"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -344,15 +354,13 @@
 
             </LinearLayout>
 
+
+
             <View
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="?android:attr/listDivider" />
-
-        </LinearLayout>
-
-
     </LinearLayout>
 
 </ScrollView>

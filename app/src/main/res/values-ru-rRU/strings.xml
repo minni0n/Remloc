@@ -36,7 +36,6 @@
     <string name="username">Имя пользователя</string>
     <string name="email">Эл. почта</string>
     <string name="home">Дом</string>
-    <string name="serbska_17_61_696_pozna_poland">Serbska 17, 61–696 Познань, Польша</string>
 
     <string name="change_language">Изменить язык</string>
     <string name="edit_action">Изменить действие</string>
@@ -118,9 +117,13 @@
     <string name="start_game">Начать игру</string>
     <string name="city_game">Городской Игре</string>
     <string name="theme" >Тема</string>
-    <string name="remove">Usuń</string>
-    <string name="delete_acc_for_sure">Na pewno chcesz usunąć\n swoje konto?</string>
-    <string name="delete_data_for_sure">Na pewno chcesz usunąć \nwszystkie dane z aplikacji?</string>
-    <string name="location_tracking">Śledzenie lokalizacji</string>
-    <string name="checking_for_back_loc_track">Sprawdzanie lokalizacji w tle</string>
+    <string name="remove">Удалить</string>
+    <string name="delete_acc_for_sure">Вы уверены, что хотите удалить свой аккаунт?</string>
+    <string name="delete_data_for_sure">Вы уверены, что хотите удалить все данные из приложения?</string>
+    <string name="location_tracking">Отслеживание местоположения</string>
+    <string name="checking_for_back_loc_track">Фоновая проверка местоположения</string>
+    <string name="location_warning">Отслеживание местоположения отключено!\n Если вы хотите отслеживать свои действия, перейдите в «Настройки» и включите «Отслеживание местоположения».</string>
+    <string name="add_place">+ Добавить место</string>
+    <string name="choose_place_to_play">Выберите место для игры</string>
+    <string name="choose_app_language">Выберите язык приложения</string>
 </resources>

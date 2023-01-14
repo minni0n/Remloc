@@ -62,7 +62,7 @@ class SettingsFragment : Fragment() {
         slider = binding.rangeSlider
         sliderValue = binding.sliderRangeValue
 
-        binding.languageChange.visibility = View.GONE
+//        binding.languageChange.visibility = View.GONE
 
         slider.progress = (activity as HomeActivity?)!!.getSliderValue()
         sliderValue.text = slider.progress.toString()
@@ -288,20 +288,15 @@ class SettingsFragment : Fragment() {
             database.removeValue()
             database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference("GameMiejskaScores/$uid")
             database.removeValue()
-            deleteAccount()
+            auth.currentUser?.delete()
+            (activity as HomeActivity?)!!.logoutFromGoogle()
         }
+
 
         builder.setNegativeButton(getString(R.string.no)) { _, _ -> }
 
         builder.show()
 
-    }
-
-    // Fix
-    private fun deleteAccount() {
-        auth.currentUser?.delete()?.addOnSuccessListener {
-            (activity as HomeActivity?)!!.logoutFromGoogle()
-        }
     }
 
     private fun checkLocationPermission() {

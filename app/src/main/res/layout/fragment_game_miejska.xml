@@ -48,7 +48,7 @@
                 android:textColor="@color/gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Wybierz miejsce grzy "/>
+                android:text="@string/choose_place_to_play"/>
             <Spinner
                 android:id="@+id/cityGamesSpinner"
                 android:layout_width="match_parent"

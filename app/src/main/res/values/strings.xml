@@ -35,7 +35,6 @@
     <string name="username">Username</string>
     <string name="email">Email</string>
     <string name="home">Home</string>
-    <string name="serbska_17_61_696_pozna_poland">Serbska 17, 61–696 Poznań, Poland</string>
 
     <string name="choose_language">Choose language:</string>
     <string name="change_language">Change language</string>
@@ -123,11 +122,15 @@
     <string name="start_game">Start game</string>
     <string name="city_game">City Game</string>
     <string name="theme" >Theme</string>
-    <string name="remove">Usuń</string>
-    <string name="delete_acc_for_sure">Na pewno chcesz usunąć\n swoje konto?</string>
-    <string name="delete_data_for_sure">Na pewno chcesz usunąć \nwszystkie dane z aplikacji?</string>
-    <string name="location_tracking">Śledzenie lokalizacji</string>
-    <string name="checking_for_back_loc_track">Sprawdzanie lokalizacji w tle</string>
+    <string name="remove">Delete</string>
+    <string name="delete_data_for_sure">You definitely want to delete all app data?</string>
+    <string name="location_tracking">Location tracking</string>
+    <string name="checking_for_back_loc_track">Background location check</string>
+    <string name="add_place">+ Add a place</string>
+    <string name="choose_place_to_play">Choose a place to play</string>
+    <string name="delete_acc_for_sure">You definitely want to delete your account?</string>
+    <string name="location_warning">Location tracking is disabled!\n If you want to track your actions, go to Settings and turn on Location Tracking</string>
+    <string name="choose_app_language">Choose app language</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

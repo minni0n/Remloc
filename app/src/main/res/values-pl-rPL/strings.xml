@@ -37,7 +37,6 @@
     <string name="username">Nazwa użytkownika</string>
     <string name="email">E-mail</string>
     <string name="home">Dom</string>
-    <string name="serbska_17_61_696_pozna_poland">Serbska 17, 61–696 Poznań, Poland</string>
 
     <string name="change_language">Zmień język</string>
     <string name="edit_action">Edytuj akcję</string>
@@ -120,8 +119,12 @@
     <string name="city_game">Grze Miejskiej</string>
     <string name="theme" >Temat</string>
     <string name="remove">Usuń</string>
-    <string name="delete_acc_for_sure">Na pewno chcesz usunąć\n swoje konto?</string>
-    <string name="delete_data_for_sure">Na pewno chcesz usunąć \nwszystkie dane z aplikacji?</string>
+    <string name="delete_acc_for_sure">Na pewno chcesz usunąć swoje konto?</string>
+    <string name="delete_data_for_sure">Na pewno chcesz usunąć  wszystkie dane z aplikacji?</string>
     <string name="location_tracking">Śledzenie lokalizacji</string>
     <string name="checking_for_back_loc_track">Sprawdzanie lokalizacji w tle</string>
+    <string name="location_warning">Śledzenie lokalizacji jest wyłączone!\n Jeśli chcesz śledzić swoje akcje, przejdź do Ustawień i włącz Śledzenie lokalizacji</string>
+    <string name="add_place">+ Dodaj miejsce</string>
+    <string name="choose_place_to_play">Wybierz miejsce grzy</string>
+    <string name="choose_app_language">Wybierz język aplikacji</string>
 </resources>

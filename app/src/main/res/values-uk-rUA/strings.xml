@@ -36,7 +36,6 @@
     <string name="username">Ім\'я користувача</string>
     <string name="email">Електронна пошта</string>
     <string name="home">Дім</string>
-    <string name="serbska_17_61_696_pozna_poland">Сербська 17, 61–696 Познань, Польща</string>
 
     <string name="change_language">Вибрати мову</string>
     <string name="edit_action">Редагувати дію</string>
@@ -118,9 +117,13 @@
     <string name="start_game">Почати гру</string>
     <string name="city_game">Міської Гри</string>
     <string name="theme" >Тема</string>
-    <string name="remove">Usuń</string>
-    <string name="delete_acc_for_sure">Na pewno chcesz usunąć\n swoje konto?</string>
-    <string name="delete_data_for_sure">Na pewno chcesz usunąć \nwszystkie dane z aplikacji?</string>
-    <string name="location_tracking">Śledzenie lokalizacji</string>
-    <string name="checking_for_back_loc_track">Sprawdzanie lokalizacji w tle</string>
+    <string name="remove">Видалити</string>
+    <string name="delete_acc_for_sure">Ви впевнені, що хочете видалити свій обліковий запис?</string>
+    <string name="delete_data_for_sure">Ви впевнені, що бажаєте видалити всі дані з програми?</string>
+    <string name="location_tracking">Відстеження місцезнаходження</string>
+    <string name="checking_for_back_loc_track">Фонова перевірка місцезнаходження</string>
+    <string name="location_warning">Відстеження місцезнаходження вимкнено!\n Якщо ви хочете відстежувати свої дії, перейдіть у налаштування та увімкніть відстеження місцезнаходження</string>
+    <string name="add_place">+ Додати місце</string>
+    <string name="choose_place_to_play">Виберіть місце для гри</string>
+    <string name="choose_app_language">Виберіть мову програми</string>
 </resources>

@@ -116,7 +116,7 @@ class AddActionFragment : Fragment() {
 
         longitudes = mutableListOf()
         latitudes = mutableListOf()
-        val defaultItems = mutableListOf("Wybierz miejsce", " + Dodaj miejsce")
+        val defaultItems = mutableListOf(getString(R.string.choose_place), getString(R.string.add_place))
         val placeSpinnerAdapter = ArrayAdapter(requireContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, defaultItems)
         placeSpinner.adapter = placeSpinnerAdapter
 
@@ -141,7 +141,7 @@ class AddActionFragment : Fragment() {
     }
 
     private fun setTypeOfActionSpinner(){
-        val defaultItems = mutableListOf("Wybierz rodzaj akcji","Sms", "Powiadomienie", "Wycisz dźwięk")
+        val defaultItems = mutableListOf(getString(R.string.select_type_of_action),getString(R.string.sms), getString(R.string.notification), getString(R.string.mute_the_sound))
         val typeOfActionSpinnerAdapter = ArrayAdapter(requireContext(), androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, defaultItems)
         typeOfActionSpinner.adapter = typeOfActionSpinnerAdapter
     }
