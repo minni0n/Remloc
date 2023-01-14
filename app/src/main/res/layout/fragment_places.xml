@@ -46,16 +46,4 @@
 
     </LinearLayout>
 
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/addPlaceBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:src="@drawable/ic_baseline_add_24"
-        android:backgroundTint="?colorPrimary"
-        android:contentDescription="@string/add"
-        android:layout_margin="16dp" />
-
 </FrameLayout>

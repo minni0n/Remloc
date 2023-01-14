@@ -35,10 +35,10 @@
         android:id="@+id/addPlaceScreen"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right|bottom"
+        android:layout_gravity="end|bottom"
         android:src="@drawable/ic_baseline_add_24"
         android:contentDescription="@string/add"
-        android:layout_margin="16dp"
-        tools:ignore="RtlHardcoded" />
+        android:backgroundTint="?colorPrimary"
+        android:layout_margin="16dp" />
 
 </FrameLayout>
