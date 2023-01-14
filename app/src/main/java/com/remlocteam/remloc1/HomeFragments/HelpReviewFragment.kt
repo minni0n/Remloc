@@ -95,7 +95,7 @@ class HelpReviewFragment : Fragment() {
                     }
                     3-> {
                         binding.hiddenCopyTextLayout.visibility = View.VISIBLE
-                        binding.themeTextView.text = "Poniżej jest przykład gry\n(naciśnij na niego żeby skopiować)"
+                        binding.themeTextView.text = "Poniżej jest przykład gry (naciśnij na niego żeby skopiować)"
                         theme = "Suggest a game"
                         email = "remlocteam+game@gmail.com"
                     }

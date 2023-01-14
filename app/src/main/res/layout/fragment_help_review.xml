@@ -30,13 +30,13 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:textColor="?colorAccent"
                 android:textStyle="bold|italic"
                 android:text="@string/choose_theme"
                 android:textSize="20sp" />
 
             <LinearLayout
-                android:layout_marginHorizontal="0dp"
+                android:layout_marginHorizontal="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <Spinner
@@ -61,7 +61,7 @@
             android:layout_marginStart="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/black"
+            android:textColor="?colorAccent"
             android:textStyle="bold|italic"
             android:text="@string/what_problem_feedback_do_you_have"
             android:layout_marginBottom="10dp"
@@ -85,7 +85,7 @@
                 android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:textColor="@color/gray"
                 android:text="Warszawa(centrum)\n1.Zamek Królewski (jakis opis)\n2.Centrum Nauki Kopernik (jakis opis)\n3.Pałac Kultury i Nauki (jakis opis)\n4.Nowy Świat (jakis opis)\n5.Palma przy rondzie de Gaulle’a
  (jakis opis)\n itd."
                 android:layout_marginBottom="10dp"
@@ -113,9 +113,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/enter_your_text_message"
-                android:background="@color/white"
-                android:textColorHint="@color/black"
-                android:textColor="?android:textColor"
+                android:background="?colorPrimaryVariant"
+                android:textColorHint="?colorAccent"
+                android:textColor="?colorAccent"
                 android:autoLink="all"
                 android:scrollbars="none"
                 android:minHeight="150dp"
