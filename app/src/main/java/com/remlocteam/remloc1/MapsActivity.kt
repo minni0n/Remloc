@@ -116,7 +116,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
                 showChooseNameDialog()
             }
             else{
-                Toast.makeText(this, "Please search for location!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Proszę wyszukać lokalizację!", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -133,7 +133,19 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
                 // Remove the previous marker, if any
                 marker?.remove()
                 // Add a new marker to the map at the clicked location
-                marker = googleMap.addMarker(MarkerOptions().position(latLng))
+
+                var addressList: List<Address>? = null
+                val geoCoder = Geocoder(this)
+                addressList = geoCoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
+
+                if (addressList != null) {
+                    if (addressList.isNotEmpty()){
+                        marker = googleMap.addMarker(MarkerOptions().position(latLng))
+                    }else{
+                        Toast.makeText(this, getString(R.string.cant_find), Toast.LENGTH_SHORT).show()
+                    }
+                }
+
             }
         }
     }
@@ -203,7 +215,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
         currentLocationLatLng = latLng
         val markerOptions = MarkerOptions()
         markerOptions.position(latLng)
-        markerOptions.title("Current Position")
+        markerOptions.title("Aktualna pozycja")
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN))
         mCurrLocationMarker = mMap!!.addMarker(markerOptions)
 

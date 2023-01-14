@@ -2,6 +2,7 @@ package com.remlocteam.remloc1
 
 import android.annotation.SuppressLint
 import android.app.ActivityManager
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Build
@@ -21,6 +22,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.navigation.NavigationView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.remlocteam.remloc1.HomeFragments.ActionsFragment
@@ -128,6 +130,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
+
     private fun setUsernameEmail(navView: NavigationView){
         val headerView = navView.getHeaderView(0)
         val navUsername: TextView = headerView.findViewById(R.id.user_name)
@@ -155,7 +158,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
-    private fun logoutFromGoogle() {
+    fun logoutFromGoogle() {
         mGoogleSignInClient.signOut().addOnCompleteListener {
             val intent = Intent(this, MainActivity::class.java)
             Toast.makeText(this, getString(R.string.log_out), Toast.LENGTH_SHORT).show()

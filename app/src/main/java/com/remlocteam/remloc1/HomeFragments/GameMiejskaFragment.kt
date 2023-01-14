@@ -35,8 +35,7 @@ class GameMiejskaFragment : Fragment() {
     private lateinit var database: DatabaseReference
     private lateinit var databaseScore: DatabaseReference
     private lateinit var auth: FirebaseAuth
-    private lateinit var progressBar: ProgressBar
-    private lateinit var content: LinearLayout
+
 
 
     override fun onCreateView(
@@ -46,11 +45,7 @@ class GameMiejskaFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentGameMiejskaBinding.inflate(layoutInflater)
 
-        progressBar = binding.progressBar
-        content = binding.content
 
-        content.visibility = View.GONE
-        progressBar.visibility = View.VISIBLE
 
 
 
@@ -64,7 +59,7 @@ class GameMiejskaFragment : Fragment() {
                 (activity as HomeActivity?)!!.setCity(selectedItem)
                 (activity as HomeActivity?)!!.replaceFragment(CityGamePlaceFragment(),getString(R.string.game_miejska))
             }else{
-                Toast.makeText(activity, "Select a city!", Toast.LENGTH_LONG).show()
+                Toast.makeText(activity, "Wybierz miejce do grania!", Toast.LENGTH_LONG).show()
             }
 
 
@@ -113,8 +108,6 @@ class GameMiejskaFragment : Fragment() {
         val adapterCity = activity?.let { ArrayAdapter(it, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, cityList) }
         binding.cityGamesSpinner.adapter = adapterCity
 
-        progressBar.visibility = View.GONE
-        content.visibility = View.VISIBLE
     }
 
     private fun setScores(): ArrayList<ScoreData>{

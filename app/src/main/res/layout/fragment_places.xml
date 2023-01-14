@@ -8,26 +8,45 @@
     android:background="?colorSecondary"
     tools:context=".HomeFragments.PlacesFragment">
 
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginVertical="5dp"
-        android:textSize="20sp"
-        android:layout_width="match_parent"
-        android:text="@string/list_of_places"
-        android:textStyle="bold"
-        android:textColor="?colorOnSecondary"
-        android:layout_height="wrap_content"/>
+        android:orientation="vertical">
 
-    <ListView
-        android:layout_marginTop="30dp"
-        android:id="@+id/listOfPlaces"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        tools:listitem="@layout/place_item"
-        android:padding="4dp" />
+        <LinearLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:background="@drawable/custom_list_of_places">
+            <TextView
+
+                android:gravity="center"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="5dp"
+                android:textSize="20sp"
+                android:layout_width="wrap_content"
+                android:text="@string/list_of_places"
+                android:textStyle="bold|italic"
+                android:textColor="?colorOnSecondary"
+                android:layout_height="wrap_content"/>
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listOfPlaces"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            tools:listitem="@layout/place_item"
+            android:padding="4dp" />
+
+    </LinearLayout>
+
+
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addPlaceBtn"

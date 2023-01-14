@@ -4,16 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?colorSecondary"
-    android:orientation="vertical"
-    tools:context=".HomeFragments.GameMiejskaFragment">
-
-    <ProgressBar
-        android:layout_marginTop="20dp"
-        android:id="@+id/progressBar"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center" />
+    android:orientation="vertical">
 
 
     <LinearLayout
@@ -40,20 +31,29 @@
 
         <LinearLayout
             android:layout_marginTop="50dp"
-            android:layout_marginHorizontal="20dp"
+            android:layout_marginHorizontal="10dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textSize="20sp"
+                android:textStyle="italic|bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Wybierz miejsce grzy: "/>
             <Spinner
                 android:id="@+id/cityGamesSpinner"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="30dp"
                 android:background="?colorPrimaryVariant"
                 android:spinnerMode="dropdown"/>
         </LinearLayout>
 
         <Button
             android:id="@+id/startGameBtn"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             android:layout_width="wrap_content"
             android:layout_gravity="center|bottom"
             android:layout_height="wrap_content"
@@ -62,14 +62,15 @@
 
         <LinearLayout
             android:id="@+id/scoresLayout"
-            android:background="@drawable/bg_round_gray"
-            android:layout_marginVertical="40dp"
+            android:background="@drawable/bg_round_pastel_gray"
+            android:layout_marginVertical="20dp"
             android:layout_marginHorizontal="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
+                android:textColor="@color/black"
                 android:layout_marginVertical="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

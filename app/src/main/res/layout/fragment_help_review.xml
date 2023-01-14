@@ -13,42 +13,97 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+        <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray"
-            android:text="@string/choose_theme"
-            android:layout_marginBottom="10dp"
-            android:textSize="20sp" />
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_gravity="center_vertical">
 
-        <LinearLayout
-            android:layout_marginHorizontal="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <Spinner
-                android:id="@+id/themeSpinner"
+            <TextView
+                android:layout_marginTop="1dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textStyle="bold|italic"
+                android:text="@string/choose_theme"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_marginHorizontal="0dp"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:background="?colorPrimaryVariant"
-                android:spinnerMode="dropdown"/>
+                android:layout_height="wrap_content">
+                <Spinner
+                    android:id="@+id/themeSpinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:background="?colorPrimaryVariant"
+                    android:spinnerMode="dropdown"/>
+            </LinearLayout>
+
         </LinearLayout>
+
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
 
         <TextView
             android:id="@+id/themeTextView"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/gray"
+            android:textColor="@color/black"
+            android:textStyle="bold|italic"
             android:text="@string/what_problem_feedback_do_you_have"
             android:layout_marginBottom="10dp"
             android:textSize="20sp" />
 
         <LinearLayout
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginVertical="20dp"
+            android:id="@+id/hiddenCopyTextLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+            <TextView
+                android:gravity="center"
+                android:id="@+id/hiddenCopyText"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textStyle="bold|italic"
+                android:text="Warszawa(centrum)\n1.Zamek Królewski (jakis opis)\n2.Centrum Nauki Kopernik (jakis opis)\n3.Pałac Kultury i Nauki (jakis opis)\n4.Nowy Świat (jakis opis)\n5.Palma przy rondzie de Gaulle’a
+ (jakis opis)\n itd."
+                android:layout_marginBottom="10dp"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <LinearLayout
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="?colorPrimaryVariant">
@@ -59,13 +114,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/enter_your_text_message"
-                android:background="?colorPrimaryVariant"
-                android:textColorHint="@color/gray"
+                android:background="@color/white"
+                android:textColorHint="@color/black"
                 android:textColor="?android:textColor"
                 android:autoLink="all"
                 android:scrollbars="none"
                 android:minHeight="150dp"
                 android:inputType="textMultiLine|textCapSentences"/>
+
         </LinearLayout>
 
         <Button

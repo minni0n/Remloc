@@ -1,6 +1,9 @@
 package com.remlocteam.remloc1.HomeFragments
 
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
@@ -72,19 +75,27 @@ class HelpReviewFragment : Fragment() {
 
                 when(p2){
                     0-> {
+                        binding.hiddenCopyTextLayout.visibility = View.GONE
+                        binding.themeTextView.text = getString(R.string.what_problem_feedback_do_you_have)
                         theme = ""
                         email = "remlocteam@gmail.com"
                     }
                     1-> {
+                        binding.hiddenCopyTextLayout.visibility = View.GONE
+                        binding.themeTextView.text = getString(R.string.what_problem_feedback_do_you_have)
                         theme = "Help"
                         email = "remlocteam+support@gmail.com"
 
                     }
                     2-> {
+                        binding.hiddenCopyTextLayout.visibility = View.GONE
+                        binding.themeTextView.text = getString(R.string.what_problem_feedback_do_you_have)
                         theme = "Feedback"
                         email = "remlocteam+feedback@gmail.com"
                     }
                     3-> {
+                        binding.hiddenCopyTextLayout.visibility = View.VISIBLE
+                        binding.themeTextView.text = "Poniżej jest przykład gry\n(naciśnij na niego żeby skopiować)"
                         theme = "Suggest a game"
                         email = "remlocteam+game@gmail.com"
                     }
@@ -97,6 +108,14 @@ class HelpReviewFragment : Fragment() {
             }
 
         }
+
+        binding.hiddenCopyText.setOnClickListener {
+            val clipboard = context?.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+            val clip = ClipData.newPlainText("text", binding.hiddenCopyText.text)
+            clipboard.setPrimaryClip(clip)
+            Toast.makeText(context, "Tekst skopiowany do schowka", Toast.LENGTH_SHORT).show()
+        }
+
 
         binding.sendEmail.setOnClickListener {
 
@@ -117,10 +136,15 @@ class HelpReviewFragment : Fragment() {
             }
             else{
                 if (!themeSelected){
-                    Toast.makeText(activity, "Please choose the theme!", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(activity, "Proszę wybrać temat!", Toast.LENGTH_SHORT).show()
                 }
                 if(!etMessegeBoxNotEmpty){
-                    Toast.makeText(activity, "Please describe a problem or a feedback!", Toast.LENGTH_SHORT).show()
+                    if (binding.themeSpinner.selectedItem == 3){
+                        Toast.makeText(activity, "Proszę zasugerować nam grę!", Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(activity, "Opisz problem lub przekaż opinię!", Toast.LENGTH_SHORT).show()
+                    }
+
                 }
 
             }

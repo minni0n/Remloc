@@ -21,11 +21,6 @@
             tools:ignore="FragmentTagUsage">
         </fragment>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@color/pastel_blue"/>
-
         <fragment
             android:name="com.remlocteam.remloc1.HomeFragments.PlacesFragment"
             android:id="@+id/placesFragment"

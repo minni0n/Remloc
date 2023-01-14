@@ -11,19 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="?colorSecondary"
-        tools:context=".HomeFragments.SettingsFragment">
+        android:background="?colorSecondary">
 
         <LinearLayout
             android:id="@+id/languageChange"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-
+            android:orientation="vertical"
+            android:gravity="center">
             <TextView
-                android:layout_marginVertical="20dp"
-                android:layout_marginStart="15dp"
-                android:layout_width="match_parent"
+                android:layout_marginVertical="10dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray"
                 android:text="@string/language"
@@ -44,20 +42,31 @@
 
         </LinearLayout>
 
-
-        <TextView
-            android:layout_marginVertical="20dp"
-            android:layout_marginStart="15dp"
+        <View
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/gray"
-            android:layout_marginBottom="10dp"
-            android:text="@string/permissions"
-            android:textSize="20sp" />
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
 
 
         <LinearLayout
-            android:layout_marginVertical="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:text="@string/permissions"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+
+
+        <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_marginHorizontal="10dp"
             android:layout_width="match_parent"
             android:orientation="vertical"
@@ -123,38 +132,101 @@
 
         </LinearLayout>
 
+
         <LinearLayout
             android:id="@+id/funThing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:gravity="center">
 
             <TextView
-                android:layout_marginTop="20dp"
-                android:layout_marginHorizontal="15dp"
-                android:layout_width="match_parent"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray"
                 android:text="@string/if_you_want_to_deny_a_permission_you_need_to_go_to"
                 android:textSize="15sp" />
             <TextView
                 android:layout_marginHorizontal="15dp"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/gray"
                 android:text="@string/settings_apps_remloc_permissions"
-                android:textSize="15sp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
-        <TextView
-            android:layout_marginVertical="20dp"
-            android:layout_marginStart="15dp"
+        <View
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/gray"
+                android:text="Sprawdzanie lokalizacji w tle"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:id="@+id/locationTrackingLayout"
+                android:layout_marginTop="10dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_width="match_parent"
+                android:background="@drawable/bg_round_pastel_blue_no_border"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Switch
+                    android:id="@+id/locationTrackingSwitch"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginVertical="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?colorOnPrimary"
+                    android:text="Śledzenie lokalizacji"
+                    android:textSize="20sp"
+                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+
+            </LinearLayout>
+
+
+
+
+
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
+
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:layout_marginVertical="10dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gray"
             android:text="@string/change_default_trigger_distance"
             android:textSize="20sp" />
+
+    </LinearLayout>
 
 
         <LinearLayout
@@ -162,6 +234,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <SeekBar
+                android:layout_marginHorizontal="10dp"
                 android:id="@+id/rangeSlider"
                 android:layout_width="match_parent"
                 android:layout_gravity="center"
@@ -193,85 +266,91 @@
                     android:text="@string/m"/>
             </LinearLayout>
 
-
-
-        </LinearLayout>
-
-
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
             <LinearLayout
-                android:id="@+id/stopStartBtnLayout"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
                 android:orientation="horizontal"
-                android:weightSum="2">
+                android:gravity="center_vertical|center"
+                android:layout_weight="3"
+                tools:ignore="RtlHardcoded">
 
-                <Button
-                    android:layout_marginVertical="10dp"
-                    android:layout_marginHorizontal="10dp"
-                    android:id="@+id/stopForeground"
-                    android:layout_width="0dp"
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:textAlignment="center"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:textColor="@color/gray"
+                    android:textSize="16sp"
+                    android:text="Na pewno chcesz usunąć \nwszystkie dane z aplikacji?"
+                    tools:ignore="NestedWeights" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="                "/>
+                <Button
+                    android:layout_marginEnd="10dp"
+                    android:id="@+id/deleteAllFromDatabase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:backgroundTint="@color/red"
-                    android:layout_gravity="center"
-                    android:text="@string/stop_tracking_location"/>
-
-                <Button
-                    android:layout_marginVertical="10dp"
-                    android:layout_marginHorizontal="10dp"
-                    android:id="@+id/startForeground"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="@color/green"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="20dp"
-                    android:text="@string/start_tracking_location"/>
+                    android:text="Usunąć"/>
 
             </LinearLayout>
+
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
             <LinearLayout
-                android:id="@+id/locationTrackingLayout"
-                android:layout_marginVertical="20dp"
-                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
-                android:background="@drawable/bg_round_pastel_blue_no_border"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:layout_height="0dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical|center"
+                android:layout_weight="3"
+                tools:ignore="RtlHardcoded">
 
-
-
-                <Switch
-                    android:id="@+id/locationTrackingSwitch"
-                    android:layout_marginHorizontal="10dp"
-                    android:layout_marginVertical="10dp"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_marginStart="10dp"
+                    android:textAlignment="center"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="?colorOnPrimary"
-                    android:text="Śledzenie lokalizacji"
-                    android:textSize="20sp"
-                    tools:ignore="UseSwitchCompatOrMaterialXml" />
+                    android:textColor="@color/gray"
+                    android:textSize="16sp"
+                    android:text="Na pewno chcesz usunąć\n swoje konto?"
+                    tools:ignore="NestedWeights" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="                   "/>
+                <Button
+                    android:layout_marginEnd="10dp"
+                    android:id="@+id/deleteAccountFromFirebase"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/red"
+                    android:text="Usunąć"/>
 
             </LinearLayout>
 
-            <Button
-                android:id="@+id/deleteAllFromDatabase"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/red"
-                android:layout_gravity="bottom|center"
-                android:layout_marginBottom="20dp"
-                android:text="@string/delete_all_data_from_app"/>
+            <View
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
         </LinearLayout>
-
 
 
     </LinearLayout>

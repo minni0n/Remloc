@@ -75,7 +75,7 @@
     <string name="failed_to_upd_data">Nie udało się zaktualizować danych</string>
     <string name="set_parameters">Ustaw wszystkie parametry</string>
     <string name="failed">Przegrany</string>
-    <string name="succ_deleted">Pomyślnie usunięto</string>
+    <string name="succ_deleted">Skutecznie usunięte</string>
     <string name="failed_to_delete">Nie udało się usunąć</string>
     <string name="log_out">Wylogowanie</string>
     <string name="contact_name_and_phone_number">Imię kontaktu oraz numer telefonu</string>
@@ -87,7 +87,7 @@
     <string name="cant_find" >Nie możliwie znaleźć miejsca, spróbuj innego!</string>
     <string name="check">sprawdż</string>
     <string name="welcome_to_remloc">Witamy w RemLoc</string>
-    <string name="change_default_trigger_distance">Zmień domyślną odległość wyzwalania</string>
+    <string name="change_default_trigger_distance">Zmień odległość aktywacji akcji</string>
     <string name="stop_tracking_location">Zatrzymaj śledzenie lokalizacji</string>
     <string name="start_tracking_location">Rozpocznij śledzenie lokalizacji</string>
     <string name="m">m</string>

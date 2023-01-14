@@ -20,11 +20,13 @@ import com.remlocteam.remloc1.HomeActivity
 import com.remlocteam.remloc1.R
 import com.remlocteam.remloc1.databinding.FragmentSettingsBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.remlocteam.remloc1.MainActivity
 import com.remlocteam.remloc1.backgroundLocationTrack.LocationTrackingService
 import com.remlocteam.remloc1.foregroundLocationCheck.LocationService
+import kotlinx.coroutines.Dispatchers
 
 
 class SettingsFragment : Fragment() {
@@ -51,7 +53,7 @@ class SettingsFragment : Fragment() {
         // Inflate the layout for this fragment
         binding = FragmentSettingsBinding.inflate(layoutInflater)
 
-        binding.stopStartBtnLayout.visibility = View.GONE
+//        binding.stopStartBtnLayout.visibility = View.GONE
 
         //slider values
         slider = binding.rangeSlider
@@ -158,24 +160,28 @@ class SettingsFragment : Fragment() {
         }
 
         binding.deleteAllFromDatabase.setOnClickListener {
-            showChooseNameDialog()
+            deleteAllFromDatabaseFunc()
         }
 
-        // Stop foreground location services
-        binding.stopForeground.setOnClickListener {
-            Intent(context, LocationService::class.java).apply {
-                action = LocationService.ACTION_STOP
-                context?.startService(this)
-            }
+        binding.deleteAccountFromFirebase.setOnClickListener {
+            deleteAccountFromFirebase()
         }
 
-        // Start foreground location services
-        binding.startForeground.setOnClickListener {
-            Intent(context, LocationService::class.java).apply {
-                action = LocationService.ACTION_START
-                context?.startService(this)
-            }
-        }
+//        // Stop foreground location services
+//        binding.stopForeground.setOnClickListener {
+//            Intent(context, LocationService::class.java).apply {
+//                action = LocationService.ACTION_STOP
+//                context?.startService(this)
+//            }
+//        }
+//
+//        // Start foreground location services
+//        binding.startForeground.setOnClickListener {
+//            Intent(context, LocationService::class.java).apply {
+//                action = LocationService.ACTION_START
+//                context?.startService(this)
+//            }
+//        }
 
         binding.locationSwitch.setOnCheckedChangeListener { _, b ->
 
@@ -209,7 +215,7 @@ class SettingsFragment : Fragment() {
         binding.locationTrackingSwitch.isChecked = (activity as HomeActivity?)!!.isServiceRunning()
         if (binding.locationTrackingSwitch.isChecked){
             binding.locationTrackingSwitch.setTextColor(Color.WHITE)
-            binding.locationTrackingLayout.setBackgroundResource(R.drawable.bg_round_pastel_blue_no_border)
+            binding.locationTrackingLayout.setBackgroundResource(R.drawable.bg_round_green)
         }else{
             binding.locationTrackingSwitch.setTextColor(Color.BLACK)
             binding.locationTrackingLayout.setBackgroundResource(R.drawable.bg_round_white)
@@ -226,7 +232,7 @@ class SettingsFragment : Fragment() {
             if (b){
                 (activity as HomeActivity?)!!.startLocationService()
                 binding.locationTrackingSwitch.setTextColor(Color.WHITE)
-                binding.locationTrackingLayout.setBackgroundResource(R.drawable.bg_round_pastel_blue_no_border)
+                binding.locationTrackingLayout.setBackgroundResource(R.drawable.bg_round_green)
             }
 
         }
@@ -243,27 +249,56 @@ class SettingsFragment : Fragment() {
         builder.show()
     }
 
-    private fun showChooseNameDialog(){
+    private fun deleteAllFromDatabaseFunc(){
 
         val builder = AlertDialog.Builder(requireActivity())
         builder.setTitle(getString(R.string.deleting))
         builder.setMessage(getString(R.string.you_sure_del_data))
 
         builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
-            database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(
-                uid
-            )
+            database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(uid)
+            database.removeValue()
+            database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference("GameMiejskaScores/$uid")
             database.removeValue().addOnSuccessListener {
                 Toast.makeText(activity, getString(R.string.succ_deleted), Toast.LENGTH_SHORT).show()
             }.addOnFailureListener {
                 Toast.makeText(activity, getString(R.string.failed_to_delete), Toast.LENGTH_SHORT).show()
             }
+
+
         }
 
         builder.setNegativeButton(getString(R.string.no)) { _, _ -> }
 
         builder.show()
 
+    }
+
+    private fun deleteAccountFromFirebase(){
+
+        val builder = AlertDialog.Builder(requireActivity())
+        builder.setTitle(getString(R.string.deleting))
+        builder.setMessage("Na pewno chcesz usunąć swoje konto?")
+
+        builder.setPositiveButton(getString(R.string.yes)) { _, _ ->
+            database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(uid)
+            database.removeValue()
+            database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference("GameMiejskaScores/$uid")
+            database.removeValue()
+            deleteAccount()
+        }
+
+        builder.setNegativeButton(getString(R.string.no)) { _, _ -> }
+
+        builder.show()
+
+    }
+
+    // Fix
+    private fun deleteAccount() {
+        auth.currentUser?.delete()?.addOnSuccessListener {
+            (activity as HomeActivity?)!!.logoutFromGoogle()
+        }
     }
 
     private fun checkLocationPermission() {

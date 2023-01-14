@@ -12,7 +12,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_round_pastel_gray">
+            android:background="@drawable/bg_round_gray">
 
             <LinearLayout
                 android:layout_marginVertical="7dp"
@@ -25,7 +25,7 @@
                     android:id="@+id/imageView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_baseline_place_black" />
+                    app:srcCompat="@drawable/ic_baseline_place_24" />
 
                 <TextView
                     android:id="@+id/scorePlaceName"
@@ -33,6 +33,7 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold|italic"
                     android:textSize="20sp"
+                    android:textColor="@color/white"
                     android:gravity="center"
                     android:text="Poznan" />
 
@@ -42,10 +43,12 @@
                     android:layout_height="wrap_content"
                     android:textStyle="bold|italic"
                     android:textSize="20sp"
+                    android:textColor="@color/white"
                     android:gravity="center"
                     android:text="@string/divider" />
 
                 <TextView
+                    android:textColor="@color/white"
                     android:id="@+id/scorePlaceScore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
