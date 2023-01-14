@@ -29,8 +29,14 @@
             android:textStyle="bold"
             android:text="@string/city_game"/>
 
+        <View
+            android:layout_marginTop="40dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
+
         <LinearLayout
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="10dp"
             android:layout_marginHorizontal="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -39,10 +45,10 @@
 
             <TextView
                 android:textSize="20sp"
-                android:textStyle="italic|bold"
+                android:textColor="@color/gray"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Wybierz miejsce grzy: "/>
+                android:text="Wybierz miejsce grzy "/>
             <Spinner
                 android:id="@+id/cityGamesSpinner"
                 android:layout_width="match_parent"
@@ -53,11 +59,17 @@
 
         <Button
             android:id="@+id/startGameBtn"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="10dp"
             android:layout_width="wrap_content"
             android:layout_gravity="center|bottom"
             android:layout_height="wrap_content"
             android:text="@string/start_game" />
+
+        <View
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="?android:attr/listDivider" />
 
 
         <LinearLayout

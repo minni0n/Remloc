@@ -82,11 +82,10 @@
                 android:gravity="center"
                 android:id="@+id/hiddenCopyText"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
+                android:layout_marginHorizontal="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
-                android:textStyle="bold|italic"
                 android:text="Warszawa(centrum)\n1.Zamek Królewski (jakis opis)\n2.Centrum Nauki Kopernik (jakis opis)\n3.Pałac Kultury i Nauki (jakis opis)\n4.Nowy Świat (jakis opis)\n5.Palma przy rondzie de Gaulle’a
  (jakis opis)\n itd."
                 android:layout_marginBottom="10dp"
