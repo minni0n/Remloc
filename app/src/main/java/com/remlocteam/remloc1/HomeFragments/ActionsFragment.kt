@@ -65,6 +65,9 @@ class ActionsFragment : Fragment() {
 
         listOfActions.adapter = activity?.let { ActionAdapter(it, data) }
 
+        binding.serviceIsTurnedOffLayout.setOnClickListener {
+            (activity as HomeActivity?)!!.replaceFragment(SettingsFragment(), getString(R.string.settings))
+        }
 
         binding.listOfActions.setOnItemClickListener { _: AdapterView<*>, _: View, i: Int, _: Long ->
 

@@ -127,4 +127,7 @@
     <string name="add_place">+ Dodaj miejsce</string>
     <string name="choose_place_to_play">Wybierz miejsce grzy</string>
     <string name="choose_app_language">Wybierz język aplikacji</string>
+    <string name="location_tracking__">Śledzenie lokalizacji...</string>
+    <string name="notifiaction_location">Lokalizacja jest śledzona, możesz to wyłączyć w aplikacji!</string>
+    <string name="account_settings">Ustawienia konta</string>
 </resources>

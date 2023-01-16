@@ -126,4 +126,7 @@
     <string name="add_place">+ Додати місце</string>
     <string name="choose_place_to_play">Виберіть місце для гри</string>
     <string name="choose_app_language">Виберіть мову програми</string>
+    <string name="notifiaction_location">Місцезнаходження відстежується, ви можете вимкнути це в додатку!</string>
+    <string name="location_tracking__">Відстеження місцезнаходження...</string>
+    <string name="account_settings">Налаштування аккаунта</string>
 </resources>

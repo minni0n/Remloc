@@ -131,6 +131,9 @@
     <string name="delete_acc_for_sure">You definitely want to delete your account?</string>
     <string name="location_warning">Location tracking is disabled!\n If you want to track your actions, go to Settings and turn on Location Tracking</string>
     <string name="choose_app_language">Choose app language</string>
+    <string name="location_tracking__">Location tracking...</string>
+    <string name="notifiaction_location">Location is tracked, you can turn it off in the app!</string>
+    <string name="account_settings">Account settings</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>

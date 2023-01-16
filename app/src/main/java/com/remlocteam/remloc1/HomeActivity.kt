@@ -256,6 +256,20 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
+    fun setStartTimer(timer: Long, placeName: String){
+        val edit: SharedPreferences.Editor
+        val sp: SharedPreferences = getSharedPreferences("StartTimer$placeName", MODE_PRIVATE)
+        edit = sp.edit()
+        edit.putLong("timer", timer)
+        edit.apply()
+    }
+
+    fun getStartTimer(placeName: String): Long {
+        val prefs = getSharedPreferences("StartTimer$placeName", MODE_PRIVATE)
+        return prefs.getLong("timer", 0.toLong())
+    }
+
+
     fun setCity(city: String){
         val edit: SharedPreferences.Editor
         val sp: SharedPreferences = getSharedPreferences("selectedCity", MODE_PRIVATE)

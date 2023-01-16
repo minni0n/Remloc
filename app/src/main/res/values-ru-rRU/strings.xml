@@ -126,4 +126,7 @@
     <string name="add_place">+ Добавить место</string>
     <string name="choose_place_to_play">Выберите место для игры</string>
     <string name="choose_app_language">Выберите язык приложения</string>
+    <string name="location_tracking__">Отслеживание местоположения...</string>
+    <string name="notifiaction_location">Местоположение отслеживается, его можно отключить в приложении!</string>
+    <string name="account_settings">Настройки аккаунта</string>
 </resources>

@@ -15,7 +15,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
-import com.bumptech.glide.Glide
 import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -73,7 +72,7 @@ class CityGamePlaceFragment : Fragment() {
                 binding.city.text = selectedCity
 
                 auth = FirebaseAuth.getInstance()
-                database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference("Games/$selectedCity/pl")
+                database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference("Games/$selectedCity/$currentLanguage")
 
                 database.get().addOnSuccessListener { it ->
                      childCount = it.childrenCount.toInt()
@@ -322,7 +321,17 @@ class CityGamePlaceFragment : Fragment() {
 
 
     private fun startTimer(){
-        startTime = System.currentTimeMillis()
+
+        val sharedTimer = (activity as HomeActivity?)!!.getStartTimer(placeName)
+
+        if (sharedTimer == 0.toLong()){
+            startTime = System.currentTimeMillis()
+            (activity as HomeActivity?)!!.setStartTimer(startTime, placeName)
+            Log.d("startTimer", startTime.toString())
+        }else{
+            startTime = sharedTimer
+            Log.d("startTimer shared", startTime.toString())
+        }
     }
 
     private fun stopTimer(){

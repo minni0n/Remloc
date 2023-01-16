@@ -23,7 +23,6 @@
             android:gravity="center">
 
             <TextView
-
                 android:layout_marginHorizontal="10dp"
                 android:textColor="@color/black"
                 android:layout_marginVertical="5dp"

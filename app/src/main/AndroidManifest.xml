@@ -24,9 +24,9 @@
             android:name=".PermissionActivity"
             android:exported="false" />
 
-        <service
-            android:name=".foregroundLocationCheck.LocationService"
-            android:foregroundServiceType="location" />
+<!--        <service-->
+<!--            android:name=".foregroundLocationCheck.LocationService"-->
+<!--            android:foregroundServiceType="location" />-->
 
         <service android:name=".backgroundLocationTrack.LocationTrackingService"
             android:foregroundServiceType="location"
