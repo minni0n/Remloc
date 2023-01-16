@@ -9,12 +9,14 @@ import android.os.AsyncTask
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -105,6 +107,7 @@ class CityGamePlaceFragment : Fragment() {
         init {
             Toast.makeText(requireContext(), getString(R.string.please_wait),     Toast.LENGTH_SHORT).show()
         }
+        @Deprecated("Deprecated in Java")
         override fun doInBackground(vararg urls: String): Bitmap? {
 
             var imageURL = urls[0]
@@ -122,6 +125,7 @@ class CityGamePlaceFragment : Fragment() {
             }
             return image
         }
+        @Deprecated("Deprecated in Java", ReplaceWith("imageView.setImageBitmap(result)"))
         override fun onPostExecute(result: Bitmap?) {
             imageView.setImageBitmap(result)
         }

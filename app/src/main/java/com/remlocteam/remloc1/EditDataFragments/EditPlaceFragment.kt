@@ -10,14 +10,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
-import com.remlocteam.remloc1.MapActivity
-import com.remlocteam.remloc1.databinding.FragmentEditPlaceBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.remlocteam.remloc1.HomeActivity
+import com.remlocteam.remloc1.MapActivity
 import com.remlocteam.remloc1.R
 import com.remlocteam.remloc1.Utils
+import com.remlocteam.remloc1.databinding.FragmentEditPlaceBinding
 
 
 class EditPlaceFragment(private val key: String) : Fragment() {

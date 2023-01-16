@@ -121,7 +121,7 @@
     <string name="welcome_to">Welcome to</string>
     <string name="start_game">Start game</string>
     <string name="city_game">City Game</string>
-    <string name="theme" >Theme</string>
+    <string name="theme">Theme</string>
     <string name="remove">Delete</string>
     <string name="delete_data_for_sure">You definitely want to delete all app data?</string>
     <string name="location_tracking">Location tracking</string>

@@ -7,8 +7,6 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import com.remlocteam.remloc1.Data.SavedPreference
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -18,9 +16,7 @@ import com.google.android.gms.tasks.Task
 import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
-import com.remlocteam.remloc1.HomeFragments.ActionsFragment
-import com.remlocteam.remloc1.HomeFragments.SettingsFragment
-import com.remlocteam.remloc1.foregroundLocationCheck.LocationService
+import com.remlocteam.remloc1.Data.SavedPreference
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 

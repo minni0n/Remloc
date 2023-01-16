@@ -1,7 +1,6 @@
 package com.remlocteam.remloc1.HomeFragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,16 +8,16 @@ import android.widget.AdapterView
 import android.widget.ListView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
 import com.remlocteam.remloc1.Data.PlacesData
 import com.remlocteam.remloc1.DataAdapter.PlaceAdapter
 import com.remlocteam.remloc1.EditDataFragments.EditPlaceFragment
 import com.remlocteam.remloc1.MapActivity
 import com.remlocteam.remloc1.R
-import com.remlocteam.remloc1.databinding.FragmentPlacesBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.FirebaseDatabase
 import com.remlocteam.remloc1.Utils
+import com.remlocteam.remloc1.databinding.FragmentPlacesBinding
 
 class PlacesFragment : Fragment() {
 

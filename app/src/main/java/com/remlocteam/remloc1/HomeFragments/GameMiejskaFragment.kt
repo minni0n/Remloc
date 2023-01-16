@@ -1,32 +1,24 @@
 package com.remlocteam.remloc1.HomeFragments
 
-import android.location.Location
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ArrayAdapter
+import android.widget.ListView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationCallback
-import com.google.android.gms.location.LocationResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.remlocteam.remloc1.CityGameFragments.CityGamePlaceFragment
+import com.remlocteam.remloc1.Data.ScoreData
+import com.remlocteam.remloc1.DataAdapter.ScoreAdapter
 import com.remlocteam.remloc1.HomeActivity
 import com.remlocteam.remloc1.R
-import com.remlocteam.remloc1.databinding.FragmentGameMiejskaBinding
-import com.remlocteam.remloc1.CityGameFragments.CityGamePlaceFragment
-import com.remlocteam.remloc1.Data.PlacesData
-import com.remlocteam.remloc1.Data.ScoreData
-import com.remlocteam.remloc1.DataAdapter.PlaceAdapter
-import com.remlocteam.remloc1.DataAdapter.ScoreAdapter
 import com.remlocteam.remloc1.Utils
+import com.remlocteam.remloc1.databinding.FragmentGameMiejskaBinding
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 
 class GameMiejskaFragment : Fragment() {

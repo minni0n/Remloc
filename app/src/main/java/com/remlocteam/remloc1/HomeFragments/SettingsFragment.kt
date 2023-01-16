@@ -3,7 +3,6 @@ package com.remlocteam.remloc1.HomeFragments
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
@@ -16,18 +15,13 @@ import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import com.remlocteam.remloc1.HomeActivity
-import com.remlocteam.remloc1.R
-import com.remlocteam.remloc1.databinding.FragmentSettingsBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.remlocteam.remloc1.MainActivity
+import com.remlocteam.remloc1.HomeActivity
+import com.remlocteam.remloc1.R
 import com.remlocteam.remloc1.Utils
-import com.remlocteam.remloc1.backgroundLocationTrack.LocationTrackingService
-import com.remlocteam.remloc1.foregroundLocationCheck.LocationService
-import kotlinx.coroutines.Dispatchers
+import com.remlocteam.remloc1.databinding.FragmentSettingsBinding
 
 
 class SettingsFragment : Fragment() {

@@ -3,11 +3,10 @@ package com.remlocteam.remloc1
 import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import com.remlocteam.remloc1.foregroundLocationCheck.LocationService
 import kotlinx.android.synthetic.main.activity_permission.*
 
 class PermissionActivity : AppCompatActivity() {

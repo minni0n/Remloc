@@ -36,6 +36,7 @@ class LocationTrackingService : Service() {
     private lateinit var uid: String
     private var placesToDo: MutableList<Pair<ActionsData, Boolean>> = mutableListOf()
     private var placesLocations: MutableList<Location> = mutableListOf()
+    private var booleanDidSet: Boolean = false
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -44,7 +45,12 @@ class LocationTrackingService : Service() {
         override fun onLocationResult(result: LocationResult) {
             super.onLocationResult(result)
             result.locations.lastOrNull()?.let { location ->
-                GlobalScope.launch(Dispatchers.Main) { send(location) }
+
+                if (!booleanDidSet){
+                    GlobalScope.launch(Dispatchers.Main) { send(location) }
+                }
+                booleanDidSet = false
+
             }
         }
     }
@@ -60,8 +66,8 @@ class LocationTrackingService : Service() {
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
         val locationRequest = LocationRequest().apply {
-            interval = 5000
-            fastestInterval = 5000
+            interval = 7000
+            fastestInterval = 7000
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
@@ -100,10 +106,9 @@ class LocationTrackingService : Service() {
             val dist = distanceBetweenAB(nearest, currentLocation)
 
             setNewLocationRequest(dist)
+            booleanDidSet = true
 
             Log.d("LocationTrackingService", "$dist")
-        }else{
-//            setNewLocationRequest(5000)
         }
 
         Log.d("LocationTrackingService", "Current location: ${currentLocation.latitude}, ${currentLocation.longitude}")

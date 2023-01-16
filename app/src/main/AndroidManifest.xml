@@ -13,7 +13,6 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <application
-        android:name=".foregroundLocationCheck.LocationApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -21,16 +20,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RemLoc1">
         <activity
+            android:name=".MapSearchActivity"
+            android:exported="false" />
+        <activity
             android:name=".PermissionActivity"
             android:exported="false" />
 
-<!--        <service-->
-<!--            android:name=".foregroundLocationCheck.LocationService"-->
-<!--            android:foregroundServiceType="location" />-->
-
-        <service android:name=".backgroundLocationTrack.LocationTrackingService"
-            android:foregroundServiceType="location"
-            android:exported="false" />
+        <service
+            android:name=".backgroundLocationTrack.LocationTrackingService"
+            android:exported="false"
+            android:foregroundServiceType="location" />
 
         <activity
             android:name=".MapActivity"
