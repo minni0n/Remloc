@@ -64,7 +64,7 @@ class SettingsFragment : Fragment() {
 
         //init a slider max val
         slider.max = 500
-        slider.min = 10
+        slider.min = 25
 
         //Slider on click listener
         slider.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener{

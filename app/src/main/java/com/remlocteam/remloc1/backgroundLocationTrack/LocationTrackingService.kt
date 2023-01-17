@@ -19,13 +19,11 @@ import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.remlocteam.remloc1.Data.ActionsData
-import com.remlocteam.remloc1.Data.PlacesData
 import com.remlocteam.remloc1.R
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlin.math.roundToInt
 import kotlin.math.roundToLong
 
 
