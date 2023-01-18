@@ -21,7 +21,6 @@ class PlaceAdapter(private val context: Activity, private val arrayList: ArrayLi
 
         val placeName: TextView = view.findViewById(R.id.placeNameItem)
         val address: TextView = view.findViewById(R.id.addressItem)
-//        val settingsBtn: ImageButton = view.findViewById(R.id.settingsPlaceBtn)
 
         placeName.text = arrayList[position].placeName
         address.text = arrayList[position].addressLine

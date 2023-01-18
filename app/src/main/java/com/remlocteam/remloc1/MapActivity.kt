@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.remlocteam.remloc1
 
 import android.Manifest
@@ -6,7 +8,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.location.LocationListener
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.RelativeLayout
@@ -32,6 +33,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_map.*
 
+@Suppress("DEPRECATION")
 open class MapActivity: AppCompatActivity(), OnMapReadyCallback, LocationListener, GoogleMap.OnMapClickListener,
     GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
@@ -107,16 +109,11 @@ open class MapActivity: AppCompatActivity(), OnMapReadyCallback, LocationListene
             }
 
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-            ){
-                buildGoogleApiClient()
-                mMap!!.isMyLocationEnabled = true
-            }
-        }else{
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ){
             buildGoogleApiClient()
             mMap!!.isMyLocationEnabled = true
         }

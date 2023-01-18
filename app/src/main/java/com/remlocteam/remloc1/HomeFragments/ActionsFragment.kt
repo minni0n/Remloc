@@ -51,7 +51,6 @@ class ActionsFragment : Fragment() {
         }
 
         val listOfActions: ListView = binding.listOfActions
-        var data: ArrayList<ActionsData> = ArrayList()
 
         actionTypeArray = mutableListOf("")
         actionTypeArray.clear()
@@ -61,7 +60,7 @@ class ActionsFragment : Fragment() {
         keys.clear()
 
 
-        data = readData()
+        val data: ArrayList<ActionsData> = readData()
 
 
         listOfActions.adapter = activity?.let { ActionAdapter(it, data) }

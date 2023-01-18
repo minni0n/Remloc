@@ -4,7 +4,6 @@ package com.remlocteam.remloc1
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -21,10 +20,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 
+@Suppress("DEPRECATION")
 class MainActivity : AppCompatActivity() {
 
     lateinit var mGoogleSignInClient: GoogleSignInClient
-    private val Req_Code: Int = 123
+    private val reqCode: Int = 123
     private lateinit var firebaseAuth: FirebaseAuth
     private lateinit var locale: Locale
     private var currentLang: String? = null
@@ -38,12 +38,12 @@ class MainActivity : AppCompatActivity() {
         val sp: SharedPreferences = getSharedPreferences("Language", MODE_PRIVATE)
         val lang = sp.getString("My_Lang", "language_null")
 
-        if (lang == "language_null"){
+        currentLang = if (lang == "language_null"){
             val current = Locale.getDefault()
-            currentLang = current.language
-//            Toast.makeText(this, currentLang,Toast.LENGTH_LONG).show()
+            current.language
+    //            Toast.makeText(this, currentLang,Toast.LENGTH_LONG).show()
         }else{
-            currentLang = lang
+            lang
         }
 
 
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         firebaseAuth = FirebaseAuth.getInstance()
 
 
-        sign_in.setOnClickListener { _: View? ->
+        sign_in.setOnClickListener {
             Toast.makeText(this, getString(R.string.log_in), Toast.LENGTH_SHORT).show()
             signInGoogle()
         }
@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun signInGoogle() {
         val signInIntent: Intent = mGoogleSignInClient.signInIntent
-        startActivityForResult(signInIntent, Req_Code)
+        startActivityForResult(signInIntent, reqCode)
     }
 
     // onActivityResult() function : this is where
@@ -81,7 +81,7 @@ class MainActivity : AppCompatActivity() {
     @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == Req_Code) {
+        if (requestCode == reqCode) {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             handleResult(task)
         }

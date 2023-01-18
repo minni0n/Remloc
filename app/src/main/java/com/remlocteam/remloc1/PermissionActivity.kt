@@ -23,13 +23,10 @@ class PermissionActivity : AppCompatActivity() {
 
         title = getString(R.string.permissions)
 
-        if (checkAllPermissions().locationGranted && checkAllPermissions().contactsGranted && checkAllPermissions().smsGranted){
-            // Start location service
-//            Intent(applicationContext, LocationService::class.java).apply {
-//                action = LocationService.ACTION_START
-//                startService(this)
-//            }
-            // Start Activity
+        val permissions = checkAllPermissions()
+
+        if (permissions.locationGranted && permissions.contactsGranted && permissions.smsGranted){
+
             startActivity(Intent(this, HomeActivity::class.java))
         }
 
@@ -64,13 +61,6 @@ class PermissionActivity : AppCompatActivity() {
         nextButton.setOnClickListener {
 
             if (locationSwitch.isChecked && contactsSwitch.isChecked && smsSwitch.isChecked){
-
-                // Start location service
-//                Intent(applicationContext, LocationService::class.java).apply {
-//                action = LocationService.ACTION_START
-//                startService(this)
-//                }
-                // Start Activity
                 startActivity(Intent(this, HomeActivity::class.java))
             }
             else{
@@ -78,6 +68,8 @@ class PermissionActivity : AppCompatActivity() {
             }
         }
     }
+
+
 
 
 
@@ -146,9 +138,6 @@ class PermissionActivity : AppCompatActivity() {
                 }
                 return
             }
-
-
-            // Add similar code for contacts and SMS permissions
         }
     }
 

@@ -2,27 +2,22 @@ package com.remlocteam.remloc1.backgroundLocationTrack
 
 
 import android.annotation.SuppressLint
-import android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
-import android.app.Notification
-import android.app.Notification.PRIORITY_MIN
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
-import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION
 import android.graphics.BitmapFactory
 import android.location.Location
 import android.media.AudioManager
-import android.media.RingtoneManager
 import android.os.Build
 import android.os.IBinder
 import android.provider.Settings
 import android.telephony.SmsManager
 import android.util.Log
-import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -43,8 +38,11 @@ class LocationTrackingService : Service() {
     private lateinit var uid: String
     private var placesToDo: MutableList<Pair<ActionsData, Boolean>> = mutableListOf()
     private var placesLocations: MutableList<Location> = mutableListOf()
+    private lateinit var notificationManager: NotificationManager
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
+
+    private var notificationId = 1
 
     @OptIn(DelicateCoroutinesApi::class)
     private val locationCallback = object : LocationCallback() {
@@ -65,15 +63,11 @@ class LocationTrackingService : Service() {
         auth = FirebaseAuth.getInstance()
         uid = auth.currentUser?.uid.toString()
 
-        // Step 1: Create a new instance of the NotificationManager
-        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         // Step 2: Create a new instance of the NotificationChannel
-        val channel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel("location", "Location", NotificationManager.IMPORTANCE_HIGH)
-        } else {
-            TODO("VERSION.SDK_INT < O")
-        }
+        val channel = NotificationChannel("location", "Location", NotificationManager.IMPORTANCE_HIGH)
 
         // Step 3: Optionally configure additional properties of the notification channel
         channel.description = "Notifications related to location"
@@ -92,7 +86,6 @@ class LocationTrackingService : Service() {
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
         // Step 5: In your onStartCommand method, when you are building the notification, you can set the channel ID for the notification
@@ -103,8 +96,11 @@ class LocationTrackingService : Service() {
             .setLargeIcon(
                 BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
 
+
         // Step 6: Finally, you can call startForeground(1, notification.build()) to start the service in foreground
-        startForeground(1, notification.build())
+        startForeground(notificationId, notification.build())
+
+        notificationId += 1
 
         return super.onStartCommand(intent, flags, startId)
     }
@@ -158,23 +154,28 @@ class LocationTrackingService : Service() {
                         placesToDo[index] = Pair(place, true)
                     }
                     ("Notification")->{
-                        val newNotification = NotificationCompat.Builder(this@LocationTrackingService, "location")
-                            .setContentTitle(place.placeName)
-                            .setContentText(place.smsText)
-                            .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
-                            .setSmallIcon(R.drawable.ic_baseline_doorbell_24)
-                            .setLargeIcon(
-                                BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
-                            .setOngoing(false)
 
-                        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-                        notificationManager.notify(2, newNotification.build())
+                        sendNotification(place.placeName, place.smsText)
 
                         placesToDo[index] = Pair(place, true)
                     }
                     ("Mute")->{
-                        val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
-                        audioManager.ringerMode = AudioManager.RINGER_MODE_VIBRATE
+
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                            val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+                            audioManager.ringerMode = AudioManager.RINGER_MODE_VIBRATE
+                        } else {
+                            // code for devices running Android 10 and below
+                            val audioManager = getSystemService(Context.AUDIO_SERVICE) as AudioManager
+                            val minVolume = 0
+                            audioManager.setStreamVolume(AudioManager.STREAM_RING, minVolume, AudioManager.FLAG_SHOW_UI)
+                            audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION, minVolume, AudioManager.FLAG_SHOW_UI)
+//                            audioManager.setStreamMute(AudioManager.STREAM_RING, true)
+//                            audioManager.setStreamMute(AudioManager.STREAM_NOTIFICATION, true)
+                        }
+
+
+
 
                         placesToDo[index] = Pair(place, true)
                     }
@@ -183,6 +184,43 @@ class LocationTrackingService : Service() {
         }
 
     }
+
+
+
+
+
+    private fun sendNotification(placeName: String?, smsText: String?) {
+        val builder = NotificationCompat.Builder(this, "action")
+            .setSmallIcon(R.drawable.ic_baseline_doorbell_24)
+            .setContentTitle(placeName)
+            .setContentText(smsText)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setLargeIcon(BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
+            .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
+
+        createNotificationChannel()
+
+        with(NotificationManagerCompat.from(this)) {
+            // notificationId is a unique int for each notification that you must define
+            notify(notificationId, builder.build())
+        }
+
+        notificationId += 1
+    }
+
+    private fun createNotificationChannel() {
+        // Create the NotificationChannel, but only on API 26+ because
+        // the NotificationChannel class is new and not in the support library
+        val name = "actions"
+        val descriptionText = "Actions Channel"
+        val importance = NotificationManager.IMPORTANCE_DEFAULT
+        val channel = NotificationChannel("action", name, importance).apply {
+            description = descriptionText
+        }
+        // Register the channel with the system
+        notificationManager.createNotificationChannel(channel)
+    }
+
 
     private fun addActionToDo(currentLocation: Location){
 
@@ -234,34 +272,34 @@ class LocationTrackingService : Service() {
     }
 
 
-    @SuppressLint("MissingPermission")
-    private fun setNewLocationRequest(distance: Double){
-        var time = calculateTravelTime(distance)
-
-        if (time<7000){
-            time = 7000
-        }else if (time>20000){
-            time = 20000
-        }
-
-//        time = 30000
-
-        Log.d("LocationTrackingService", time.toString())
-        val locationRequest = LocationRequest().apply {
-            interval = time
-            fastestInterval = time
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        }
-        fusedLocationClient.removeLocationUpdates(locationCallback)
-        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
-
-    }
-
-    private fun calculateTravelTime(distance: Double): Long {
-        val speed = 20.0
-        val timeInSeconds = (distance / speed )/2
-        return timeInSeconds.toLong() * 1000 // convert seconds to milliseconds
-    }
+//    @SuppressLint("MissingPermission")
+//    private fun setNewLocationRequest(distance: Double){
+//        var time = calculateTravelTime(distance)
+//
+//        if (time<7000){
+//            time = 7000
+//        }else if (time>20000){
+//            time = 20000
+//        }
+//
+////        time = 30000
+//
+//        Log.d("LocationTrackingService", time.toString())
+//        val locationRequest = LocationRequest().apply {
+//            interval = time
+//            fastestInterval = time
+//            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
+//        }
+//        fusedLocationClient.removeLocationUpdates(locationCallback)
+//        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
+//
+//    }
+//
+//    private fun calculateTravelTime(distance: Double): Long {
+//        val speed = 20.0
+//        val timeInSeconds = (distance / speed )/2
+//        return timeInSeconds.toLong() * 1000 // convert seconds to milliseconds
+//    }
 
     private fun refreshDatabase() {
 
@@ -291,32 +329,32 @@ class LocationTrackingService : Service() {
     override fun onBind(intent: Intent?): IBinder? = null
 
 
-    // The Haversine formula
-    private fun nearestLocation(locations: List<Location>, currentLocation: Location): Location {
-        var nearestLocation = locations[0]
-        var nearestDistance = distance(currentLocation, nearestLocation)
-        for (location in locations) {
-            val distance = distance(currentLocation, location)
-            if (distance < nearestDistance) {
-                nearestDistance = distance
-                nearestLocation = location
-            }    }
-        return nearestLocation
-    }
-
-    private fun distance(location1: Location, location2: Location): Double {
-        val lat1 = location1.latitude
-        val lon1 = location1.longitude
-        val lat2 = location2.latitude
-        val lon2 = location2.longitude
-        val earthRadius = 6371000.0 // meters
-        val dLat = Math.toRadians(lat2 - lat1)
-        val dLon = Math.toRadians(lon2 - lon1)
-        val a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
-                Math.sin(dLon / 2) * Math.sin(dLon / 2)
-        val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
-        return earthRadius * c
-    }
+//    // The Haversine formula
+//    private fun nearestLocation(locations: List<Location>, currentLocation: Location): Location {
+//        var nearestLocation = locations[0]
+//        var nearestDistance = distance(currentLocation, nearestLocation)
+//        for (location in locations) {
+//            val distance = distance(currentLocation, location)
+//            if (distance < nearestDistance) {
+//                nearestDistance = distance
+//                nearestLocation = location
+//            }    }
+//        return nearestLocation
+//    }
+//
+//    private fun distance(location1: Location, location2: Location): Double {
+//        val lat1 = location1.latitude
+//        val lon1 = location1.longitude
+//        val lat2 = location2.latitude
+//        val lon2 = location2.longitude
+//        val earthRadius = 6371000.0 // meters
+//        val dLat = Math.toRadians(lat2 - lat1)
+//        val dLon = Math.toRadians(lon2 - lon1)
+//        val a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+//                Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+//                Math.sin(dLon / 2) * Math.sin(dLon / 2)
+//        val c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a))
+//        return earthRadius * c
+//    }
 
 }

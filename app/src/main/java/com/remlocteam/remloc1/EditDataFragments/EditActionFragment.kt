@@ -48,7 +48,7 @@ class EditActionFragment(private val key: String , private val actionType: Strin
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentEditActionBinding.inflate(layoutInflater)
 
         Utils().checkAllPermissions(requireContext())

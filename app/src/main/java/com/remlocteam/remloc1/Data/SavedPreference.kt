@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.remlocteam.remloc1.Data
 
 import android.content.Context
@@ -20,10 +22,6 @@ object SavedPreference {
     }
 
 
-    fun getEmail(context: Context)= getSharedPreference(
-        context
-    )?.getString(EMAIL,"")
-
     fun setEmail(context: Context, email: String){
         editor(
             context,
@@ -39,9 +37,5 @@ object SavedPreference {
             username
         )
     }
-
-    fun getUsername(context: Context) = getSharedPreference(
-        context
-    )?.getString(USERNAME,"")
 
 }

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.remlocteam.remloc1.CityGameFragments
 
 import android.annotation.SuppressLint
@@ -28,6 +30,7 @@ import com.remlocteam.remloc1.R
 import com.remlocteam.remloc1.Utils
 import com.remlocteam.remloc1.databinding.FragmentCityGamePlaceBinding
 
+@Suppress("SameParameterValue", "DEPRECATION")
 class CityGamePlaceFragment : Fragment() {
 
 

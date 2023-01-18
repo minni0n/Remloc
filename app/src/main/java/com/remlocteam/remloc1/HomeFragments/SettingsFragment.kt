@@ -3,15 +3,18 @@ package com.remlocteam.remloc1.HomeFragments
 import android.Manifest
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.app.NotificationManager
+import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -38,7 +41,6 @@ class SettingsFragment : Fragment() {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -228,9 +230,26 @@ class SettingsFragment : Fragment() {
                 binding.locationTrackingLayout.setBackgroundResource(R.drawable.bg_round_white)
             }
             if (b){
-                (activity as HomeActivity?)!!.startLocationService()
-                binding.locationTrackingSwitch.setTextColor(Color.WHITE)
-                binding.locationTrackingLayout.setBackgroundResource(R.drawable.bg_round_green)
+
+                if(Build.VERSION.SDK_INT < Build.VERSION_CODES.R){
+
+                    val notificationManager = requireContext().getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+                    if (!notificationManager.isNotificationPolicyAccessGranted) {
+                        val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
+                        Toast.makeText(requireContext(), "Please provide Notification Policy Access", Toast.LENGTH_LONG).show()
+                        startActivity(intent)
+                    }else{
+                        (activity as HomeActivity?)!!.startLocationService()
+                        binding.locationTrackingSwitch.setTextColor(Color.WHITE)
+                        binding.locationTrackingLayout.setBackgroundResource(R.drawable.bg_round_green)
+                    }
+                }else{
+                    (activity as HomeActivity?)!!.startLocationService()
+                    binding.locationTrackingSwitch.setTextColor(Color.WHITE)
+                    binding.locationTrackingLayout.setBackgroundResource(R.drawable.bg_round_green)
+                }
+
             }
 
         }

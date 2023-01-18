@@ -79,8 +79,7 @@ class GameMiejskaFragment : Fragment() {
         database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference("Games")
 
         binding.scoresLayout.visibility = View.GONE
-        var data: ArrayList<ScoreData> = ArrayList()
-        data = setScores()
+        val data: ArrayList<ScoreData> = setScores()
 
         listOfScores.adapter = activity?.let { ScoreAdapter(it, data) }
 

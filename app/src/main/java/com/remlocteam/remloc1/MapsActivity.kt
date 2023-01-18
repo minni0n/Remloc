@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.remlocteam.remloc1
 
 import android.Manifest
@@ -10,7 +12,6 @@ import android.location.Address
 import android.location.Geocoder
 import android.location.Location
 import android.location.LocationListener
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
@@ -19,7 +20,6 @@ import android.view.WindowManager
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
-import android.widget.TextView.OnEditorActionListener
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -43,15 +43,14 @@ import kotlinx.android.synthetic.main.activity_maps.*
 import java.io.IOException
 
 
+@Suppress("SameParameterValue", "DEPRECATION")
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, GoogleMap.OnMapClickListener,
     GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener{
 
 
-    private val GOOGLEMAP_COMPASS = "GoogleMapCompass" // [4]
+    private val googlemapCompass = "GoogleMapCompass" // [4]
 
-    private val GOOGLEMAP_TOOLBAR = "GoogleMapToolbar" // [3]
-
-    private val GOOGLEMAP_ZOOMIN_BUTTON = "GoogleMapZoomInButton" // [2]child[0]
+    private val googlemapZoominButton = "GoogleMapZoomInButton" // [2]child[0]
 
 
 
@@ -85,8 +84,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
         mapView = myMaps.requireView()
         val locationButton= (mapView.findViewById<View>(Integer.parseInt("1")).parent as View).findViewById<View>(Integer.parseInt("2"))
         val rlp=locationButton.layoutParams as (RelativeLayout.LayoutParams)
-        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0);
-        rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);rlp.setMargins(0,0,30,70);
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
+        rlp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);rlp.setMargins(0,0,30,70)
 //        ------------------------------------
 
 
@@ -96,13 +95,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
 
 
-        locationSearch.setOnEditorActionListener(OnEditorActionListener { _, actionId, event ->
+        locationSearch.setOnEditorActionListener { _, actionId, event ->
             if (event != null && event.keyCode == KeyEvent.KEYCODE_ENTER || actionId == EditorInfo.IME_ACTION_DONE) {
                 searchLocation()
                 hideKeybord()
             }
             false
-        })
+        }
 
         searchBtn.setOnClickListener {
             searchLocation()
@@ -132,7 +131,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
                 marker?.remove()
                 // Add a new marker to the map at the clicked location
 
-                var addressList: List<Address>? = null
+                val addressList: List<Address>?
                 val geoCoder = Geocoder(this)
                 addressList = geoCoder.getFromLocation(latLng.latitude, latLng.longitude, 1)
 
@@ -178,22 +177,17 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
                 }
             }
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
-            if (ContextCompat.checkSelfPermission(
-                    this,
-                    Manifest.permission.ACCESS_FINE_LOCATION
-                ) == PackageManager.PERMISSION_GRANTED
-            ){
-                buildGoogleApiClient()
-                mMap!!.isMyLocationEnabled = true
-            }
-        }else{
+        if (ContextCompat.checkSelfPermission(
+                this,
+                Manifest.permission.ACCESS_FINE_LOCATION
+            ) == PackageManager.PERMISSION_GRANTED
+        ){
             buildGoogleApiClient()
             mMap!!.isMyLocationEnabled = true
         }
     }
 
-    protected fun buildGoogleApiClient(){
+    private fun buildGoogleApiClient(){
         mGoogleApiClient = GoogleApiClient.Builder(this)
             .addConnectionCallbacks(this)
             .addOnConnectionFailedListener(this)
@@ -302,22 +296,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
         vertical: Boolean
     ) {
         assert(mapView != null)
-        val compass = mapView!!.findViewWithTag<View>(GOOGLEMAP_COMPASS)
+        val compass = mapView!!.findViewWithTag<View>(googlemapCompass)
         compass?.let { moveView(it, left, top, right, bottom, horizontal, vertical) }
-    }
-
-    private fun moveToolbar(
-        mapView: View?,
-        left: Int,
-        top: Int,
-        right: Int,
-        bottom: Int,
-        horizontal: Boolean,
-        vertical: Boolean
-    ) {
-        assert(mapView != null)
-        val toolbar = mapView!!.findViewWithTag<View>(GOOGLEMAP_TOOLBAR)
-        toolbar?.let { moveView(it, left, top, right, bottom, horizontal, vertical) }
     }
 
     private fun moveZoomControls(
@@ -330,7 +310,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
         vertical: Boolean
     ) {
         assert(mapView != null)
-        val zoomIn = mapView!!.findViewWithTag<View>(GOOGLEMAP_ZOOMIN_BUTTON)
+        val zoomIn = mapView!!.findViewWithTag<View>(googlemapZoominButton)
 
         // we need the parent view of the zoomin/zoomout buttons - it didn't have a tag
         // so we must get the parent reference of one of the zoom buttons
@@ -343,7 +323,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
         marker?.remove()
 
         val location: String = this.locationSearch.text.toString().trim()
-        var addressList: List<Address>? = null
+        val addressList: List<Address>?
 
         if (location != ""){
             val geoCoder = Geocoder(this)

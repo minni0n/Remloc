@@ -44,9 +44,6 @@ class PlacesFragment : Fragment() {
         val listOfPlaces: ListView = binding.listOfPlaces
 
 
-
-        var data: ArrayList<PlacesData> = ArrayList()
-
         placeNameArray = ArrayList()
         addressLineArray = ArrayList()
         longitudeArray = ArrayList()
@@ -54,7 +51,7 @@ class PlacesFragment : Fragment() {
         keys = ArrayList()
 
 
-        data = readData()
+        val data: ArrayList<PlacesData> = readData()
 
 
         listOfPlaces.adapter = activity?.let { PlaceAdapter(it, data) }
