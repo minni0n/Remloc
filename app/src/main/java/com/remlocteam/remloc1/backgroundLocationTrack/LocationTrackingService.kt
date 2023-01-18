@@ -2,18 +2,26 @@ package com.remlocteam.remloc1.backgroundLocationTrack
 
 
 import android.annotation.SuppressLint
+import android.app.ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND
+import android.app.Notification
+import android.app.Notification.PRIORITY_MIN
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
+import android.content.pm.ServiceInfo.FOREGROUND_SERVICE_TYPE_LOCATION
 import android.graphics.BitmapFactory
 import android.location.Location
 import android.media.AudioManager
+import android.media.RingtoneManager
+import android.os.Build
 import android.os.IBinder
 import android.provider.Settings
 import android.telephony.SmsManager
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import com.google.android.gms.location.*
 import com.google.firebase.auth.FirebaseAuth
@@ -27,6 +35,7 @@ import kotlinx.coroutines.launch
 import kotlin.math.roundToLong
 
 
+@Suppress("DEPRECATION")
 class LocationTrackingService : Service() {
 
     private lateinit var database: DatabaseReference
@@ -34,7 +43,6 @@ class LocationTrackingService : Service() {
     private lateinit var uid: String
     private var placesToDo: MutableList<Pair<ActionsData, Boolean>> = mutableListOf()
     private var placesLocations: MutableList<Location> = mutableListOf()
-    private var booleanDidSet: Boolean = false
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
 
@@ -44,10 +52,7 @@ class LocationTrackingService : Service() {
             super.onLocationResult(result)
             result.locations.lastOrNull()?.let { location ->
 
-                if (!booleanDidSet){
                     GlobalScope.launch(Dispatchers.Main) { send(location) }
-                }
-                booleanDidSet = false
 
             }
         }
@@ -60,6 +65,22 @@ class LocationTrackingService : Service() {
         auth = FirebaseAuth.getInstance()
         uid = auth.currentUser?.uid.toString()
 
+        // Step 1: Create a new instance of the NotificationManager
+        val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        // Step 2: Create a new instance of the NotificationChannel
+        val channel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel("location", "Location", NotificationManager.IMPORTANCE_HIGH)
+        } else {
+            TODO("VERSION.SDK_INT < O")
+        }
+
+        // Step 3: Optionally configure additional properties of the notification channel
+        channel.description = "Notifications related to location"
+
+        // Step 4: Register the notification channel with the notification manager
+        notificationManager.createNotificationChannel(channel)
+
         database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(uid).child("Actions")
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
@@ -71,17 +92,20 @@ class LocationTrackingService : Service() {
         fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
+
+        // Step 5: In your onStartCommand method, when you are building the notification, you can set the channel ID for the notification
         val notification = NotificationCompat.Builder(this, "location")
             .setContentTitle(getString(R.string.location_tracking__))
             .setContentText(getString(R.string.notifiaction_location))
             .setSmallIcon(R.drawable.ic_baseline_doorbell_24)
             .setLargeIcon(
-                BitmapFactory.decodeResource(this.resources,
-                    R.mipmap.ic_launcher))
-            .build()
+                BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher))
 
-        startForeground(1, notification)
+        // Step 6: Finally, you can call startForeground(1, notification.build()) to start the service in foreground
+        startForeground(1, notification.build())
+
         return super.onStartCommand(intent, flags, startId)
     }
 
@@ -99,15 +123,14 @@ class LocationTrackingService : Service() {
         refreshDatabase()
         addActionToDo(currentLocation)
 
-        if (placesLocations.isNotEmpty()){
-            val nearest = nearestLocation(placesLocations, currentLocation)
-            val dist = distanceBetweenAB(nearest, currentLocation)
-
-            setNewLocationRequest(dist)
-            booleanDidSet = true
-
-            Log.d("LocationTrackingService", "$dist")
-        }
+//        if (placesLocations.isNotEmpty()){
+//            val nearest = nearestLocation(placesLocations, currentLocation)
+//            val dist = distanceBetweenAB(nearest, currentLocation)
+//
+////            setNewLocationRequest(dist)
+////            booleanDidSet = true
+////            Log.d("LocationTrackingService", "$dist")
+//        }
 
         Log.d("LocationTrackingService", "Current location: ${currentLocation.latitude}, ${currentLocation.longitude}")
 
@@ -123,8 +146,8 @@ class LocationTrackingService : Service() {
 
     private fun getActionsDone(){
         placesToDo.forEachIndexed{ index, (place, state)  ->
-//            Log.d("LocationTrackingService", place.toString())
-//            Log.d("LocationTrackingService", state.toString())
+            Log.d("LocationTrackingService", place.toString())
+            Log.d("LocationTrackingService", state.toString())
             if (!state){
                 when(place.actionType){
 
@@ -221,7 +244,7 @@ class LocationTrackingService : Service() {
             time = 20000
         }
 
-//        time = 5000
+//        time = 30000
 
         Log.d("LocationTrackingService", time.toString())
         val locationRequest = LocationRequest().apply {

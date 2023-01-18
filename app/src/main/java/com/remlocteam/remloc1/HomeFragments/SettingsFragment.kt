@@ -208,6 +208,7 @@ class SettingsFragment : Fragment() {
         }
 
 
+//        binding.locationTrackingSwitch.visibility = View.GONE
 
         binding.locationTrackingSwitch.isChecked = (activity as HomeActivity?)!!.isServiceRunning()
         if (binding.locationTrackingSwitch.isChecked){

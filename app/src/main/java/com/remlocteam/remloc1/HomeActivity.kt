@@ -31,13 +31,8 @@ import de.hdodenhof.circleimageview.CircleImageView
 import java.util.*
 
 
+@Suppress("DEPRECATION")
 class HomeActivity : AppCompatActivity() {
-
-
-
-    companion object {
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 1
-    }
 
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var toggle: ActionBarDrawerToggle
@@ -55,9 +50,8 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-
-//        startLocationService()
         Utils().checkAllPermissions(this)
+
 
         val sp: SharedPreferences = getSharedPreferences("Language", MODE_PRIVATE)
         val lang = sp.getString("My_Lang", "pl")
@@ -190,8 +184,7 @@ class HomeActivity : AppCompatActivity() {
     // Set and Get slider range values
     fun getSliderValue(): Int {
         val sp: SharedPreferences = getSharedPreferences("Distance", MODE_PRIVATE)
-        val value = sp.getInt("TriggerDistanceValue", 10)
-        return value
+        return sp.getInt("TriggerDistanceValue", 10)
     }
 
     fun setSliderValue(value: Int){
