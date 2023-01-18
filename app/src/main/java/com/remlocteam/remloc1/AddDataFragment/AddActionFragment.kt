@@ -62,31 +62,6 @@ class AddActionFragment : Fragment() {
         // Save button
         saveButtonListener()
 
-//        binding.smsTextEt.addTextChangedListener(object : TextWatcher {
-//            override fun afterTextChanged(s: Editable?) {
-//                val paint = Paint()
-//                paint.textSize = smsTextEt.textSize // use the same text size as the EditText
-//                val textWidth = paint.measureText(s.toString()) // measure the width of the text
-//
-//                var counter = 1
-//
-//                if (textWidth > counter*smsTextEt.width) {
-//                    // if the text width is greater than the EditText width, double the height
-//                    counter += 1
-//                    smsTextEt.layoutParams.height = smsTextEt.height * 2
-//                }
-////                else {
-////                    // if the text width is smaller than the EditText width, halve the height
-////                    smsTextEt.layoutParams.height = smsTextEt.height / 2
-////                }
-//                smsTextEt.requestLayout() // update the layout
-//            }
-//
-//            // other methods are not used in this example
-//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-//        })
-
         return binding.root
     }
 
