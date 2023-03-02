@@ -1,5 +1,7 @@
 package com.remlocteam.remloc1.HomeFragments
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -43,6 +45,11 @@ class GameMiejskaFragment : Fragment() {
 
 
         setData()
+
+        binding.createOwnGame.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://web.remloc.pl"))
+            startActivity(intent)
+        }
 
         binding.startGameBtn.setOnClickListener {
 

@@ -129,4 +129,6 @@
     <string name="notifiaction_location">Місцезнаходження відстежується, ви можете вимкнути це в додатку!</string>
     <string name="location_tracking__">Відстеження місцезнаходження...</string>
     <string name="account_settings">Налаштування аккаунта</string>
+    <string name="want_to_create_your_own_game">Хочете створити власну гру?</string>
+    <string name="create">Створити</string>
 </resources>

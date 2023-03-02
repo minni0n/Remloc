@@ -130,4 +130,6 @@
     <string name="location_tracking__">Śledzenie lokalizacji...</string>
     <string name="notifiaction_location">Lokalizacja jest śledzona, możesz to wyłączyć w aplikacji!</string>
     <string name="account_settings">Ustawienia konta</string>
+    <string name="want_to_create_your_own_game">Chcesz stworzyć własną grę?</string>
+    <string name="create">Tworzyć</string>
 </resources>

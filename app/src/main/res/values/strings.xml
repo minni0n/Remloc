@@ -134,6 +134,8 @@
     <string name="location_tracking__">Location tracking...</string>
     <string name="notifiaction_location">Location is tracked, you can turn it off in the app!</string>
     <string name="account_settings">Account settings</string>
+    <string name="want_to_create_your_own_game">Want to create your own game?</string>
+    <string name="create">Create</string>
     <!-- TODO: Remove or change this placeholder text -->
 
 </resources>
