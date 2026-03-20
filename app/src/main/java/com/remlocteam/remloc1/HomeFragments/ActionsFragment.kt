@@ -20,6 +20,7 @@ import com.remlocteam.remloc1.HomeActivity
 import com.remlocteam.remloc1.R
 import com.remlocteam.remloc1.Utils
 import com.remlocteam.remloc1.databinding.FragmentActionsBinding
+import com.remlocteam.remloc1.security.SecureField
 
 
 class ActionsFragment : Fragment() {
@@ -60,10 +61,9 @@ class ActionsFragment : Fragment() {
         keys.clear()
 
 
-        val data: ArrayList<ActionsData> = readData()
-
-
-        listOfActions.adapter = activity?.let { ActionAdapter(it, data) }
+        readData { data ->
+            listOfActions.adapter = activity?.let { ActionAdapter(it, data) }
+        }
 
         binding.serviceIsTurnedOffLayout.setOnClickListener {
             (activity as HomeActivity?)!!.replaceFragment(SettingsFragment(), getString(R.string.settings))
@@ -86,7 +86,7 @@ class ActionsFragment : Fragment() {
 
 
 
-    private fun readData(): ArrayList<ActionsData>{
+    private fun readData(onLoaded: (ArrayList<ActionsData>) -> Unit){
         auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid
 
@@ -107,10 +107,10 @@ class ActionsFragment : Fragment() {
                                 keys.add(id)
                             }
 
-                            val contactName = action.child("contactName").value.toString()
-                            val phoneNumber = action.child("phoneNumber").value.toString()
-                            val smsText = action.child("smsText").value.toString()
-                            val placeName = action.child("placeName").value.toString()
+                            val contactName = SecureField.decrypt(action.child("contactName").value?.toString()).orEmpty()
+                            val phoneNumber = SecureField.decrypt(action.child("phoneNumber").value?.toString()).orEmpty()
+                            val smsText = SecureField.decrypt(action.child("smsText").value?.toString()).orEmpty()
+                            val placeName = SecureField.decrypt(action.child("placeName").value?.toString()).orEmpty()
                             val actionType = action.child("actionType").value.toString()
                             val latitude = action.child("latitude").value as Double
                             val longitude = action.child("longitude").value as Double
@@ -177,15 +177,16 @@ class ActionsFragment : Fragment() {
                     }
                 }
 
-
+                    onLoaded(dataNow)
             }.addOnFailureListener{
 
                 Toast.makeText(activity, getString(R.string.failed),Toast.LENGTH_SHORT).show()
+                onLoaded(dataNow)
 
             }
+        } else {
+            onLoaded(dataNow)
         }
-
-        return dataNow
 
     }
 

@@ -31,7 +31,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_map.*
+import com.remlocteam.remloc1.databinding.ActivityMapBinding
+import com.remlocteam.remloc1.security.SecureField
 
 @Suppress("DEPRECATION")
 open class MapActivity: AppCompatActivity(), OnMapReadyCallback, LocationListener, GoogleMap.OnMapClickListener,
@@ -47,18 +48,20 @@ open class MapActivity: AppCompatActivity(), OnMapReadyCallback, LocationListene
     private lateinit var addPlaceBtn: FloatingActionButton
     private lateinit var mLocationRequest: LocationRequest
     private lateinit var mapView: View
+    private lateinit var binding: ActivityMapBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_map)
+        binding = ActivityMapBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         Utils().checkAllPermissions(this)
 
-        addPlaceBtn = findViewById(R.id.addPlaceScreen)
+        addPlaceBtn = binding.addPlaceScreen
 
         title = getString(R.string.places)
 
-        mapView = myMap.requireView()
+        mapView = binding.myMap.requireView()
         val locationButton= (mapView.findViewById<View>(Integer.parseInt("1")).parent as View).findViewById<View>(Integer.parseInt("2"))
         val rlp=locationButton.layoutParams as (RelativeLayout.LayoutParams)
         // position on right bottom
@@ -76,7 +79,7 @@ open class MapActivity: AppCompatActivity(), OnMapReadyCallback, LocationListene
         makeMarkersOfPlaces()
 
 
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.myMap) as SupportMapFragment
+        val mapFragment = supportFragmentManager.findFragmentById(binding.myMap.id) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
 
@@ -185,13 +188,13 @@ open class MapActivity: AppCompatActivity(), OnMapReadyCallback, LocationListene
 
                     it.children.forEach{ placeInfo ->
 
-                        val placeName = placeInfo.child("placeName").value
+                        val placeName = SecureField.decrypt(placeInfo.child("placeName").value?.toString())
                         val longitude = placeInfo.child("longitude").value
                         val latitude = placeInfo.child("latitude").value
 
                         val latLng = LatLng(latitude as Double, longitude as Double)
 
-                        mMap!!.addMarker(MarkerOptions().position(latLng).title(placeName as String?))
+                        mMap!!.addMarker(MarkerOptions().position(latLng).title(placeName))
 
                     }
 

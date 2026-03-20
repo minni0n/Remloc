@@ -39,7 +39,8 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.remlocteam.remloc1.Data.PlacesData
-import kotlinx.android.synthetic.main.activity_maps.*
+import com.remlocteam.remloc1.databinding.ActivityMapsBinding
+import com.remlocteam.remloc1.security.SecureField
 import java.io.IOException
 
 
@@ -68,10 +69,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
     private lateinit var saveBtn: Button
     private lateinit var mapView: View
     private var marker: Marker? = null
+    private lateinit var binding: ActivityMapsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_maps)
+        binding = ActivityMapsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         Utils().checkAllPermissions(this)
 
@@ -81,7 +84,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
         saveBtn = findViewById(R.id.savePlaceBtn)
 
 //      Make a geolaction btn bot left
-        mapView = myMaps.requireView()
+        mapView = binding.myMaps.requireView()
         val locationButton= (mapView.findViewById<View>(Integer.parseInt("1")).parent as View).findViewById<View>(Integer.parseInt("2"))
         val rlp=locationButton.layoutParams as (RelativeLayout.LayoutParams)
         rlp.addRule(RelativeLayout.ALIGN_PARENT_TOP, 0)
@@ -121,7 +124,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
 
 
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.myMaps) as SupportMapFragment
+        val mapFragment = supportFragmentManager.findFragmentById(binding.myMaps.id) as SupportMapFragment
         mapFragment.getMapAsync(this)
 
 
@@ -372,7 +375,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, LocationListener, 
 
             database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(uid)
             val key: String? = database.push().key
-            val action = PlacesData(addressLine, placeName, longitude, latitude)
+            val action = PlacesData(SecureField.encrypt(addressLine), SecureField.encrypt(placeName), longitude, latitude)
             database.child("Places//$key").setValue(action).addOnCompleteListener{
                 if(it.isSuccessful){
                     Toast.makeText(this, getString(R.string.success), Toast.LENGTH_SHORT).show()

@@ -19,6 +19,7 @@ import com.remlocteam.remloc1.MapsActivity
 import com.remlocteam.remloc1.R
 import com.remlocteam.remloc1.Utils
 import com.remlocteam.remloc1.databinding.FragmentAddActionBinding
+import com.remlocteam.remloc1.security.SecureField
 
 
 class AddActionFragment : Fragment() {
@@ -93,7 +94,7 @@ class AddActionFragment : Fragment() {
 
             places.children.forEach {   placeInfo ->
 
-                val placeName = placeInfo.child("placeName").value.toString()
+                val placeName = SecureField.decrypt(placeInfo.child("placeName").value?.toString()).orEmpty()
                 val longitude = placeInfo.child("longitude").value
                 val latitude = placeInfo.child("latitude").value
 
@@ -195,7 +196,7 @@ class AddActionFragment : Fragment() {
 
                         if (smsText!=""){
                             if (contactsSpinner.selectedItemPosition != 0){
-                                val action = ActionsData(contactName, contactPhoneNumber, smsText, placeName, "Sms", latitudes[selectedPlaceIndex-2], longitudes[selectedPlaceIndex-2], true)
+                                val action = ActionsData(SecureField.encrypt(contactName), SecureField.encrypt(contactPhoneNumber), SecureField.encrypt(smsText), SecureField.encrypt(placeName), "Sms", latitudes[selectedPlaceIndex-2], longitudes[selectedPlaceIndex-2], true)
                                 val key: String? = database.push().key
                                 database.child("Actions//Sms//$key").setValue(action).addOnCompleteListener{
                                     if(it.isSuccessful){
@@ -220,7 +221,7 @@ class AddActionFragment : Fragment() {
                         val smsText = smsTextEt.text.toString()
                         val placeName = placeSpinner.selectedItem.toString()
                         if (smsText!=""){
-                            val action = ActionsData(null,null,smsText,placeName,"Notification",latitudes[selectedPlaceIndex-2],longitudes[selectedPlaceIndex-2],true)
+                            val action = ActionsData(null, null, SecureField.encrypt(smsText), SecureField.encrypt(placeName), "Notification", latitudes[selectedPlaceIndex-2], longitudes[selectedPlaceIndex-2], true)
                             val key: String? = database.push().key
                             database.child("Actions//Notification//$key").setValue(action).addOnCompleteListener{
                                 if(it.isSuccessful){
@@ -238,7 +239,7 @@ class AddActionFragment : Fragment() {
 
                     (3) -> {
                         val placeName = placeSpinner.selectedItem.toString()
-                        val action = ActionsData(null,null,null,placeName,"Mute",latitudes[selectedPlaceIndex-2],longitudes[selectedPlaceIndex-2],true)
+                        val action = ActionsData(null, null, null, SecureField.encrypt(placeName), "Mute", latitudes[selectedPlaceIndex-2], longitudes[selectedPlaceIndex-2], true)
                         val key: String? = database.push().key
                         database.child("Actions//Mute//$key").setValue(action).addOnCompleteListener{
                             if(it.isSuccessful){

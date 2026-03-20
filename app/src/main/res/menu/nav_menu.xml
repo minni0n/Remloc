@@ -5,6 +5,10 @@
 
     <group android:checkableBehavior="single">
 
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/ic_baseline_doorbell_24"
+            android:title="@string/dashboard"/>
 
         <item
             android:id="@+id/nav_places"
@@ -33,19 +37,19 @@
 
     </group>
 
-        <item android:title="@string/profile">
-            <menu>
-                <group android:checkableBehavior="single">
+    <item android:title="@string/profile">
+        <menu>
+            <group android:checkableBehavior="single">
 
-                    <item
-                        android:id="@+id/nav_logout"
-                        android:icon="@drawable/ic_baseline_logout_24"
-                        android:title="@string/logout"/>
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/ic_baseline_logout_24"
+                    android:title="@string/logout"/>
 
-                </group>
+            </group>
 
-            </menu>
-        </item>
+        </menu>
+    </item>
 
 
 </menu>

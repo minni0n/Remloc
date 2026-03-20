@@ -35,4 +35,15 @@
 
 
     <color name="yellowBook">#F0E8A6</color>
+
+    <color name="apple_background">#F3F5F8</color>
+    <color name="apple_card">#FFFFFF</color>
+    <color name="apple_text">#111317</color>
+    <color name="apple_text_secondary">#6C7380</color>
+    <color name="apple_blue">#0A84FF</color>
+    <color name="apple_blue_dark">#176FE6</color>
+    <color name="apple_blue_light">#CAE3FF</color>
+    <color name="apple_success">#2F9E44</color>
+    <color name="apple_warning">#A87A10</color>
+
 </resources>

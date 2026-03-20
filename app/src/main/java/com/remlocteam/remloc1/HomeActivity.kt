@@ -11,7 +11,9 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -21,6 +23,7 @@ import com.google.android.material.navigation.NavigationView
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.remlocteam.remloc1.HomeFragments.ActionsFragment
+import com.remlocteam.remloc1.HomeFragments.DashboardFragment
 import com.remlocteam.remloc1.HomeFragments.GameMiejskaFragment
 import com.remlocteam.remloc1.HomeFragments.HelpReviewFragment
 import com.remlocteam.remloc1.HomeFragments.SettingsFragment
@@ -57,7 +60,8 @@ class HomeActivity : AppCompatActivity() {
             currentLang = lang
         }
 
-        setLocale(currentLang!!)
+        val initialLanguage = currentLang ?: "en"
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(initialLanguage))
 
         currentLanguage = intent.getStringExtra("currentLang").toString()
 
@@ -83,6 +87,7 @@ class HomeActivity : AppCompatActivity() {
 
 
             when(it.itemId){
+                R.id.nav_dashboard -> replaceFragment(DashboardFragment(), it.title.toString())
                 R.id.nav_places ->startActivity(intent)
                 R.id.nav_actions -> replaceFragment(ActionsFragment(), it.title.toString())
                 R.id.nav_game_miejska -> replaceFragment(GameMiejskaFragment(), it.title.toString())
@@ -103,7 +108,7 @@ class HomeActivity : AppCompatActivity() {
 
         }
 
-        replaceFragment(ActionsFragment(), getString(R.string.actions))
+        replaceFragment(DashboardFragment(), getString(R.string.dashboard))
 
 
 
@@ -195,29 +200,17 @@ class HomeActivity : AppCompatActivity() {
 
     fun setLocale(localeName: String) {
 
-        val currentLanguage = intent.getStringExtra(currentLang).toString()
+        val normalized = localeName.trim().ifEmpty { "en" }
+        val stored = getCurrentLanguage()
+        if (stored == normalized) return
 
-        if (localeName != currentLanguage) {
-            locale = Locale(localeName)
-            val res = resources
-            val dm = res.displayMetrics
-            val conf = res.configuration
-            conf.locale = locale
-            res.updateConfiguration(conf, dm)
-            val refresh = Intent(
-                this,
-                HomeActivity::class.java
-            )
-            refresh.putExtra(currentLang, localeName)
-            startActivity(refresh)
+        val edit: SharedPreferences.Editor
+        val sp: SharedPreferences = getSharedPreferences("Language", MODE_PRIVATE)
+        edit = sp.edit()
+        edit.putString("My_Lang", normalized)
+        edit.apply()
 
-            val edit: SharedPreferences.Editor
-            val sp: SharedPreferences = getSharedPreferences("Language", MODE_PRIVATE)
-            edit = sp.edit()
-            edit.putString("My_Lang", localeName)
-            edit.apply()
-
-        }
+        AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(normalized))
     }
 
     fun getCurrentLanguage(): String? {

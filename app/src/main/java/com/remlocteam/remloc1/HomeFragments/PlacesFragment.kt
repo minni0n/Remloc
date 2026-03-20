@@ -18,6 +18,7 @@ import com.remlocteam.remloc1.MapActivity
 import com.remlocteam.remloc1.R
 import com.remlocteam.remloc1.Utils
 import com.remlocteam.remloc1.databinding.FragmentPlacesBinding
+import com.remlocteam.remloc1.security.SecureField
 
 class PlacesFragment : Fragment() {
 
@@ -51,10 +52,9 @@ class PlacesFragment : Fragment() {
         keys = ArrayList()
 
 
-        val data: ArrayList<PlacesData> = readData()
-
-
-        listOfPlaces.adapter = activity?.let { PlaceAdapter(it, data) }
+        readData { data ->
+            listOfPlaces.adapter = activity?.let { PlaceAdapter(it, data) }
+        }
 
 
         binding.listOfPlaces.setOnItemClickListener { _: AdapterView<*>, _: View, i: Int, _: Long ->
@@ -66,7 +66,7 @@ class PlacesFragment : Fragment() {
         return binding.root
     }
 
-    private fun readData(): ArrayList<PlacesData> {
+    private fun readData(onLoaded: (ArrayList<PlacesData>) -> Unit) {
         auth = FirebaseAuth.getInstance()
         val uid = auth.currentUser?.uid
 
@@ -85,8 +85,8 @@ class PlacesFragment : Fragment() {
                             keys.add(id)
                         }
 
-                        val addressLine = placeInfo.child("addressLine").value.toString()
-                        val placeName = placeInfo.child("placeName").value.toString()
+                        val addressLine = SecureField.decrypt(placeInfo.child("addressLine").value?.toString()).orEmpty()
+                        val placeName = SecureField.decrypt(placeInfo.child("placeName").value?.toString()).orEmpty()
                         val longitude = placeInfo.child("longitude").value
                         val latitude = placeInfo.child("latitude").value
 
@@ -102,13 +102,15 @@ class PlacesFragment : Fragment() {
 
                     }
                 }
+                onLoaded(dataNow)
             }.addOnFailureListener{
 
                 Toast.makeText(activity, getString(R.string.failed),Toast.LENGTH_SHORT).show()
+                onLoaded(dataNow)
             }
+        } else {
+            onLoaded(dataNow)
         }
-
-        return dataNow
 
     }
 }
