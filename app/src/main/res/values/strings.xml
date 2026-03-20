@@ -85,7 +85,6 @@
     <string name="no">No</string>
     <string name="cant_find">Can\'t find the location, please try another!</string>
     <string name="check">check</string>
-    <string name="google_maps_api_key" translatable="false">AIzaSyAVorUrI4JI1QDy-esFG03pG-cc9--wT84</string>
     <string name="firebase_database_url" translatable="false">https://remloc1-fbe72-default-rtdb.europe-west1.firebasedatabase.app</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="welcome_to_remloc">Welcome to RemLoc</string>
@@ -137,5 +136,21 @@
     <string name="want_to_create_your_own_game">Want to create your own game?</string>
     <string name="create">Create</string>
     <!-- TODO: Remove or change this placeholder text -->
+
+
+    <string name="dashboard">Dashboard</string>
+    <string name="dashboard_title">Overview</string>
+    <string name="dashboard_subtitle">Your location reminders at a glance.</string>
+    <string name="dashboard_summary">You currently track %1$d places.</string>
+    <string name="dashboard_activity">Activity health</string>
+    <string name="dashboard_active">Active automations</string>
+    <string name="dashboard_active_ratio">%1$d%% of actions are active</string>
+    <string name="dashboard_active_ratio_default">0% of actions are active</string>
+    <string name="dashboard_tracking_ready">Tracking is ready</string>
+    <string name="dashboard_tracking_disabled">Tracking needs attention</string>
+    <string name="dashboard_quick_actions">Quick actions</string>
+    <string name="dashboard_open_places">Open places map</string>
+    <string name="dashboard_open_actions">Review actions</string>
+    <string name="dashboard_open_settings">Open settings</string>
 
 </resources>

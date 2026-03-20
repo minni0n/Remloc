@@ -18,6 +18,7 @@ import com.remlocteam.remloc1.HomeFragments.ActionsFragment
 import com.remlocteam.remloc1.R
 import com.remlocteam.remloc1.Utils
 import com.remlocteam.remloc1.databinding.FragmentEditActionBinding
+import com.remlocteam.remloc1.security.SecureField
 
 class EditActionFragment(private val key: String , private val actionType: String) : Fragment() {
 
@@ -160,10 +161,10 @@ class EditActionFragment(private val key: String , private val actionType: Strin
                 database.child("Actions//Sms//$key").get().addOnSuccessListener {
                     if(it.exists()){
 
-                        val placeNameRes = it.child("placeName").value.toString()
-                        val phoneNumberRes = it.child("phoneNumber").value.toString()
-                        val contactNameRes = it.child("contactName").value.toString()
-                        val smsTextRes = it.child("smsText").value.toString()
+                        val placeNameRes = SecureField.decrypt(it.child("placeName").value?.toString()).orEmpty()
+                        val phoneNumberRes = SecureField.decrypt(it.child("phoneNumber").value?.toString()).orEmpty()
+                        val contactNameRes = SecureField.decrypt(it.child("contactName").value?.toString()).orEmpty()
+                        val smsTextRes = SecureField.decrypt(it.child("smsText").value?.toString()).orEmpty()
                         val turnOn = it.child("turnOn").value
 
                         if (turnOn == null){
@@ -199,7 +200,7 @@ class EditActionFragment(private val key: String , private val actionType: Strin
                 database.child("Actions//Mute//$key").get().addOnSuccessListener {
                     if(it.exists()){
 
-                        val placeNameRes = it.child("placeName").value.toString()
+                        val placeNameRes = SecureField.decrypt(it.child("placeName").value?.toString()).orEmpty()
                         val turnOn = it.child("turnOn").value
 
                         if (turnOn == null){
@@ -231,8 +232,8 @@ class EditActionFragment(private val key: String , private val actionType: Strin
                 database.child("Actions//Notification//$key").get().addOnSuccessListener {
                     if(it.exists()){
 
-                        val placeNameRes = it.child("placeName").value.toString()
-                        val smsTextRes = it.child("smsText").value.toString()
+                        val placeNameRes = SecureField.decrypt(it.child("placeName").value?.toString()).orEmpty()
+                        val smsTextRes = SecureField.decrypt(it.child("smsText").value?.toString()).orEmpty()
                         val turnOn = it.child("turnOn").value
 
                         if (turnOn == null){
@@ -275,11 +276,11 @@ class EditActionFragment(private val key: String , private val actionType: Strin
             database.child("Actions//$actionType//$key//turnOn").setValue(turnOnOffSwitch.isChecked)
 
             if (strSmsText!=""){
-                database.child("Actions//$actionType//$key//smsText").setValue(smsTextEdit.text.toString())
+                database.child("Actions//$actionType//$key//smsText").setValue(SecureField.encrypt(smsTextEdit.text.toString()))
             }
 
             if(strPlaceName != getString(R.string.choose_place)){
-                database.child("Actions//$actionType//$key//placeName").setValue(placesSpinner.selectedItem.toString())
+                database.child("Actions//$actionType//$key//placeName").setValue(SecureField.encrypt(placesSpinner.selectedItem.toString()))
             }
 
             if (strPhoneNumberOld != getString(R.string.choose_contact)){
@@ -288,8 +289,8 @@ class EditActionFragment(private val key: String , private val actionType: Strin
                 val strPhoneNumber = strPhoneNumberOld.subSequence(index, len).toString()
                 val contactName = strPhoneNumberOld.subSequence(0, index-2).toString()
                 ///
-                database.child("Actions//$actionType//$key//phoneNumber").setValue(strPhoneNumber)
-                database.child("Actions//$actionType//$key//contactName").setValue(contactName)
+                database.child("Actions//$actionType//$key//phoneNumber").setValue(SecureField.encrypt(strPhoneNumber))
+                database.child("Actions//$actionType//$key//contactName").setValue(SecureField.encrypt(contactName))
             }
 
             (activity as HomeActivity?)!!.replaceFragment(ActionsFragment(), getString(R.string.actions))
@@ -348,9 +349,9 @@ class EditActionFragment(private val key: String , private val actionType: Strin
                     it.children.forEach{ placeInfo ->
 
 
-                        val placeName = placeInfo.child("placeName").value
+                        val placeName = SecureField.decrypt(placeInfo.child("placeName").value?.toString())
 
-                        places.add(placeName.toString())
+                        places.add(placeName.orEmpty())
 
                     }
 

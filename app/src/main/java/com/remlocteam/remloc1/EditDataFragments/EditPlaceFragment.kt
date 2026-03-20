@@ -17,6 +17,7 @@ import com.remlocteam.remloc1.MapActivity
 import com.remlocteam.remloc1.R
 import com.remlocteam.remloc1.Utils
 import com.remlocteam.remloc1.databinding.FragmentEditPlaceBinding
+import com.remlocteam.remloc1.security.SecureField
 
 
 class EditPlaceFragment(private val key: String) : Fragment() {
@@ -81,8 +82,8 @@ class EditPlaceFragment(private val key: String) : Fragment() {
         database.child("Places//$key").get().addOnSuccessListener {
             if(it.exists()){
 
-                val addressLine = it.child("addressLine").value.toString()
-                val placeName = it.child("placeName").value.toString()
+                val addressLine = SecureField.decrypt(it.child("addressLine").value?.toString()).orEmpty()
+                val placeName = SecureField.decrypt(it.child("placeName").value?.toString()).orEmpty()
                 val longitude = it.child("longitude").value.toString()
                 val latitude = it.child("latitude").value.toString()
 
@@ -112,7 +113,7 @@ class EditPlaceFragment(private val key: String) : Fragment() {
             if (placeName.text.toString()!=""){
 
                 database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(uid)
-                database.child("Places//$key//placeName").setValue(placeName.text.toString())
+                database.child("Places//$key//placeName").setValue(SecureField.encrypt(placeName.text.toString()))
 
             }
 

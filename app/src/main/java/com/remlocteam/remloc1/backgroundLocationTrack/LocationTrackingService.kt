@@ -23,11 +23,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import com.remlocteam.remloc1.Data.ActionsData
 import com.remlocteam.remloc1.R
-import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import kotlin.math.roundToLong
+import com.remlocteam.remloc1.security.SecureField
 
 
 @Suppress("DEPRECATION")
@@ -44,13 +46,14 @@ class LocationTrackingService : Service() {
 
     private var notificationId = 1
 
-    @OptIn(DelicateCoroutinesApi::class)
+    private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Main.immediate)
+
     private val locationCallback = object : LocationCallback() {
         override fun onLocationResult(result: LocationResult) {
             super.onLocationResult(result)
             result.locations.lastOrNull()?.let { location ->
 
-                    GlobalScope.launch(Dispatchers.Main) { send(location) }
+                    serviceScope.launch { send(location) }
 
             }
         }
@@ -109,6 +112,7 @@ class LocationTrackingService : Service() {
         super.onDestroy()
         fusedLocationClient.removeLocationUpdates(locationCallback)
         placesToDo.clear()
+        serviceScope.cancel()
         stopForeground(true)
         stopSelf()
     }
@@ -116,7 +120,6 @@ class LocationTrackingService : Service() {
     private fun send(currentLocation: Location) {
 
 
-        refreshDatabase()
         addActionToDo(currentLocation)
 
 //        if (placesLocations.isNotEmpty()){
@@ -236,11 +239,11 @@ class LocationTrackingService : Service() {
                     placeLocation.longitude = placeLong
 
                     val turnOn = action.child("turnOn").value as Boolean
-                    val phoneNumber = action.child("phoneNumber").value.toString()
-                    val smsText = action.child("smsText").value.toString()
-                    val placeName = action.child("placeName").value.toString()
+                    val phoneNumber = SecureField.decrypt(action.child("phoneNumber").value?.toString()).orEmpty()
+                    val smsText = SecureField.decrypt(action.child("smsText").value?.toString()).orEmpty()
+                    val placeName = SecureField.decrypt(action.child("placeName").value?.toString()).orEmpty()
                     val actionType = action.child("actionType").value.toString()
-                    val contactName = action.child("contactName").value.toString()
+                    val contactName = SecureField.decrypt(action.child("contactName").value?.toString()).orEmpty()
 
                     val actionData = ActionsData(contactName, phoneNumber, smsText, placeName, actionType, placelatt, placeLong, turnOn)
                     val actionDataToCheck = ActionsData(contactName, phoneNumber, smsText, placeName, actionType, placelatt, placeLong, true or false)
@@ -300,20 +303,6 @@ class LocationTrackingService : Service() {
 //        val timeInSeconds = (distance / speed )/2
 //        return timeInSeconds.toLong() * 1000 // convert seconds to milliseconds
 //    }
-
-    private fun refreshDatabase() {
-
-        database.child("Actions").addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(actionsInfo: DataSnapshot) {
-                database = FirebaseDatabase.getInstance(getString(R.string.firebase_database_url)).getReference(uid).child("Actions")
-
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                Log.e("LocationTrackingService", "Error reading location data: ${error.message}")
-            }
-        })
-    }
 
     private fun distanceBetweenAB(location1: Location, location2: Location): Double {
         val distance = location1.distanceTo(location2)

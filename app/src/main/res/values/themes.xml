@@ -2,13 +2,13 @@
     <!-- Base application theme. -->
     <style name="Theme.RemLoc1" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/app_main</item>
-        <item name="colorPrimaryVariant">#FFFFFF</item>
+        <item name="colorPrimary">@color/apple_blue</item>
+        <item name="colorPrimaryVariant">@color/apple_blue_dark</item>
         <item name="colorOnPrimary">@color/white</item>
-        <item name="colorAccent">@color/black</item>
+        <item name="colorAccent">@color/apple_blue</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/background_places_day</item>
-        <item name="colorSecondaryVariant">#D5D8DF</item>
+        <item name="colorSecondary">@color/apple_background</item>
+        <item name="colorSecondaryVariant">@color/apple_card</item>
         <item name="colorOnSecondary">@color/black</item>
 
 
@@ -17,7 +17,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" >?attr/colorPrimary</item>
         <!-- Customize your theme here. -->
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/apple_text</item>
 
     </style>
 
