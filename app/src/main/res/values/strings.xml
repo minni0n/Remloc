@@ -153,4 +153,15 @@
     <string name="dashboard_open_actions">Review actions</string>
     <string name="dashboard_open_settings">Open settings</string>
 
+
+    <string name="pin_drop">Pin Drop</string>
+    <string name="pin_drop_how_to">Tap to drop the pin on the moving targets!</string>
+    <string name="pin_drop_tap_to_start">Tap to start</string>
+    <string name="pin_drop_tap_to_retry">Tap to play again</string>
+    <string name="pin_drop_score">Score</string>
+    <string name="pin_drop_best">Best</string>
+    <string name="pin_drop_combo">Combo</string>
+    <string name="pin_drop_game_over">Game over</string>
+    <string name="pin_drop_new_best">New best score!</string>
+    <string name="pin_drop_miss">Miss!</string>
 </resources>

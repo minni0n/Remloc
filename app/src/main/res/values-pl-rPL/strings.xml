@@ -132,4 +132,15 @@
     <string name="account_settings">Ustawienia konta</string>
     <string name="want_to_create_your_own_game">Chcesz stworzyć własną grę?</string>
     <string name="create">Tworzyć</string>
+
+    <string name="pin_drop">Pin Drop</string>
+    <string name="pin_drop_how_to">Dotknij, aby upuścić pinezkę na ruchome cele!</string>
+    <string name="pin_drop_tap_to_start">Dotknij, aby rozpocząć</string>
+    <string name="pin_drop_tap_to_retry">Dotknij, aby zagrać ponownie</string>
+    <string name="pin_drop_score">Wynik</string>
+    <string name="pin_drop_best">Rekord</string>
+    <string name="pin_drop_combo">Seria</string>
+    <string name="pin_drop_game_over">Koniec gry</string>
+    <string name="pin_drop_new_best">Nowy rekord!</string>
+    <string name="pin_drop_miss">Pudło!</string>
 </resources>

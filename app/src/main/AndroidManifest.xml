@@ -48,6 +48,11 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
+            android:name=".PinDropGame.PinDropGameActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".HomeActivity" />
+        <activity
             android:name=".HomeActivity"
             android:exported="true" />
         <activity

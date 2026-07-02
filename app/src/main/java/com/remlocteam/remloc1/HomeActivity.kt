@@ -27,6 +27,7 @@ import com.remlocteam.remloc1.HomeFragments.DashboardFragment
 import com.remlocteam.remloc1.HomeFragments.GameMiejskaFragment
 import com.remlocteam.remloc1.HomeFragments.HelpReviewFragment
 import com.remlocteam.remloc1.HomeFragments.SettingsFragment
+import com.remlocteam.remloc1.PinDropGame.PinDropGameActivity
 import com.remlocteam.remloc1.backgroundLocationTrack.LocationTrackingService
 import de.hdodenhof.circleimageview.CircleImageView
 import java.util.*
@@ -91,6 +92,7 @@ class HomeActivity : AppCompatActivity() {
                 R.id.nav_places ->startActivity(intent)
                 R.id.nav_actions -> replaceFragment(ActionsFragment(), it.title.toString())
                 R.id.nav_game_miejska -> replaceFragment(GameMiejskaFragment(), it.title.toString())
+                R.id.nav_pin_drop -> startActivity(Intent(this, PinDropGameActivity::class.java))
                 R.id.nav_settings -> replaceFragment(SettingsFragment(), it.title.toString())
                 R.id.nav_help_review -> replaceFragment(HelpReviewFragment(), it.title.toString())
                 R.id.nav_logout -> {

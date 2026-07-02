@@ -131,4 +131,15 @@
     <string name="account_settings">Налаштування аккаунта</string>
     <string name="want_to_create_your_own_game">Хочете створити власну гру?</string>
     <string name="create">Створити</string>
+
+    <string name="pin_drop">Pin Drop</string>
+    <string name="pin_drop_how_to">Торкніться, щоб скинути пін на рухомі цілі!</string>
+    <string name="pin_drop_tap_to_start">Торкніться, щоб почати</string>
+    <string name="pin_drop_tap_to_retry">Торкніться, щоб зіграти ще раз</string>
+    <string name="pin_drop_score">Рахунок</string>
+    <string name="pin_drop_best">Рекорд</string>
+    <string name="pin_drop_combo">Серія</string>
+    <string name="pin_drop_game_over">Гру закінчено</string>
+    <string name="pin_drop_new_best">Новий рекорд!</string>
+    <string name="pin_drop_miss">Промах!</string>
 </resources>
